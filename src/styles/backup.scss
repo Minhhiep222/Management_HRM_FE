@@ -1,0 +1,164 @@
+@mixin text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+@mixin backrgound {
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba($color: #000000, $alpha: 0.05);
+}
+
+@mixin box {
+  top: 30px;
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  border-radius: var(--border-radius);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.container_profile {
+  display: flex;
+}
+
+.header__information-user {
+  margin-top: 5rem;
+  @include backrgound();
+  padding: 1rem 2rem;
+
+  .z_raty {
+    display: flex;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.05);
+
+    .box__img-user {
+      border-radius: 1rem;
+      border: 1px solid rgba($color: #000000, $alpha: 0.1);
+      width: 15rem;
+      height: 15rem;
+      background-position: center;
+      background-size: cover;
+      margin-top: -10rem;
+    }
+
+    .infor__user {
+      line-height: 2rem;
+      margin-left: 1rem;
+
+      .name__user {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .role__user {
+        @include text;
+        font-weight: 300;
+        color: var(--blur-color);
+      }
+    }
+  }
+
+  .ul__navbar {
+    display: flex;
+    @include text;
+    margin-top: 6px;
+
+    .li__navbar {
+      margin: 0 1.5rem;
+    }
+  }
+}
+
+.top__class {
+  margin-top: 20px;
+  @include backrgound;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  .class__item {
+    display: flex;
+    margin: 1rem;
+  }
+
+  .box__font {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid rgba($color: #000000, $alpha: 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .infor__class {
+    @include text();
+    margin-left: 5px;
+    line-height: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    :not(div.room) {
+      color: var(--blur-color);
+      font-weight: 300;
+    }
+  }
+}
+
+.introduce {
+  position: relative;
+  margin-top: 20px;
+  @include backrgound;
+  min-height: 30vh;
+  padding: 10px;
+
+  .title__introduce {
+    @include text();
+  }
+
+  .add__people-introduce {
+    position: absolute;
+    @include box();
+    display: flex;
+    flex-direction: column;
+    @include text();
+    justify-content: center;
+    align-items: center;
+  }
+
+  .add__people-introduce:hover {
+    border: 1px solid rgba($color: #000000, $alpha: 0.05);
+    border-top: none;
+  }
+}
+
+.introduce::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 100px;
+  right: 20px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.03);
+}
+
+.organization {
+  @include box();
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  @include text();
+
+  .box__font {
+    display: flex;
+
+    .room {
+      line-height: 25px;
+      margin-left: 5px;
+    }
+  }
+}
