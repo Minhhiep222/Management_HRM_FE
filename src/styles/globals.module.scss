@@ -15,6 +15,30 @@
   width: 16.6667%;
 }
 
+.grid__column-3 {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 25%;
+}
+
+.grid__column-4 {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 33.3334%;
+}
+
+.grid__column-8 {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 66.6667%;
+}
+
+.grid__column-9 {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 75%;
+}
+
 .grid__column-10 {
   padding-left: -5px;
   padding-right: -5px;
@@ -35,4 +59,36 @@
 .side_bar {
   min-height: 100vh;
   min-width: 200px;
+}
+
+.btn {
+  color: var(--text-color);
+  min-width: 124px;
+  height: 36px;
+  text-decoration: none;
+  border: none;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.btn.btn--primary {
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+
+.btn.btn--primary:hover {
+  opacity: 0.9;
+}
+
+.btn.btn--disabled {
+  cursor: default;
+  /* giảm độ sáng */
+  filter: brightness(80%);
 }

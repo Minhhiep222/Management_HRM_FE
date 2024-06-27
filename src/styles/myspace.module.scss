@@ -1,0 +1,372 @@
+@import "./profile.module.scss";
+
+.side__bar-myspace {
+  margin-bottom: 20px;
+
+  .infor__myspace {
+    padding: 20px;
+  }
+
+  .infor__myspace,
+  .list__member {
+    @include backgound;
+    position: relative;
+    @include text;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .img__user {
+      margin-bottom: 10px;
+    }
+
+    .img__user,
+    .img__member {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 100px;
+      border-radius: var(--border-radius);
+    }
+
+    .name__user {
+      font-size: 1.4rem;
+    }
+
+    .name__user:hover {
+      border-bottom: 1px solid var(--active-color);
+    }
+
+    .name__member:hover {
+      border-bottom: 1px solid var(--active-color);
+    }
+
+    .role__user {
+      color: var(--blur-color);
+      font-weight: 300;
+    }
+
+    .state__user,
+    .state__member {
+      color: rgb(181, 12, 12);
+      font-weight: 300;
+      font-size: 1.2rem;
+    }
+
+    .time__user {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--blur-color);
+      margin: 20px 10px 15px;
+      span {
+        min-width: 10px;
+        min-height: 10px;
+        padding: 5px;
+        border-radius: 5%;
+        background-color: #edf0f4;
+      }
+    }
+  }
+
+  .list__member {
+    margin-top: 20px;
+    min-height: 40vh;
+    width: 100%;
+    padding: 10px;
+
+    .member__item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin: 10px 0;
+      cursor: pointer;
+      border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+      padding-bottom: 10px;
+
+      .main__infor {
+        line-height: 15px;
+      }
+    }
+
+    .member__item:hover .name__user {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .member__infor {
+      margin-left: 5px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .contacts {
+        cursor: pointer;
+        position: relative;
+        padding: 10px;
+        border-radius: 50%;
+      }
+
+      .contacts:hover .list__contacts {
+        display: block;
+      }
+
+      .list__contacts {
+        position: absolute;
+        right: -180px;
+        top: 0px;
+        min-width: 150px;
+        @include backgound;
+        display: none;
+
+        .contacts__item {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 10px;
+
+          span {
+            margin-left: 5px;
+          }
+        }
+
+        .contacts__item:first-child {
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        .contacts__item:last-child {
+          border-bottom-left-radius: var(--border-radius);
+          border-bottom-right-radius: var(--border-radius);
+        }
+
+        .contacts__item:hover {
+          background-color: #edf0f4;
+        }
+      }
+
+      .list__contacts::before {
+        position: absolute;
+        content: "";
+        left: -30px;
+        overflow: hidden;
+        top: 0px;
+        width: 30px;
+        height: 100%;
+      }
+
+      .contacts:hover {
+        background-color: #edf0f4;
+        color: var(--active-color);
+      }
+    }
+
+    .img__member {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.btn__check-in {
+  border: 1px solid rgb(14, 188, 107);
+  background-color: rgb(14, 188, 107, 0.05);
+  color: rgb(14, 188, 107);
+  display: none;
+}
+
+.btn__check-in:hover {
+  background-color: rgb(14, 188, 107, 0.1);
+}
+
+.btn__check-out {
+  border: 1px solid rgba(233, 14, 14, 0.5);
+  background-color: rgba(233, 14, 14, 0.05);
+  color: rgba(233, 14, 14, 0.5);
+  display: none;
+}
+
+.btn__check-out:hover {
+  background-color: rgba(233, 14, 14, 0.1);
+}
+
+.btn__check-in.btn__active {
+  display: block;
+}
+
+.btn__check-out.btn__active {
+  display: block;
+}
+
+.navbar__myspace {
+  @include backgound;
+}
+
+.list__navbar-myspace {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 5px;
+  @include text;
+
+  .myspace_item {
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .myspace_item.active__myspace {
+    border-bottom: 3px solid var(--active-color);
+  }
+}
+
+.greating__my-space,
+.calendar-work__my-space {
+  margin-top: 10px;
+  @include backgound;
+}
+
+.greating__my-space {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.wish__myspace {
+  @include text;
+  margin-left: 8px;
+  font-size: 1.6rem;
+
+  .hello__myspace {
+    font-weight: 300;
+    color: var(--blur-color);
+  }
+}
+
+.calendar-work__my-space {
+  padding: 20px;
+}
+
+.content__calendar {
+  width: 100%;
+  margin-left: 10px;
+}
+
+.calendar-work__my-space {
+  display: flex;
+  width: 100%;
+  .title__calendar {
+    @include text;
+  }
+
+  .week__calendar-work,
+  .day__calendar-work {
+    color: var(--blur-color);
+    display: flex;
+    line-height: 15px;
+  }
+
+  .day__calendar-work {
+    font-size: 0.8rem;
+    margin-top: -5px;
+  }
+
+  .hook__calendar {
+    margin: 10px 0;
+  }
+
+  .week__calendar-work span {
+    display: block;
+    padding: 0 8px;
+  }
+
+  .day__calendar-work span {
+    display: block;
+    padding: 0 4px;
+  }
+}
+
+.time__calendar-work {
+  width: 95%;
+  padding: 0 20px;
+  background-color: #f6f6f6;
+  border-left: 2px solid #999898;
+  border-radius: 2px;
+}
+
+.id__user {
+  color: var(--blur-color);
+  font-weight: 300;
+}
+
+.hook-week__calendar-work {
+  border-top: 1px solid #edf0f4;
+  width: 95%;
+
+  .doc__day-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .doc__day-item {
+      width: calc(100% / 7);
+      font-size: 1rem;
+      font-weight: 600;
+      position: relative;
+
+      .state__user {
+        line-height: 10px;
+        font-weight: 100;
+      }
+
+      .state__user.state__user-weekend {
+        color: #f2a82f;
+      }
+
+      .state__user.state__user-absent {
+        color: #ec5158;
+      }
+
+      .state__user.state__user-present {
+        color: #0ebc6b;
+      }
+
+      .date__in-week {
+        color: var(--blur-color);
+        margin-right: 5px;
+      }
+    }
+
+    .doc__day-item::before {
+      position: absolute;
+      content: "";
+      top: -3.5px;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background-color: #edf0f4;
+      border-radius: 50%;
+    }
+  }
+}
+.calendar-work__my-space {
+  display: flex;
+  justify-content: space-between;
+
+  .note__authencation {
+    display: flex;
+  }
+}
+
+.calendar-work__my-space:hover .btn__note {
+  display: block;
+}
+
+.btn__note {
+  border: 1px solid #0088ff;
+  color: #0088ff;
+  background-color: rgb(0, 136, 255, 0.01);
+  display: none;
+}
+
+.btn__note:hover {
+  background-color: rgb(0, 136, 255, 0.05);
+}

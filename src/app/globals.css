@@ -62,6 +62,7 @@ body {
     --blur-color: #666666;
     --text-color: #333;
     --active-color: #1c2655;
+    --primary-color: #0f0f0f;
   }
 
   .dark {
