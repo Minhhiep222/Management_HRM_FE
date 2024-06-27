@@ -1,0 +1,166 @@
+.sidebar-parent {
+    width: 20%;
+    height: 600px;
+    position: fixed;
+    left: 0;
+    top: 50px;
+    background-color: white;
+}
+.img-parent {
+        background-image: url('/images/saigon.jpg');
+        width: 100%;
+        height: 140px;
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+        filter: blur(0.5); 
+        position: relative;
+        h4 {
+            color: white;
+            position: absolute;
+            left: calc(50% - 70px);
+            top: calc(50%);
+        }
+        .parent-icon {
+            display: flex;
+            color: white;
+            position: absolute;
+            left: calc(50% - 37px);
+            top: calc(72%);
+            .iconTop {
+                font-size: 13px;
+                margin-left: 8px;
+                cursor: pointer;
+            }
+        }
+}
+.img-parent::before {
+    content: "";
+    inset: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.img-parent::after {
+    content: "";
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    left: calc(50% - 20px);
+    top: calc(50% - 55px);
+    background-image: url('/images/user.jpg');
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.title-topNav {
+    margin-top: 5px;
+    margin-left: 17px;
+    font-size: 16px;
+}
+.overView {
+    border: none;
+    display: flex;
+    width: 95%;
+    margin-left: 5px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    text-decoration: none;
+    color: black;
+    margin-top: 10px;
+    p {
+        margin-left: 20px;
+        font-size: 17px;
+        font-family: Arial, sans-serif; 
+        margin-top: 4px;
+        opacity: 0.8;
+    }
+    i {
+        margin-top: 5px;
+        margin-left: 20px;
+        font-size: 17px;
+        opacity: 0.8;
+    }
+}
+.employee {
+    display: flex;
+    width: 95%;
+    margin-left: 5px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    margin-top: 10px;  
+    .iconEmployee {
+        margin-top: 5px;
+        margin-left: 20px;
+        font-size: 17px;
+        opacity: 0.8;   
+    }
+    p {
+        margin-left: 25px;
+        font-size: 17px;
+        font-family: Arial, sans-serif; 
+        opacity: 0.8;
+    } 
+    .iDropEmployee {
+        margin-top: 0px;
+        margin-left: 70px;
+        font-size: 24px;
+        opacity: 0.8;   
+    }
+}
+.itemRadio {
+    display: flex;
+    font-size: 14px;
+    margin-left: 30px;
+    margin-top: 10px;
+    opacity: 0.8;   
+    label    {
+        margin-left: 12px;
+    }
+    input {
+        
+    }
+}
+.itemRadio:active {
+    color:  #2952be;
+}
+.overView:hover {
+    background-color:  #2952be;
+    color: white;   
+}
+.employee:hover {
+    background-color:  #2952be;
+    color: white;   
+}
+.radioEmployee {
+        display: none;
+}
+.block {
+    display: block;
+}
+.none {
+    display: none;
+}
+.backGroundDefault {
+    background-color: white;
+    color: black;
+}
+.backGroundChange {
+    background-color: #2952be;
+    color: white;
+}
+.itemRadioChange {
+    color:  #2952be !important;
+}
+.itemRadioDefault {
+    color: black;
+}
+.label-text {
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+

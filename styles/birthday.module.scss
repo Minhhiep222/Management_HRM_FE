@@ -1,0 +1,105 @@
+@mixin parent-btn {
+    display: flex;
+    margin-left: 20px;
+    background-color: #66CC00;
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.birthday-parent {
+    background-color:  #f2f3f8;
+    position: relative;
+    width: 79%;
+    height: 600px;
+    margin-top: 50px;
+    margin-left: 275px;
+    .birthday-function {
+        display: flex;
+        width: 100%;
+        padding-top: 30px;
+        .birthday-select{
+            display: flex;
+            margin-left: 30px;
+            .month {
+                border: 1px solid black;
+                padding-right: 10px;
+                border-right: none;
+                padding-left: 10px;
+                line-height: 32px;
+            }
+            .custom-select {
+                border: 1px solid black;
+                line-height: 32px;
+                .custom {
+                    width: 100px;
+                    height: 30px;
+                    border: none
+                }
+            }
+        }
+            .parent-btn {
+              @include parent-btn;
+                .btn-icon {
+                    margin-top: 5px;
+                    
+                }
+                .btn-text {
+                    margin-top: 5px;
+                    margin-left: 10px;
+                }
+            }
+         .search-parent {
+            display: flex;
+            margin-left: 60px;
+            position: relative;
+            .parent-textSearch {
+                border: 1px solid black;
+                line-height: 32px;
+                padding: 0px 10px;
+                border-right: none;
+            }
+            .input-search {
+                border: 1px solid black;
+                width: 370px;
+            }
+            .iconSearch {
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                margin-right: 5px;
+                top: calc(50% - 16px);             
+                padding: 8px 12px;
+                border-left: 1px solid black;
+            }
+         }   
+         .parent-btn2 {
+            @include parent-btn;
+            background-color: red;
+              .btn-icon {
+                  margin-top: 5px;
+              }
+              .btn-text {
+                  margin-left: 10px;
+                  margin-top: 5px;
+              }
+          }
+    }
+    .table {
+        width: 93%;
+        border-collapse: collapse;
+        margin-top: 40px;
+        margin-left: 30px;
+        .tr th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+            text-align: center;
+        }
+        .tr td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+    }
+}

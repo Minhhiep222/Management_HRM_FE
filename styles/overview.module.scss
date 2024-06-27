@@ -1,0 +1,385 @@
+@mixin boxInLine {
+    position: relative;
+    width: 21%;
+    height: 100px;
+    color: white;
+    background-color: #3db08a;
+    margin-left: 30px;
+}
+
+@mixin h3Inline {
+    margin-left: 20px;
+    padding-top: 18px;
+    font-size: 12px;
+}
+
+@mixin h2Inline {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+@mixin h4Inline {
+    margin-top: 5px;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+@mixin overView-iconInLine {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    float: right;
+    margin-top: -50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+
+@mixin iInline {
+    position: absolute;
+    font-size: 22px;
+    left: calc(50% - 11px);
+    top: calc(50% - 11px);
+}
+@mixin overViewLine {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    // margin-left: -30px;
+}
+@mixin box-progess {
+    margin-left: 10px;
+    width: 15px;
+    height: 15px;
+    box-shadow:  6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);;
+    margin-left: 30px;
+    margin-top: 4px;
+}
+@mixin parent-progess {
+    margin-top: 10px;
+    width: 500px;
+    height: 200px;
+    background-color: #f2f3f8;
+    margin-left: 275px;
+}
+@mixin skill {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    margin-left: 300px;
+    margin-top: -70px;
+}
+@mixin outer {
+    width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            padding: 20px;
+            box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+                       -6px -6px 10px -1px rgba(255,255,255,0.7);
+}
+@mixin inner {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
+                inset -4px -4px 6px -1px rgba(255,255,255,0.7),
+                -0.5px -0.5px 0px rgba(255,255,255,1),
+                 0.5px  0.5px 0px rgba(0,0,0,0.015),
+                 0px 12px 10px -10px rgba(0,0,0,0.05);
+}
+@mixin number {
+    font-weight: 600px;
+    color: #555;
+}
+@mixin circle {
+    fill: none;
+    stroke: green;
+    stroke-width: 20px;
+    // stroke-dasharray: 472;
+    // stroke-dashoffset: 472;
+    animation: anim 2s linear forwards;
+}
+@mixin sgv {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+@mixin title-progess {
+    font-size: 20px;
+    margin-left: 30px;
+    padding-top: 20px;
+}
+.overView-parent {
+    background-color:  #f2f3f8;
+    padding-bottom: 50px;
+    position: relative;
+    width: 79%;
+    margin-top: 50px;
+    margin-left: 275px;
+    .titile-overView {
+      
+        h2 {
+            font-weight: bold;
+            font-size: 23px;
+            margin-left: 30px;
+            opacity: 0.7;
+            padding-top: 25px;
+        }
+        h4 {
+            font-size: 13px;
+            margin-left: 30px;
+            opacity: 0.4;   
+        }
+    }
+    .overView-line1 {
+        cursor: pointer;
+       @include overViewLine;
+        .overView-Employee {
+            position: relative;
+            width: 21%;
+            height: 100px;
+            color: white;
+            background-color:  #2e77ba;
+            margin-left: 30px;
+            h3 {
+                margin-left: 20px;
+                padding-top: 18px;
+                font-size: 12px;
+            }
+            h2 {
+                font-size: 20px;
+                margin-left: 20px;
+            }
+            .overView-icon {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(255, 255, 255, 0.1);
+                float: right;
+                margin-top: -50px;
+                margin-right: 20px;
+                border-radius: 50%;
+                position: relative;
+                i {
+                    position: absolute;
+                    font-size: 22px;
+                    left: calc(50% - 11px);
+                    top: calc(50% - 11px);
+                }
+            }
+            .group-text {
+                .group-textOn {
+                    font-size: 11px;
+                    background-color: #1eade3;
+                    display: inline-block;
+                    padding: 2px 2px;
+                    margin-left: 20px;
+                    border-radius: 3px;
+                }
+                .group-textOff {
+                    font-size: 11px;
+                    background-color:  #ff8f7f;
+                    display: inline-block;
+                    padding: 2px 2px;
+                    margin-left: 10px;
+                    border-radius: 3px;
+                }
+            }
+        }
+        .overView-Profile { 
+            cursor: pointer;
+            position: relative;
+            width: 21%;
+            height: 100px;
+            color: white;
+            background-color: #3db08a;
+            margin-left: 30px; 
+            h3 {
+                margin-left: 20px;
+                padding-top: 18px;
+                font-size: 12px;
+            }
+            h2 {
+                font-size: 20px;
+                margin-left: 20px;
+            }
+            h4 {
+                margin-top: 5px;
+                font-size: 12px;
+                margin-left: 20px;
+            }
+            .overView-icon {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(255, 255, 255, 0.1);
+                float: right;
+                margin-top: -50px;
+                margin-right: 20px;
+                border-radius: 50%;
+                position: relative;
+                i {
+                    position: absolute;
+                    font-size: 22px;
+                    left: calc(50% - 11px);
+                    top: calc(50% - 11px);
+                }
+            }
+        }
+        .overView-family {
+            cursor: pointer;
+            @include boxInLine;
+            background-color: #8b6fd5;
+            h3 {
+                @include h3Inline;
+            }
+            h2 {
+                @include h2Inline;   
+            }
+            h4 {
+                @include h4Inline;
+            }
+            .overView-icon {
+                @include overView-iconInLine;
+            }
+            i {
+               @include iInline;
+            }
+        }
+        .overView-birthday {
+            cursor: pointer;
+            @include boxInLine;
+            background-color:  #ff7768;
+            h3 {
+                @include h3Inline;
+            }
+            h2 {
+                @include h2Inline;   
+            }
+            h4 {
+                @include h4Inline;
+            }
+            .overView-icon {
+                @include overView-iconInLine;
+            }
+            i {
+               @include iInline;
+            }
+        }
+    }
+    .overView-line2 {
+        @include overViewLine;
+        .overView-setting {
+            cursor: pointer;
+            @include boxInLine;
+            background-color:  #fe9c0c;
+            h3 {
+                @include h3Inline;
+            }
+            h2 {
+                @include h2Inline;   
+            }
+            h4 {
+                @include h4Inline;
+            }
+            .overView-icon {
+                @include overView-iconInLine;
+            }
+            i {
+               @include iInline;
+            }
+        }
+    }
+} 
+
+.parent-progess {
+    @include parent-progess;
+    .skill {
+        @include skill;
+        .outer {
+            @include outer;
+            .inner {
+                        @include inner;
+                             #number {
+                                @include number;
+                             }
+            }
+        }
+        .cirlce {
+            @include circle;
+        }
+        .sgv {
+            @include sgv;
+        }
+    }    
+    .parentBox1 {
+        display: flex;
+        .box1-progess {
+          @include box-progess()
+        }
+        .box1-progessz {
+            @include box-progess();
+            background-color: green;
+        }
+        .box1-title {
+            margin-left: 10px;
+        }
+    }
+}
+.titile-progess  {
+   @include title-progess;
+}
+
+.parent-progess2 {
+    margin-top: -200px;
+    width: 500px;
+    height: 200px;
+    background-color: #f2f3f8;
+    margin-left: 815px;
+    .skill {
+        @include skill;
+        .outer {
+            @include outer;
+            .inner {
+                        @include inner;
+                             #number {
+                                @include number;
+                             }
+            }
+        }
+        .cirlce {
+            @include circle;
+            stroke: purple;
+        }
+        .sgv {
+            @include sgv;
+        }
+    }    
+    .parentBox1 {
+        display: flex;
+        .box1-progess {
+          @include box-progess()
+        }
+        .box1-progessz {
+            @include box-progess();
+            background-color: purple;
+        }
+        .box1-title {
+            margin-left: 10px;
+        }
+    }
+}
+.titile-progess  {
+   @include title-progess;
+}
+
+// @keyframes anim {
+//     100% {
+//         $offset: 472 - 472 * ($percent / 100);
+//         stroke-dashoffset: $offset;
+//     }
+
+// }
+
