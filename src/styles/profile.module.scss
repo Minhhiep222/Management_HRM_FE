@@ -92,7 +92,7 @@
   .class__item {
     display: flex;
     margin: 1rem;
-    width: calc(100% / 3.2);
+    width: calc(100% / 3.3);
   }
 
   .box__font {
@@ -246,6 +246,10 @@
     text-align: start;
     padding: 10px;
   }
+}
+
+.infor__employee.scroll-infor {
+  overflow-x: scroll;
 }
 
 .icon__arrow {

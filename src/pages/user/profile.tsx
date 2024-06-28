@@ -332,7 +332,7 @@ function Profile() {
                                     {/* Work Experience */}
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Kinh Nghiệm Làm Việc</h3>
-                                        <div className={styles["infor__employee"]}>
+                                        <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
                                             <table className={styles["table__experience"]}>
                                                 <thead className={styles["head__experience"]}>
                                                     <tr className={styles["tr__experience"]}>
@@ -408,7 +408,7 @@ function Profile() {
 
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Chi Tiết Trình Độ</h3>
-                                        <div className={styles["infor__employee"]}>
+                                        <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
                                             <table className={styles["table__experience"]}>
                                                 <thead className={styles["head__experience"]}>
                                                     <tr className={styles["tr__experience"]}>
@@ -464,7 +464,7 @@ function Profile() {
 
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Chi Tiết Phụ Thuộc</h3>
-                                        <div className={styles["infor__employee"]}>
+                                        <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
                                             <table className={styles["table__experience"]}>
                                                 <thead className={styles["head__experience"]}>
                                                     <tr className={styles["tr__experience"]}>
