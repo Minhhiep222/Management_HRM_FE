@@ -7,7 +7,7 @@ function NavBarMySpace() {
         <div className={styles["navbar__myspace"]}>
             <ul className={styles["list__navbar-myspace"]}>
                 <li className={classNames(styles["myspace_item"], styles["active__myspace"])}>
-                    <Link href="/myspace/myspace" > Thao tác </Link>
+                    <Link href="/myspace/actionlist" > Thao tác </Link>
                 </li>
                 <li className={styles["myspace_item"]}>
                     <Link href="/myspace/feeds" > Thông tin mới </Link>
@@ -22,7 +22,7 @@ function NavBarMySpace() {
                     Rời khỏi
                 </li>
                 <li className={styles["myspace_item"]}>
-                    Chuyên cần
+                    <Link href="/myspace/diligence" >Chuyên cần</Link>
                 </li>
             </ul>
 

@@ -263,3 +263,18 @@
 .icon__arrow.active {
   color: var(--active-color);
 }
+
+.main__list-infor {
+  max-height: 80vh;
+  overflow-y: scroll;
+  margin-top: 10px;
+  border-radius: var(--border-radius);
+  // box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  .introduce {
+    margin-top: 10px;
+  }
+
+  .top__class {
+    margin: 0;
+  }
+}

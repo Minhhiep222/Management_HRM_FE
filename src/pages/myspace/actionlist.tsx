@@ -14,7 +14,6 @@ function MySpace() {
     return (
         <div className={styles["session"]}>
             <Header />
-
             <div className={grid["grid"]}>
                 <div className={grid["grid__row"]}>
                     <div className={grid["grid__column-2"]}>

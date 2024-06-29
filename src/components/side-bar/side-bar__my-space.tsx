@@ -17,7 +17,7 @@ function SideBarMySpace() {
                 <div className={styles["name__user"]}>
                     <span className={styles["id__user"]}>1</span>
                     <span>-</span>
-                    <Link href="/users/profile">Nguyễn Minh Hiệp</Link>
+                    <Link href="/user/profile">Nguyễn Minh Hiệp</Link>
                 </div>
                 <div className={styles["role__user"]}>CEO</div>
                 <div className={styles["state__user"]}>Chưa đăng nhập</div>
@@ -46,7 +46,7 @@ function SideBarMySpace() {
                             <div className={styles["name__member"]}>
                                 <span className={styles["id__user"]}>1</span>
                                 <span>-</span>
-                                <Link href="/users/profile">Nguyễn Minh Hiệp</Link>
+                                <Link href="/user/profile">Nguyễn Minh Hiệp</Link>
                             </div>
                             <div className={styles["state__member"]}>Chưa đăng nhập</div>
                         </div>
@@ -83,7 +83,7 @@ function SideBarMySpace() {
                             <div className={styles["name__member"]}>
                                 <span className={styles["id__user"]}>1</span>
                                 <span>-</span>
-                                <Link href="/users/profile">Nguyễn Minh Hiệp</Link>
+                                <Link href="/user/profile">Nguyễn Minh Hiệp</Link>
                             </div>
                             <div className={styles["state__member"]}>Chưa đăng nhập</div>
                         </div>

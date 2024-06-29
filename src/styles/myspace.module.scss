@@ -35,11 +35,11 @@
     }
 
     .name__user:hover {
-      border-bottom: 1px solid var(--active-color);
+      border-bottom: 1px solid rgb(0, 0, 0, 0.3);
     }
 
     .name__member:hover {
-      border-bottom: 1px solid var(--active-color);
+      border-bottom: 1px solid rgb(0, 0, 0, 0.3);
     }
 
     .role__user {
@@ -118,6 +118,8 @@
         min-width: 150px;
         @include backgound;
         display: none;
+        z-index: 1;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 
         .contacts__item {
           width: 100%;
@@ -270,7 +272,7 @@
   }
 
   .hook__calendar {
-    margin: 10px 0;
+    margin: 5px 0;
   }
 
   .week__calendar-work span {
@@ -290,11 +292,18 @@
   background-color: #f6f6f6;
   border-left: 2px solid #999898;
   border-radius: 2px;
+  display: flex;
 }
 
 .id__user {
   color: var(--blur-color);
   font-weight: 300;
+}
+
+.hook__calendar {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .hook-week__calendar-work {
@@ -378,6 +387,8 @@
 
   .feeds__list {
     margin: 10px 0;
+    max-height: 60vh;
+    overflow-y: scroll;
   }
 
   .chat__feeds {
@@ -484,4 +495,9 @@
       cursor: pointer;
     }
   }
+}
+
+.day__calendar-work {
+  color: var(--blur-color);
+  font-size: 1.2rem;
 }
