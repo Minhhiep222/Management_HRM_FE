@@ -1,15 +1,13 @@
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
-import SideBar from "@/components/side-bar/side-bar";
+import { useEffect } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
-import Image from 'next/image';
+import { IoCloseSharp } from "react-icons/io5";
+import { TiPencil } from "react-icons/ti";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from "classnames";
-import { BsThreeDots } from "react-icons/bs";
-import { PiPencilThin } from "react-icons/pi";
 import {
+    faSearch,
     faHospital,
     faCirclePlus,
     faArrowUp,
@@ -19,81 +17,67 @@ import {
     faClock,
     faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
-import Link from "next/link";
 
-function Profile() {
-
+function UpdateProfile() {
     useEffect(() => {
-        const change = document.querySelector(`.${styles["change__profile"]}`);
-        const extend = document.querySelector(`.${styles["extend"]}`);
-
-        extend?.addEventListener('click', () => {
-            const item = change as HTMLElement;
-            item.style.display == "block" ? item.style.display = "none"
-                : item.style.display = "block";
+        const content__infor = document.querySelectorAll(`.${styles.content__infor}`);
+        const pencils = document.querySelectorAll(`.${styles["change__content-infor"]}`)
+        pencils.forEach((element, index) => {
+            element.addEventListener('click', () => {
+                const inputItem = content__infor[index] as HTMLInputElement
+                inputItem.readOnly = false;
+                //thiết lập vị trí bắt đầu và kết thúc của chuỗi nhập liệu
+                inputItem.setSelectionRange(inputItem.value.length, inputItem.value.length);
+                inputItem.focus();
+            })
         });
 
-        extend?.addEventListener('mouseover', () => {
-            const item = change as HTMLElement;
-            item.style.display = "block";
-        });
-    })
+
+        // content__infor.forEach((element) => {
+        //     const inputItem = element as HTMLInputElement
+        //     inputItem.readOnly = true;
+        // })
+        // console.log(content__infor)
+    }, []);
 
     return (
         <div className={styles["session"]}>
-            <Header />
+            <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
+                <div className={styles["z_raty"]}>
+                    <div
+                        className={classNames(styles["box__img-user"], styles["box__img__user-update"])}
+                        style={{
+                            backgroundImage: `url("/images/space.jpg")`,
+                        }}
+                    >
+                    </div>
+                    <div className={styles["infor__user"]}>
+                        <div className={styles["name__user"]}>Nguyễn Thành Công</div>
+                        <div className={styles["role__user"]}>CEO</div>
+                    </div>
+                </div>
+
+                <ul className={styles["ul__navbar"]}>
+                    <li className={classNames(styles["li__navbar"], styles["active__li"])}>Hồ sơ của tui</li>
+                    <li className={classNames(styles["li__navbar"], styles[""])}>Thuộc cấp</li>
+                    <li className={classNames(styles["li__navbar"], styles[""])}>Phòng</li>
+                    <li className={classNames(styles["li__navbar"], styles[""])}>Ý kiến phản hồi</li>
+                    <li className={classNames(styles["li__navbar"], styles[""])}>Dữ liệu liên quan</li>
+                </ul>
+            </div>
             <div className={styles["container_profile"]}>
                 <div className={grid["grid"]}>
                     <div className={grid["grid__row"]}>
-                        <div className={grid["grid__column-2"]}>
-                            <SideBar />
-                        </div>
-                        <div className={grid["grid__column-10"]}>
+                        <div className={grid["grid__column-12"]}>
                             <div className={styles["content_user"]}>
-                                <div className={styles["background__header"]}>
-                                    <Image src="/images/space.jpg" alt="space" style={{ borderRadius: '20px' }} width={1200} height={200} priority />
-                                    <div className={styles["extend"]}>
-                                        <BsThreeDots />
-                                    </div>
-                                    <div className={styles["change__profile"]}>
-                                        <div className={styles["change__item"]}>
-                                            <PiPencilThin />
-                                            <Link href="/user/update" >Chỉnh sửa</Link>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div className={styles["title__information"]}>
-                                    <div className={styles["header__information-user"]}>
-                                        <div className={styles["z_raty"]}>
-                                            <div
-                                                className={styles["box__img-user"]}
-                                                style={{
-                                                    zIndex: 99,
-                                                    backgroundImage: `url("/images/space.jpg")`,
-                                                }}
-                                            >
-                                            </div>
-                                            <div className={styles["infor__user"]}>
-                                                <div className={styles["name__user"]}>Nguyễn Thành Công</div>
-                                                <div className={styles["role__user"]}>CEO</div>
-                                            </div>
-                                        </div>
 
-                                        <ul className={styles["ul__navbar"]}>
-                                            <li className={classNames(styles["li__navbar"], styles["active__li"])}>Hồ sơ của tui</li>
-                                            <li className={classNames(styles["li__navbar"], styles[""])}>Thuộc cấp</li>
-                                            <li className={classNames(styles["li__navbar"], styles[""])}>Phòng</li>
-                                            <li className={classNames(styles["li__navbar"], styles[""])}>Ý kiến phản hồi</li>
-                                            <li className={classNames(styles["li__navbar"], styles[""])}>Dữ liệu liên quan</li>
-                                        </ul>
-                                    </div>
 
                                     <div className={styles["top__class"]}>
                                         <div className={styles["class__item"]}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '30px' }} icon={faHospital} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '30px' }} icon={faHospital} />
                                             </div>
                                             <div className={styles["infor__class"]}>
                                                 <div className={styles["room"]}>Phòng</div>
@@ -102,7 +86,7 @@ function Profile() {
                                         </div>
                                         <div className={styles["class__item"]}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '20px' }} icon={faChair} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '20px' }} icon={faChair} />
                                             </div>
                                             <div className={styles["infor__class"]}>
                                                 <div className={styles["room"]}>Vị trí chỗ ngồi</div>
@@ -111,7 +95,7 @@ function Profile() {
                                         </div>
                                         <div className={styles["class__item"]}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '30px' }} icon={faComputer} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '30px' }} icon={faComputer} />
                                             </div>
                                             <div className={styles["infor__class"]}>
                                                 <div className={styles["room"]}>Số máy</div>
@@ -120,7 +104,7 @@ function Profile() {
                                         </div>
                                         <div className={styles["class__item"]}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '30px' }} icon={faClock} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '30px' }} icon={faClock} />
                                             </div>
                                             <div className={styles["infor__class"]}>
                                                 <div className={styles["room"]}>Giờ làm việc</div>
@@ -129,7 +113,7 @@ function Profile() {
                                         </div>
                                         <div className={styles["class__item"]}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '30px' }} icon={faEnvelope} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '30px' }} icon={faEnvelope} />
                                             </div>
                                             <div className={styles["infor__class"]}>
                                                 <div className={styles["room"]}>Email</div>
@@ -141,7 +125,7 @@ function Profile() {
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Giới thiệu</h3>
                                         <div className={styles["add__people-introduce"]}>
-                                            <FontAwesomeIcon style={{ fontSize: '1rem', color: '#1c2655', width: '35px' }} icon={faCirclePlus} />
+                                            <FontAwesomeIcon style={{ fontSize: '3rem', color: '#1c2655', width: '35px' }} icon={faCirclePlus} />
                                             <div>Thêm Giới Thiệu</div>
                                         </div>
                                     </div>
@@ -150,7 +134,7 @@ function Profile() {
                                         <h3 className={styles["title__introduce"]}>Cơ cấu tổ chức</h3>
                                         <div className={classNames(styles["organization"])}>
                                             <div className={styles["box__font"]}>
-                                                <FontAwesomeIcon style={{ fontSize: '1rem', width: '30px' }} icon={faHospital} />
+                                                <FontAwesomeIcon style={{ fontSize: '2rem', width: '30px' }} icon={faHospital} />
                                                 <div className={styles["room"]}>Phòng</div>
                                             </div>
                                             <div className={styles["infor__class"]}>
@@ -174,31 +158,59 @@ function Profile() {
 
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>ID Nhân Viên</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>001</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Tên</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>Minh Hiệp</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Họ</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Biệt Danh</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>MinhDepzaii</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Địa chỉ email</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Số điện thoại</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Sinh nhật</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -212,38 +224,70 @@ function Profile() {
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Phòng</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>001</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Địa điểm</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Minh Hiệp</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Chức vụ</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Role</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Admin</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Loại công việc</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Permanent</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Trạng thái nhân viên</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Active</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Ngày gia nhập</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>02-Feb-2024</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Kinh nghiệm</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>24 năm</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -258,27 +302,51 @@ function Profile() {
                                         <div className={styles["infor__employee"]}>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Họ và tên</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>001</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Ngày sinh</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>Minh Hiệp</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Giới tính</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Tình trạng hôn nhân</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>MinhDepzaii</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Tự giới thiệu</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Thông tin khác</div>
-                                                <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -292,28 +360,52 @@ function Profile() {
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Số điện thoại công việc</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>0834983286</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Địa chỉ email công việc</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Vị trí chỗ ngồi</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Minh Hiệp</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Tag</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div></div>
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Số điện thoại cá nhân</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>MinhDepzaii</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Địa chỉ email cá nhân</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div></div>
                                                 </div>
                                             </div>
@@ -331,25 +423,45 @@ function Profile() {
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Thêm bởi</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>Nguyễn Minh Hiệp</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Thời gian thêm</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>20-Jun-2024 05:59 PM</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Người điều chỉnh</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>MinhDepzaii</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Thời gian điều chỉnh</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>20-Jun-2024 05:59 PM</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Trạng thái nhân viên mới</div>
-                                                            <div className={classNames(styles["content__infor"], styles[""])}>minhhiep325@gmail.com</div>
+                                                            <input className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly defaultValue='000' />
+                                                            <div className={styles["change__content-infor"]}>
+                                                                <TiPencil />
+                                                                <div className={styles["change"]}>Chỉnh sửa</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -532,9 +644,12 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
+                <button className={classNames(styles["btn__save"])}>Đóng</button>
+                <button className={classNames(styles["btn__save"])}>Lưu</button>
+            </div>
         </div >
     );
 }
 
-export default Profile;
+export default UpdateProfile;
