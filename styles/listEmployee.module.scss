@@ -23,29 +23,28 @@
     color: white;
     background-color: #66CC33;
     display: flex;
-    border: 1px solid black;
     padding: 2px 2px;
     margin-top: 10px;
 }
 @mixin function-parent{
     background-color:  #f2f3f8;
-    position: relative;
+    position: absolute;
     width: 78%;
-    height: 140px;
-    margin-top: 58px;
-    margin-left: 275px;
+    left: 21%;
 }
 .function-parent {
   @include function-parent;
+  top: 9%;
     .box-display {
+       margin-top: -13px;
         display: flex;
+        padding-bottom: 14px;
         .parent-box1 {
             display: inline-block;
             // background-color: red;
             .room-parent {
                 padding-top: 30px;
                 @include room-parent;
-                padding-top: 30;
                 .room-p {
                   @include room-p;
                 }
@@ -176,11 +175,11 @@
  }
  .search-parent {
     @include function-parent;
+    top: 28%;
     height: 70px;
-    margin-top: 10px;
     .search-reload {
+        border: none;
         cursor: pointer;
-        border: 1px solid black;
         background-color: #66CC33;
         display: flex;
         padding: 8px 50px;
@@ -227,13 +226,13 @@
     }
  }
  .table-parent {
+    top: 39%;
     @include function-parent;
     overflow-x: auto; 
     white-space: nowrap;
-    height: 360px;
+    height: 57%;
     margin-top: 10px;  
      .table {
-        width: 90%;
         border-collapse: collapse;
         margin-left: 30px;
         margin-right: 30px;

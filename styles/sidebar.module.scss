@@ -1,15 +1,28 @@
+@mixin listPage {
+    border: none;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    margin-left: 5px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    text-decoration: none;
+    color: black;
+    margin-top: 10px;
+}
 .sidebar-parent {
     width: 20%;
-    height: 600px;
+    height: 90%;
     position: fixed;
     left: 0;
-    top: 50px;
+    top: 8%;
     background-color: white;
 }
 .img-parent {
         background-image: url('/images/saigon.jpg');
         width: 100%;
-        height: 140px;
+        height: 27%;
         background-size: cover; 
         background-position: center; 
         background-repeat: no-repeat;
@@ -59,55 +72,17 @@
     font-size: 16px;
 }
 .overView {
-    border: none;
-    display: flex;
-    width: 95%;
-    margin-left: 5px;
-    border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px; 
-    text-decoration: none;
-    color: black;
-    margin-top: 10px;
+   @include listPage;
     p {
         margin-left: 20px;
         font-size: 17px;
         font-family: Arial, sans-serif; 
-        margin-top: 4px;
         opacity: 0.8;
     }
     i {
-        margin-top: 5px;
         margin-left: 20px;
         font-size: 17px;
         opacity: 0.8;
-    }
-}
-.employee {
-    display: flex;
-    width: 95%;
-    margin-left: 5px;
-    border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px; 
-    margin-top: 10px;  
-    .iconEmployee {
-        margin-top: 5px;
-        margin-left: 20px;
-        font-size: 17px;
-        opacity: 0.8;   
-    }
-    p {
-        margin-left: 25px;
-        font-size: 17px;
-        font-family: Arial, sans-serif; 
-        opacity: 0.8;
-    } 
-    .iDropEmployee {
-        margin-top: 0px;
-        margin-left: 70px;
-        font-size: 24px;
-        opacity: 0.8;   
     }
 }
 .itemRadio {
@@ -118,9 +93,6 @@
     opacity: 0.8;   
     label    {
         margin-left: 12px;
-    }
-    input {
-        
     }
 }
 .itemRadio:active {
@@ -163,4 +135,5 @@
     color: black;
     font-family: Arial, Helvetica, sans-serif;
 }
+
 

@@ -1,5 +1,4 @@
 @mixin boxInLine {
-    position: relative;
     width: 21%;
     height: 100px;
     color: white;
@@ -58,10 +57,11 @@
 }
 @mixin parent-progess {
     margin-top: 10px;
-    width: 500px;
-    height: 200px;
+    position: relative;
+    width: 37%;
     background-color: #f2f3f8;
-    margin-left: 275px;
+   padding-bottom: 30px;
+   margin-bottom: 10px;
 }
 @mixin skill {
     width: 160px;
@@ -114,12 +114,12 @@
     padding-top: 20px;
 }
 .overView-parent {
+    position: relative;
+    margin-top: 50px;
     background-color:  #f2f3f8;
     padding-bottom: 50px;
-    position: relative;
     width: 79%;
-    margin-top: 50px;
-    margin-left: 275px;
+    left: 21%;
     .titile-overView {
       
         h2 {
@@ -139,6 +139,7 @@
         cursor: pointer;
        @include overViewLine;
         .overView-Employee {
+            text-decoration: none;
             position: relative;
             width: 21%;
             height: 100px;
@@ -197,6 +198,7 @@
             color: white;
             background-color: #3db08a;
             margin-left: 30px; 
+            text-decoration: none;
             h3 {
                 margin-left: 20px;
                 padding-top: 18px;
@@ -229,6 +231,7 @@
             }
         }
         .overView-family {
+            text-decoration: none;
             cursor: pointer;
             @include boxInLine;
             background-color: #8b6fd5;
@@ -249,6 +252,7 @@
             }
         }
         .overView-birthday {
+            text-decoration: none;
             cursor: pointer;
             @include boxInLine;
             background-color:  #ff7768;
@@ -272,6 +276,7 @@
     .overView-line2 {
         @include overViewLine;
         .overView-setting {
+            text-decoration: none;
             cursor: pointer;
             @include boxInLine;
             background-color:  #fe9c0c;
@@ -296,6 +301,8 @@
 
 .parent-progess {
     @include parent-progess;
+    left: 21%;
+    float: left;
     .skill {
         @include skill;
         .outer {
@@ -333,11 +340,8 @@
 }
 
 .parent-progess2 {
-    margin-top: -200px;
-    width: 500px;
-    height: 200px;
-    background-color: #f2f3f8;
-    margin-left: 815px;
+    @include parent-progess;
+    float: right;
     .skill {
         @include skill;
         .outer {

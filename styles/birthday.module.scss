@@ -7,17 +7,22 @@
     border: none;
     cursor: pointer;
 }
-.birthday-parent {
+@mixin birthday-parent {
     background-color:  #f2f3f8;
-    position: relative;
+    position: absolute;
     width: 79%;
-    height: 600px;
-    margin-top: 50px;
-    margin-left: 275px;
+    left: 21%;
+}
+.birthday-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include birthday-parent;
+   top: 9%;
+    height: 10%;
     .birthday-function {
         display: flex;
         width: 100%;
-        padding-top: 30px;
         .birthday-select{
             display: flex;
             margin-left: 30px;
@@ -85,21 +90,28 @@
               }
           }
     }
-    .table {
-        width: 93%;
-        border-collapse: collapse;
-        margin-top: 40px;
-        margin-left: 30px;
-        .tr th {
-            border: 1px solid #dddddd;
+}
+.birthday-parent2 {
+    overflow-x: auto; 
+    top: 22%;
+ @include birthday-parent;
+ height: 76%;
+ .table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    .tr th {
+        border: 1px solid #dddddd;
             padding: 8px;
             text-align: left;
             text-align: center;
-        }
-        .tr td {
-            border: 1px solid #dddddd;
+    }
+    .tr td {
+        border: 1px solid #dddddd;
             padding: 8px;
             text-align: left;
-        }
     }
 }
+} 

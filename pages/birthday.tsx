@@ -56,9 +56,11 @@ const Birthday = () => {
             <p className={styles['btn-text']}>Xuất Excel</p>
           </button>
         </div>
+      </div>
 
-        <table className={styles['table']}>
-          <thead>
+<div  className={styles['birthday-parent2']}>
+<table className={styles['table']}>
+          <thead className={styles['thead']}>
             <tr className={styles['tr']}>
               <th>Mã nhân viên</th>
               <th>Tên nhân viên</th>
@@ -160,13 +162,72 @@ const Birthday = () => {
               <td>20/8/1995</td>
               <td>longnv@gmail.com</td>
             </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+            <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
+              <tr className={styles['tr']}>
+              <td>010</td>
+              <td>Nguyễn Văn Long</td>
+              <td>Kỹ thuật</td>
+              <td>Phần cứng</td>
+              <td>0987654321</td>
+              <td>20/8/1995</td>
+              <td>longnv@gmail.com</td>
+            </tr>
           </tbody>
         </table>
-
-
-
-      </div>
-
+</div>
     </>
   );
 }

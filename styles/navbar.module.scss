@@ -2,51 +2,52 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 8%;
     position: fixed;
     background-color:  #2952be;
     border-radius: 0;
+    z-index: 1;
 }
 
 .navbar-item {
     display: flex;
     justify-content: space-between;
     height: 100%;
-    h4 {
+    .wrapItem1 {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 12px;
+        .icon1 {
+            margin-left: 40px;
+            margin-top: 7px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+         h4 {
         color: black;
         font-size: 10px;
         font-weight: bold;
         margin-left: 20px;
-        line-height: 53px;
+
     }
     h2 {
         color: white;
         margin-left: 5px;
-        margin-top: 10px;
         font-size: 22px;
         cursor: pointer;
     }
-    .wrapItem1 {
-        height: 100%;
-        display: flex;
-        color: white;
-        font-size: 23px;
-        margin-right: 12px;
-        .icon1 {
-            margin-left: 40px;
-            font-size: 18px;
-            margin-top: 17px;
-            cursor: pointer;
-        }
     }
     .wrapItem2 {
         height: 100%;
         margin-right: 20px;
         display: flex;
+        justify-content: center;
+        align-items: center;
         .icon2 {
             color: white;
             font-size: 20px;
-            margin-top: 15px;
             margin-right: 20px;
             cursor: pointer;
         }
@@ -56,7 +57,6 @@
             border-radius: 50%;
             background-color: white;
             margin-right: 15px;
-            margin-top: 12px;
             cursor: pointer;
         }
     }
