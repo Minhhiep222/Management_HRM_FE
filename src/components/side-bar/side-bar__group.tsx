@@ -6,7 +6,7 @@ import { MdOutlineVideoCall } from "react-icons/md";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import classNames from "classnames";
 import Link from "next/link";
-function SideBarMySpace() {
+function SideBarGroupSpace() {
     return (
         <div className={styles["side__bar-myspace"]}>
             <div className={styles["infor__myspace"]}>
@@ -15,26 +15,14 @@ function SideBarMySpace() {
                 }}>
                 </div>
                 <div className={styles["name__user"]}>
-                    <span className={styles["id__user"]}>1</span>
-                    <span>-</span>
-                    <Link href="/user/profile">Nguyễn Minh Hiệp</Link>
+                    <Link href="/user/profile">Management</Link>
                 </div>
-                <div className={styles["role__user"]}>CEO</div>
-                <div className={styles["state__user"]}>Chưa đăng nhập</div>
-                <div className={styles["time__user"]}>
-                    <span>00</span>:<span>00</span>:<span>00</span>
-                </div>
-                <button className={classNames(grid["btn"], styles["btn__check-in"], styles["btn__active"])}>
-                    Đăng ký vào
-                </button>
-                <button className={classNames(grid["btn"], styles["btn__check-out"])}>
-                    Đăng ký ra
-                </button>
+
             </div>
 
             <div className={styles["list__member"]}>
                 <div className="" style={{ width: `100%` }}>
-                    <h3 style={{ textAlign: `start` }}>Thành viên công ty</h3>
+                    <h3 style={{ textAlign: `start` }}>Thành viên nhóm</h3>
                 </div>
                 <div className={styles["member__item"]}>
                     <div className={styles["img__member"]} style={{
@@ -115,4 +103,4 @@ function SideBarMySpace() {
     );
 }
 
-export default SideBarMySpace;
+export default SideBarGroupSpace;

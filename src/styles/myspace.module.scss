@@ -9,7 +9,7 @@
 
   .infor__myspace,
   .list__member {
-    @include backgound;
+    @include background;
     position: relative;
     @include text;
     display: flex;
@@ -116,7 +116,7 @@
         right: -180px;
         top: 0px;
         min-width: 150px;
-        @include backgound;
+        @include background;
         display: none;
         z-index: 1;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
@@ -201,7 +201,7 @@
 }
 
 .navbar__myspace {
-  @include backgound;
+  @include background;
 }
 
 .list__navbar-myspace {
@@ -210,12 +210,12 @@
   padding: 0 5px;
   @include text;
 
-  .myspace_item {
+  .myspace__item {
     cursor: pointer;
     padding: 10px;
   }
 
-  .myspace_item.active__myspace {
+  .myspace__item.active__myspace {
     border-bottom: 3px solid var(--active-color);
   }
 }
@@ -223,7 +223,7 @@
 .greating__my-space,
 .calendar-work__my-space {
   margin-top: 10px;
-  @include backgound;
+  @include background;
 }
 
 .greating__my-space {
@@ -393,7 +393,7 @@
 
   .chat__feeds {
     width: 100%;
-    @include backgound;
+    @include background;
     position: absolute;
     position: sticky;
     bottom: 0;
@@ -439,7 +439,7 @@
 }
 
 .feed__item {
-  @include backgound;
+  @include background;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -500,4 +500,8 @@
 .day__calendar-work {
   color: var(--blur-color);
   font-size: 1.2rem;
+}
+
+.container__my-space {
+  margin-top: 30px;
 }
