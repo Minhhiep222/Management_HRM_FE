@@ -1,0 +1,257 @@
+@mixin room-p {
+    border: 1px solid black;
+    padding: 5px 10px;
+    border-right: none;
+    width: 100px;
+}
+@mixin room-parent {
+    margin-left: 30px;
+    display: flex;
+}  
+@mixin radioInOut {
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    margin-left: 10px;
+}
+@mixin btn-listIn {
+    line-height: 27px;
+    font-size: 15px;
+    border: none;
+}
+@mixin list-hd {
+    color: white;
+    background-color: #66CC33;
+    display: flex;
+    padding: 2px 2px;
+    margin-top: 10px;
+}
+@mixin function-parent{
+    background-color:  #f2f3f8;
+    position: absolute;
+    width: 78%;
+    left: 21%;
+}
+.function-parent {
+  @include function-parent;
+  top: 9%;
+    .box-display {
+       margin-top: -13px;
+        display: flex;
+        padding-bottom: 14px;
+        .parent-box1 {
+            display: inline-block;
+            // background-color: red;
+            .room-parent {
+                padding-top: 30px;
+                @include room-parent;
+                .room-p {
+                  @include room-p;
+                }
+            }
+            .view-parent {
+                @include room-parent;
+                padding-top: 10px;
+                .room-p {
+                  @include room-p;
+                }
+            }
+            .view-parent {
+                @include room-parent;
+        
+                .room-p {
+                    @include room-p;
+                  }
+            }
+        }
+    }
+   .parent-box2 {
+    width: 400px;
+    .parent-radioIn {
+        margin-top: 37px;
+        display: flex;
+        .radio-in {
+          @include radioInOut;
+          margin-bottom: 10px;
+        }
+        .datePick-in {
+            margin-top: 1px;
+            margin-left: 14px;
+        }
+        .lable-radioin {
+            margin-top: 2px;
+            margin-left: 14px;
+        }
+        .lable2-radioin {
+            margin-top: 2px;
+            margin-left: 30px;
+        }
+    }
+    .parent-radioOut {
+        margin-top: 5px;
+        display: flex;
+        .radio-out {
+          @include radioInOut;
+          margin-top: 10px;
+          display: flex;
+        }
+        .datePick-out {
+            margin-top: 5px;
+            padding: 3px 0px;
+            margin-left: 20px;
+        } 
+        .lable-radioOut {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .lable2-radioOut {
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+    }
+   }
+   .parent-box3 {
+    cursor: pointer;
+      border: none;
+      margin-left: -40px;
+      margin-top: 20px;
+    .list-hd {
+       @include list-hd;
+        .btn-listIn {
+            @include btn-listIn;
+        }
+        .icon-listIn {
+            font-size: 25px;     
+        }
+    }
+    .list-out {
+        @include list-hd;
+        margin-top: -10px;
+        .btn-listOut {
+            @include btn-listIn;
+        }
+        .icon-listOut {
+            font-size: 25px;   
+        }
+    }
+   }
+   .parent-box4 {
+    cursor: pointer;
+    border: none;
+   margin-left: 20px;
+    margin-top: 20px;
+  .list-hd {
+     @include list-hd;
+      .btn-listIn {
+          @include btn-listIn;
+      }
+      .icon-listIn {
+          font-size: 25px;     
+      }
+  }
+  .list-out {
+      @include list-hd;
+      background-color: #FFCC66;
+      margin-top: -10px;
+      width: 168px;
+      .btn-listOut {
+          @include btn-listIn;
+          margin-left: 10px;
+          color: black;
+      }
+      .icon-listOut {
+          font-size: 25px;   
+      }
+  }
+ }
+}
+
+.custom-select {
+    border: 1px solid black;
+ }
+ .select {
+     border: none;
+     height: 30px;
+ }
+ .search-parent {
+    @include function-parent;
+    top: 28%;
+    height: 70px;
+    .search-reload {
+        border: none;
+        cursor: pointer;
+        background-color: #66CC33;
+        display: flex;
+        padding: 8px 50px;
+        position: relative;
+        top: 30%;
+        margin-left: 30px;
+        .icon-listOut {
+            color: white;
+            position: absolute;
+            left: 5%;
+            font-size: 15px;
+        }
+        .p-listOut {
+            color: white;
+            font-size: 15px;
+        }
+    }
+    .parent-Inputsearch {
+        border: 1px solid black;
+        display: inline-block;
+        margin-left: 230px;
+        position: relative;
+        top: -19%;
+        .text-Inputsearch {
+            border-right: 1px solid black;
+            padding-top: 7px;
+            padding-bottom: 9px;
+        }
+        .Inputsearch {
+            border: none;
+            height: 32px;
+            margin-left: 0px;
+            width: 500px;
+        }
+    }
+    .btn-iconSearch {
+        border: 1px solid black;
+        height: 34px;
+        width: 33px;
+        border-left: none;
+        position: relative;
+        top: -18%;
+        cursor: pointer;
+    }
+ }
+ .table-parent {
+    top: 39%;
+    @include function-parent;
+    overflow-x: auto; 
+    white-space: nowrap;
+    height: 57%;
+    margin-top: 10px;  
+     .table {
+        border-collapse: collapse;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-top: 20px;
+        .tr th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+            text-align: center;
+        }
+        .tr td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .td-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-left: calc(50% - 10px);
+        }
+    }
+ }

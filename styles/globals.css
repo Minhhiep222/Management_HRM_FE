@@ -1,0 +1,19 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;   
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    border-radius: 0px;
+    box-sizing: border-box;
+    background-color: #cbcdce;
+    font-size: Sans-serif;
+  }

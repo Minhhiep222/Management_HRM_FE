@@ -1,0 +1,137 @@
+@mixin wrap-login {
+    width: 50%;
+    height: 100%;
+}
+@mixin inputLogin {
+    margin-top: 20px;
+    margin-left: 40px;      
+    width: calc(100% - 80px);
+    height: 40px;     
+    background-color: #efefef;
+    border: none;
+    padding-left: 20px;
+    font-weight: bold;
+    color: black;
+}
+body {
+    background-color: #cbcdce;
+}
+.login-parent  {
+    position: fixed;
+    width: 65%;
+    height: 75%;
+    left: calc(50% - 428px);
+    top: calc(50% - 244px);
+    background-color: white;
+    .big-wrap {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        .login-wrap1 {
+            @include wrap-login;
+            h1 {
+                font-weight: bold;
+                font-size: 30px;
+                text-align: center;
+                margin-top: 70px
+            }
+            .parent-username {
+                .input-username {
+                  @include inputLogin;
+                }
+                .input-password {
+                    @include inputLogin;
+                  }
+            }
+            .button-submit {
+                width: calc(100% - 80px);
+                height: 50px;
+                background-color: #059669;
+                margin-left: 40px;   
+                margin-top: 20px;
+                color: white;
+                border-radius: 5px;
+                font-size: 19px;
+                border: none;
+            }
+            .parent-icon {
+                margin-top: 15px;
+                width: calc(100% - 80px);
+                margin-left: 40px;  
+                display: flex;
+                .icon-facebook { 
+                    font-size: 30px;  
+                    color: #3a5897;
+                    margin-left: 116px;
+                    border: none;
+                }
+                .icon-google {
+                    font-size: 30px;
+                    color: #d95139;
+                    margin-left: 8px;
+                    border: none;
+                }
+                .icon-linkedin {
+                    font-size: 30px;
+                    color: #0f76aa;
+                    margin-left: 8px;
+                    border: none;
+                }
+            }
+            h3 {
+                margin-top: 20px;
+                text-align: center;
+            }
+            .parent-forgotpassword {
+                margin-top: 25px;
+                display: flex;
+                font-size: 14px;
+                margin-left: 40px;      
+                width: calc(100% - 80px);
+                // border: 1px solid black;
+                p {
+                    margin-left: 50px;
+                }
+               .p-resetPass{
+                color: blue;
+                margin-left: 5px
+               }
+            }   
+        }
+        .login-wrap2 {
+            @include wrap-login;
+            background-color: #2ac78f;   
+            .title-login {
+                color: white;
+                font-size: 24px;
+                margin-top: 120px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .descript-login {
+                margin-top: 10px;
+                text-align: center;
+                width: calc(100% - 60px);
+                margin-left: 30px;
+                font-size: 18px;
+                color: white;
+            }
+            .signup-parent {
+                width: 240px;
+                margin-top: 20px;
+                margin-left: calc(50% -  120px);
+                display: flex;
+                border-radius: 30px;
+                background-color: #10b981;
+                padding: 15px 25px;
+                p{
+                    margin-left: 7px;
+                    color: white;    
+                }
+                .p-signup {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}
