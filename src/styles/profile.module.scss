@@ -24,6 +24,10 @@
   display: flex;
 }
 
+.content_user {
+  padding: 30px;
+}
+
 .header__information-user {
   margin-top: 5rem;
   @include background();

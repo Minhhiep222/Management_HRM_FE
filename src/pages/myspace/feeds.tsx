@@ -1,14 +1,9 @@
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
-import SideBar from "@/components/side-bar/side-bar";
-import SideBarMySpace from "@/components/side-bar/side-bar__my-space";
+
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import { AiOutlineLike } from "react-icons/ai";
 import { TfiCommentAlt } from "react-icons/tfi";
-import NavBarMySpace from "@/components/navbar/navbar_myspace";
 import classNames from "classnames";
-import HeaderMySpace from "@/components/header/header__myspace";
 
 function MySpace() {
     return (

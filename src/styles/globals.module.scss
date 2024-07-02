@@ -1,7 +1,7 @@
 @import "./profile.module.scss";
 
 .grid {
-  width: 1350px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -15,6 +15,14 @@
   padding-left: 5px;
   padding-right: 5px;
   width: 16.6667%;
+}
+
+.grid__column-2__sidebar {
+  width: 16.6667%;
+}
+
+.grid__column-3__sidebar {
+  width: 25%;
 }
 
 .grid__column-3 {
@@ -61,12 +69,17 @@
 
 .header {
   height: 50px;
-  min-width: 100%;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
 .side_bar {
   min-height: 100vh;
   min-width: 200px;
+  position: sticky;
+  top: 50px;
 }
 
 .btn {
