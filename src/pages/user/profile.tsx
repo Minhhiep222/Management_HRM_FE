@@ -43,7 +43,7 @@ function Profile() {
     return (
         <div className={styles["content_user"]}>
             <div className={styles["background__header"]}>
-                <Image src="/images/space.jpg" alt="space" style={{ borderRadius: '20px' }} width={1200} height={200} priority />
+                <Image src="/images/space.jpg" alt="space" style={{ borderRadius: '20px', width: `100%` }} width={1200} height={200} priority />
                 <div className={styles["extend"]}>
                     <BsThreeDots />
                 </div>

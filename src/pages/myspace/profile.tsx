@@ -19,7 +19,6 @@ import {
     faClock,
     faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
-import HeaderMySpace from "@/components/header/header__myspace";
 
 
 function Profile() {

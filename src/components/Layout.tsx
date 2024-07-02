@@ -16,14 +16,16 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
 
   const router = useRouter();
-  const haveMySpace = router.pathname !== '/myspace/control';
+  const haveMySpace = router.pathname !== '/myspace/control' && router.pathname !== '/user/profile' && router.pathname !== '/user/update';
   const noMySpace = router.pathname === '/myspace/control';
   const profile = router.pathname === '/user/profile';
+  const update = router.pathname === '/user/update';
 
   return (
     <div>
       <Header />
-      <HeaderMySpace />
+      {haveMySpace && <HeaderMySpace />}
+
       <main>
         {haveMySpace &&
           <div className={styles["session"]}>
@@ -70,7 +72,29 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         }
 
         {
+          profile && <div className={styles["session"]}>
+            <div className={grid["grid"]}>
+              <div className={grid["grid__row"]}>
+                <div className={grid["grid__column-12"]}>
+                  {children}
+                </div>
+              </div>
+            </div>
+            <Footer />
+          </div >
+        }
 
+        {
+          update && <div className={styles["session"]}>
+            <div className={grid["grid"]}>
+              <div className={grid["grid__row"]}>
+                <div className={grid["grid__column-12"]}>
+                  {children}
+                </div>
+              </div>
+            </div>
+            <Footer />
+          </div >
         }
       </main>
     </div>
