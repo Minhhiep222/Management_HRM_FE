@@ -12,8 +12,8 @@ function NavBarGroupSpace() {
         items.forEach((element, index) => {
             element.addEventListener('click', () => {
                 console.log(element);
-                myspace_items.forEach(item => item.classList.remove(`${styles["active"]}`))
-                myspace_items[index].classList.add(`${styles["active"]}`);
+                myspace_items.forEach(item => item.classList.remove(`${styles["active__myspace"]}`))
+                myspace_items[index].classList.add(`${styles["active__myspace"]}`);
             })
         });
 
@@ -22,17 +22,17 @@ function NavBarGroupSpace() {
     return (
         <div className={styles["navbar__myspace"]}>
             <ul className={styles["list__navbar-myspace"]}>
-                <li className={styles["myspace_item"]}>
+                <li className={classNames(styles["myspace__item"], styles["active__myspace"])}>
                     <Link href="/groupspace/feeds" > Tường của nhóm </Link>
                 </li>
-                <li className={styles["myspace_item"]}>
+                <li className={styles["myspace__item"]}>
                     Phê duyệt
                 </li>
-                <li className={styles["myspace_item"]}>
+                <li className={styles["myspace__item"]}>
                     Rời khỏi
                 </li>
-                <li className={styles["myspace_item"]}>
-                    <Link href="/myspace/diligence" >Chuyên cần</Link>
+                <li className={styles["myspace__item"]}>
+                    <Link href="" >Chuyên cần</Link>
                 </li>
             </ul>
         </div>

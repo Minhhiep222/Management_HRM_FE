@@ -34,14 +34,15 @@ function NavBarMySpace() {
                     <Link className="link__item-navbar" href="/myspace/profile" > Hồ sơ </Link>
                 </li>
                 <li className={styles["myspace__item"]}>
+                    <Link className="link__item-navbar" href="/myspace/diligence" >Chuyên cần</Link>
+                </li>
+                <li className={styles["myspace__item"]}>
                     Phê duyệt
                 </li>
                 <li className={styles["myspace__item"]}>
                     Rời khỏi
                 </li>
-                <li className={styles["myspace__item"]}>
-                    <Link className="link__item-navbar" href="/myspace/diligence" >Chuyên cần</Link>
-                </li>
+
             </ul>
 
         </div>

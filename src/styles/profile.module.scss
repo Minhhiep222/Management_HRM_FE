@@ -299,7 +299,6 @@
 
   .table__experience {
     width: 100%;
-    overflow: hidden;
     margin-top: 10px;
   }
 
@@ -313,7 +312,7 @@
   }
 
   .th__experience {
-    min-width: 150px;
+    min-width: 200px;
     background-color: #e5e5f0;
     border-radius: var(--border-radius);
     border-right: 3px solid var(--white-color);
@@ -330,6 +329,17 @@
     }
   }
 
+  .th__experience-checkbox {
+    min-width: 35px;
+    background-color: #e5e5f0;
+    border-radius: var(--border-radius);
+    border-right: 3px solid var(--white-color);
+    div {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   .th__experience,
   .td__experience {
     text-align: start;
@@ -338,7 +348,7 @@
 }
 
 .infor__employee.scroll-infor {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .icon__arrow {
@@ -355,7 +365,7 @@
 
 .main__list-infor {
   max-height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-top: 10px;
   border-radius: var(--border-radius);
   // box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);

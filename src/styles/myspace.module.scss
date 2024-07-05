@@ -388,7 +388,7 @@
   .feeds__list {
     margin: 10px 0;
     max-height: 60vh;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .chat__feeds {
@@ -505,4 +505,121 @@
 .container__my-space {
   padding: 20px 20px;
   // margin-top: 30px;
+}
+
+.control__project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn__control-project {
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  margin: 5px;
+  background-color: #e5e5f0;
+  color: var(--blur-color);
+
+  svg {
+    margin-right: 10px;
+  }
+}
+
+.btn__control-project:hover {
+  color: var(--primary-color);
+}
+
+.btn__create-project {
+  color: var(--white-color);
+  background-color: #0088ff;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  margin: 5px;
+}
+
+.btn__create-project:hover {
+  opacity: 0.8;
+}
+
+.list__select {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  min-height: 40px;
+}
+
+.search__member {
+  display: flex;
+  align-items: center;
+  background-color: var(--white-color);
+  height: 30px;
+  min-width: 200px;
+  padding: 0 5px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgb(0, 0, 0, 0.1);
+  input {
+    width: 100%;
+    outline: none;
+  }
+
+  svg {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+
+.select__name-project {
+  @include background;
+  min-width: 100%;
+  height: 50%;
+  border-radius: 3px;
+  font-size: 1.4rem;
+  padding: 4px;
+  outline: none;
+
+  option {
+    @include background;
+    border: none;
+    outline: none;
+  }
+}
+
+.employee__item {
+  padding: 5px 0;
+  height: 60px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+th.sticky-col-1,
+td.sticky-col-1 {
+  background-color: var(--white-color);
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+th.sticky-col-2,
+td.sticky-col-2 {
+  background-color: var(--white-color);
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 35px;
+  z-index: 1;
+}
+
+th.sticky-col-3,
+td.sticky-col-3 {
+  background-color: var(--white-color);
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 235px;
+  z-index: 1;
+}
+
+th.sticky-col-4,
+td.sticky-col-4 {
+  background-color: var(--white-color);
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 435px;
+  z-index: 1;
 }
