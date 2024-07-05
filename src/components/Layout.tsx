@@ -31,6 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const profile = router.pathname === '/user/profile';
   const update = router.pathname === '/user/update';
   const register = router.pathname === '/systems/register';
+  const HaveRegister = router.pathname === '/systems/register';
   const overview = router.pathname === '/overview';
   const haveGroupSpace = router.pathname === '/groupspace/feeds'
     || router.pathname === '/groupspace/list_member'
@@ -44,7 +45,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
 
-      <Header />
+      {haveGroupSpace && <Header />}
+      {haveMySpace && <Header />}
+      {overview && <Header />}
+      {update && <Header />}
+      {profile && <Header />}
+      {noMySpace && <Header />}
       <main>
         {register && children}
         {haveGroupSpace &&
