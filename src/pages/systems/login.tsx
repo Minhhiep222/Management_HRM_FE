@@ -32,7 +32,7 @@ const Login = () => {
                     <div className='login-wrap2'>
                          <h1 className='title-login'>Welcome back!</h1>
                          <p className='descript-login'>Welcome back! we are so happy to have you here. it's greate to see you again. We hope you had a safe and enjoyable time away.</p>
-                         <Link href={'/register'} className='signup-parent'>
+                         <Link href={'/systems/register'} className='signup-parent'>
                               <p>No account yet?</p>
                               <p className='p-signup'>Signup</p>
                          </Link>

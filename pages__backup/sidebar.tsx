@@ -31,6 +31,7 @@ const SideBar = () => {
     setRouterWeb2(lastSegment);
     setCheckColorOver(false); 
     setCheckColorSystem(false); 
+    setCheckColorSystem(false); 
     setRouterWeb("null")
     // if (routerWeb2 === 'profile' || routerWeb === 'family' || routerWeb === 'birthday' || routerWeb === 'listEmployee') {
     //      setRouterWeb2("null")

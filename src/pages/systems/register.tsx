@@ -6,28 +6,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import axios from 'axios';
 const Register = () => {
-     const [accounFiel, setAccountFiel] = useState(
-          {
-               email: '',
-               userName: '',
-               password: '',
-          }
-     )
-     console.log(accounFiel);
-     const handleChangeFieltAccount = (e: ChangeEvent<HTMLInputElement>) => {
-          setAccountFiel(
-               {
-                    ...accounFiel,
-                    [e.target.name]: e.target.value
-               }
-          )
-     }
-     const handleSumit = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-          e.preventDefault();
-          const responce = await axios.post("http://127.0.0.1:8000/api/createAccount", accounFiel);
-          console.log(responce)
-          window.location.href = '/';
-     }
+    
 
      return (
           <div className='login-parent'>
@@ -44,15 +23,15 @@ const Register = () => {
                          <form action="">
                               <h1>Signup</h1>
                               <div className='parent-username'>
-                                   <input onChange={e => handleChangeFieltAccount(e)} className='input-username' placeholder='Enter Email' type="text" name="email" />
+                                   <input className='input-username' placeholder='Enter Email' type="text" name="email" />
                               </div>
                               <div className='parent-username'>
-                                   <input onChange={e => handleChangeFieltAccount(e)} className='input-username' placeholder='Enter Username' type="text" name="userName" />
+                                   <input className='input-username' placeholder='Enter Username' type="text" name="userName" />
                               </div>
                               <div className='parent-username'>
-                                   <input onChange={e => handleChangeFieltAccount(e)} className='input-password' placeholder='Enter Password' type="password" name="password" />
+                                   <input className='input-password' placeholder='Enter Password' type="password" name="password" />
                               </div>
-                              <button onClick={e => handleSumit(e)} className='button-submit'>
+                              <button  className='button-submit'>
                                    Signup
                               </button>
 
@@ -68,6 +47,10 @@ const Register = () => {
                     </div >
                </div >
           </div >
+
+
+
+
      );
 }
 export default Register;
