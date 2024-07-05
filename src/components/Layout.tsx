@@ -42,125 +42,151 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const Havelistview = router.pathname === '/groupspace/list_member';
   const Haveproject = router.pathname === '/groupspace/project';
 
-  return (
-    <div>
-
-      {haveGroupSpace && <Header />}
-      {haveMySpace && <Header />}
-      {overview && <Header />}
-      {update && <Header />}
-      {profile && <Header />}
-      {noMySpace && <Header />}
-      <main>
+  if (register) {
+    return (
+      <div className="">
         {register && children}
-        {haveGroupSpace &&
-          <div className={styles["session"]}>
-            <div className={grid["grid"]}>
-              <div className={grid["grid__row"]}>
-                <div className={grid["grid__column-2__sidebar"]}>
-                  <SideBar />
-                </div>
-                <div className={grid["grid__column-10"]}>
-                  <div className={grid["grid__column-12"]}>
-                    {haveGroupSpace && <HeaderGroupSpace />}
+      </div>
+    )
+  }
+  else {
+    return (
+      <div>
+        <Header />
+        <main>
+          {haveGroupSpace &&
+            <div className={styles["session"]}>
+              <div className={grid["grid"]}>
+                <div className={grid["grid__row"]}>
+                  <div className={grid["grid__column-2__sidebar"]}>
+                    <SideBar />
                   </div>
-                  <div className={styles["container__my-space"]}>
-                    <div className={grid["grid"]}>
-                      <div className={grid["grid__row"]}>
-                        {haveGroupSpace && listview && project &&
+                  <div className={grid["grid__column-10"]}>
+                    <div className={grid["grid__column-12"]}>
+                      {haveGroupSpace && <HeaderGroupSpace />}
+                    </div>
+                    <div className={styles["container__my-space"]}>
+                      <div className={grid["grid"]}>
+                        <div className={grid["grid__row"]}>
+                          {haveGroupSpace && listview && project &&
+                            <div className={grid["grid__column-3"]}>
+                              < SideBarGroupSpace />
+                            </div>
+                          }
+                          {haveGroupSpace && listview && project &&
+                            <div className={grid["grid__column-9"]}>
+                              <div className={styles["content__myspace"]}>
+                                <NavBarGroupSpace />
+                                {children}
+                              </div>
+                            </div>
+                          }
+
+                          {haveGroupSpace && Havelistview &&
+                            <div className={grid["grid__column-12"]}>
+                              <div className={styles["content__myspace"]}>
+                                {children}
+                              </div>
+                            </div>
+                          }
+
+                          {haveGroupSpace && Haveproject &&
+                            <div className={grid["grid__column-12"]}>
+                              <div className={styles["content__myspace"]}>
+                                {children}
+                              </div>
+                            </div>
+                          }
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div >
+          }
+
+          {haveMySpace &&
+            <div className={styles["session"]}>
+              <div className={grid["grid"]}>
+                <div className={grid["grid__row"]}>
+                  <div className={grid["grid__column-2__sidebar"]}>
+                    <SideBar />
+                  </div>
+                  <div className={grid["grid__column-10"]}>
+                    <div className={grid["grid__column-12"]}>
+                      {haveMySpace && <HeaderMySpace />}
+                    </div>
+                    <div className={styles["container__my-space"]}>
+                      <div className={grid["grid"]}>
+                        <div className={grid["grid__row"]}>
+
                           <div className={grid["grid__column-3"]}>
-                            < SideBarGroupSpace />
+                            {haveMySpace && < SideBarMySpace />}
                           </div>
-                        }
-                        {haveGroupSpace && listview && project &&
+
                           <div className={grid["grid__column-9"]}>
                             <div className={styles["content__myspace"]}>
-                              <NavBarGroupSpace />
+                              <NavBarMySpace />
                               {children}
                             </div>
                           </div>
-                        }
-
-                        {haveGroupSpace && Havelistview &&
-                          <div className={grid["grid__column-12"]}>
-                            <div className={styles["content__myspace"]}>
-                              {children}
-                            </div>
-                          </div>
-                        }
-
-                        {haveGroupSpace && Haveproject &&
-                          <div className={grid["grid__column-12"]}>
-                            <div className={styles["content__myspace"]}>
-                              {children}
-                            </div>
-                          </div>
-                        }
-
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div >
-        }
+            </div >
+          }
 
-        {haveMySpace &&
-          <div className={styles["session"]}>
-            <div className={grid["grid"]}>
-              <div className={grid["grid__row"]}>
-                <div className={grid["grid__column-2__sidebar"]}>
-                  <SideBar />
+          {overview &&
+            <div className={styles["session"]}>
+              <div className={grid["grid"]}>
+                <div className={grid["grid__row"]}>
+                  <div className={grid["grid__column-2__sidebar"]}>
+                    <SideBar />
+                  </div>
+                  <div className={grid["grid__column-10"]}>
+                    <div className={styles["container__my-space"]}>
+                      <div className={styles["content__myspace"]}>
+                        {children}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className={grid["grid__column-10"]}>
+              </div>
+            </div >
+          }
+
+          {noMySpace &&
+            <div className={styles["session"]}>
+              <div className={grid["grid"]}>
+                <div className={grid["grid__row"]}>
                   <div className={grid["grid__column-12"]}>
-                    {haveMySpace && <HeaderMySpace />}
-                  </div>
-                  <div className={styles["container__my-space"]}>
-                    <div className={grid["grid"]}>
-                      <div className={grid["grid__row"]}>
-
-                        <div className={grid["grid__column-3"]}>
-                          {haveMySpace && < SideBarMySpace />}
-                        </div>
-
-                        <div className={grid["grid__column-9"]}>
-                          <div className={styles["content__myspace"]}>
-                            <NavBarMySpace />
-                            {children}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {children}
                   </div>
                 </div>
               </div>
-            </div>
-          </div >
-        }
+            </div >
+          }
 
-        {overview &&
-          <div className={styles["session"]}>
+          {profile && <div className={styles["session"]}>
             <div className={grid["grid"]}>
               <div className={grid["grid__row"]}>
                 <div className={grid["grid__column-2__sidebar"]}>
                   <SideBar />
                 </div>
                 <div className={grid["grid__column-10"]}>
-                  <div className={styles["container__my-space"]}>
-                    <div className={styles["content__myspace"]}>
-                      {children}
-                    </div>
-                  </div>
+                  {children}
                 </div>
               </div>
             </div>
           </div >
-        }
+          }
 
-        {noMySpace &&
-          <div className={styles["session"]}>
+          {update && <div className={styles["session"]}>
             <div className={grid["grid"]}>
               <div className={grid["grid__row"]}>
                 <div className={grid["grid__column-12"]}>
@@ -169,37 +195,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
               </div>
             </div>
           </div >
-        }
-
-        {profile && <div className={styles["session"]}>
-          <div className={grid["grid"]}>
-            <div className={grid["grid__row"]}>
-              <div className={grid["grid__column-2__sidebar"]}>
-                <SideBar />
-              </div>
-              <div className={grid["grid__column-10"]}>
-                {children}
-              </div>
-            </div>
-          </div>
-        </div >
-        }
-
-        {update && <div className={styles["session"]}>
-          <div className={grid["grid"]}>
-            <div className={grid["grid__row"]}>
-              <div className={grid["grid__column-12"]}>
-                {children}
-              </div>
-            </div>
-          </div>
-        </div >
-        }
+          }
 
 
-      </main >
-    </div >
-  );
+        </main >
+      </div >
+    );
+
+  }
 };
 
 export default Layout;
