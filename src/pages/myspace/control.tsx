@@ -1,7 +1,5 @@
-
 import styles from "@/styles/control.module.scss";
 import grid from "@/styles/globals.module.scss";
-
 
 function Control() {
     return (

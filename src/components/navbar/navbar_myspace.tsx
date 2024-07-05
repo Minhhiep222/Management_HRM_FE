@@ -1,5 +1,4 @@
 import styles from "@/styles/myspace.module.scss";
-import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import Link from "next/link";
 import { useEffect } from "react";

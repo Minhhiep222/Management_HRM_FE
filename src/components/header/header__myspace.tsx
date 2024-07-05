@@ -1,6 +1,5 @@
 import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
-// import styles from "@/styles/myspace.module.scss";
 import Link from "next/link";
 import { useEffect } from "react";
 function HeaderMySpace() {
