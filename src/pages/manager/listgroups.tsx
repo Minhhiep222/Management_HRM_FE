@@ -7,13 +7,11 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { CiImport } from "react-icons/ci";
-import { CiExport } from "react-icons/ci";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 
-function Project() {
+function ListGroup() {
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -29,12 +27,10 @@ function Project() {
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
                     <button className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button>
                 </div>
             </div>
             <div className={styles["introduce"]}>
-                <h3 className={styles["title__introduce"]}>Quản lý dự án</h3>
+                <h3 className={styles["title__introduce"]}>Danh sách nhóm</h3>
                 <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
                     <table className={styles["table__experience"]}>
                         <thead className={styles["head__experience"]}>
@@ -50,7 +46,7 @@ function Project() {
                                     minWidth: '400px'
                                 }} >
                                     <div>
-                                        <span>Tên dự án</span>
+                                        <span>Tên nhóm</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
@@ -80,7 +76,7 @@ function Project() {
                             </tr>
                         </thead>
                         <tbody id={styles["body__experience"]}>
-                            <tr id={styles[""]}>
+                            <tr className={styles["employee__item"]}>
                                 <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
@@ -116,4 +112,4 @@ function Project() {
     );
 }
 
-export default Project;
+export default ListGroup;

@@ -106,6 +106,9 @@
 
 .footer__information__user-update {
   bottom: 0;
+  position: sticky;
+  right: 0;
+  left: 0;
 }
 
 .top__class {
@@ -151,7 +154,6 @@
   position: relative;
   margin-top: 20px;
   @include background;
-  min-height: 20vh;
   padding: 10px;
 
   .title__introduce {
@@ -299,6 +301,7 @@
 
   .table__experience {
     width: 100%;
+    height: 100%;
     margin-top: 10px;
   }
 
@@ -348,6 +351,7 @@
 }
 
 .infor__employee.scroll-infor {
+  min-height: 50vh;
   overflow-x: auto;
 }
 
@@ -452,4 +456,83 @@
     align-items: center;
     justify-content: space-evenly;
   }
+}
+
+.infor__project {
+  padding: 10px 20px;
+  .infor__item {
+    display: flex;
+    padding: 15px;
+  }
+
+  .infor__item-2 {
+    display: flex;
+    padding: 15px;
+    width: 50%;
+  }
+
+  .title__infor {
+    min-width: 200px;
+    font-size: 1.6rem;
+    color: var(--blur-color);
+  }
+
+  .input__infor {
+    flex: 1;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 8px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  .input__infor:focus {
+    outline: 1px solid var(--input-layout);
+  }
+}
+
+.input__infor-img {
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.groups__choose {
+  width: 100%;
+  position: relative;
+
+  input {
+    width: 100%;
+  }
+
+  input:focus ~ .choose {
+    display: block;
+  }
+
+  .choose {
+    position: absolute;
+    display: none;
+    z-index: 3;
+  }
+
+  .choosen__item-infor {
+    cursor: pointer;
+  }
+  // .chosse:focus {
+  //   display: block;
+  // }
+}
+@if () {
 }

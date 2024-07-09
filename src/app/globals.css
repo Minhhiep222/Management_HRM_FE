@@ -64,6 +64,7 @@ body {
     --active-color: #1c2655;
     --primary-color: #0f0f0f;
     --black-color: #000;
+    --input-layout: rgba(8, 97, 231, 0.5);
     --height-header: 40px;
     --height-content: calc(var(--height-item) - var(--height-header));
     --height-item: 350px;

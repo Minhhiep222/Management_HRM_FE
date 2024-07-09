@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
@@ -32,12 +32,6 @@ function CreateEmployee() {
             })
         });
 
-
-        // content__infor.forEach((element) => {
-        //     const inputItem = element as HTMLInputElement
-        //     inputItem.readOnly = true;
-        // })
-        // console.log(content__infor)
     }, []);
 
     return (
@@ -643,10 +637,6 @@ function CreateEmployee() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button className={classNames(styles["btn__save"])}>Đóng</button>
-                <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
         </div >
     );

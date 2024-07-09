@@ -3,14 +3,18 @@ import classNames from "classnames";
 // import styles from "@/styles/myspace.module.scss";
 import Link from "next/link";
 import { useEffect } from "react";
-function HeaderGroupSpace() {
+function HeaderManager() {
+    var i = 0;
     useEffect(() => {
         const myspace_items = document.querySelectorAll(`.${globals["myspace__item"]}`);
         const items = document.querySelectorAll(`.link__item`);
+        console.log(items);
         items.forEach((element, index) => {
             element.addEventListener('click', () => {
+                i++;
                 myspace_items.forEach(item => item.classList.remove(`${globals["active"]}`))
                 myspace_items[index].classList.add(`${globals["active"]}`);
+                console.log("test thu gia tri render" + i);
             })
         });
 
@@ -24,13 +28,13 @@ function HeaderGroupSpace() {
                         <div className={globals["navbar__myspace"]}>
                             <ul className={globals["list__navbar-myspace"]}>
                                 <li className={classNames(globals["myspace__item"], globals["active"])}>
-                                    <Link className="link__item" href="/groupspace/feeds" > Không gian nhóm </Link>
+                                    <Link className="link__item" href="/manager/listemployees" > Danh sách nhân viên </Link>
                                 </li>
                                 <li className={globals["myspace__item"]}>
-                                    <Link className="link__item" href="/groupspace/project" > Dự án  </Link>
+                                    <Link className="link__item" href="/manager/listgroups" > Danh sách nhóm  </Link>
                                 </li>
                                 <li className={globals["myspace__item"]}>
-                                    <Link className="link__item" href="/groupspace/list_member" > Danh sách nhóm  </Link>
+                                    <Link className="link__item" href="/manager/listprojects" > Danh sách dự án </Link>
                                 </li>
                             </ul>
                         </div>
@@ -41,4 +45,4 @@ function HeaderGroupSpace() {
     );
 }
 
-export default HeaderGroupSpace;
+export default HeaderManager;
