@@ -12,14 +12,15 @@
   padding-left: 20px;
   font-weight: bold;
   color: black;
+  font-size: 13px;
 }
 
 .login-parent {
   position: fixed;
   width: 65%;
-  height: 75%;
+  height: 78%;
   left: calc(50% - 428px);
-  top: calc(50% - 244px);
+  top: calc(50% - 222px);
   background-color: white;
   .big-wrap {
     width: 100%;
@@ -31,7 +32,7 @@
         font-weight: bold;
         font-size: 30px;
         text-align: center;
-        margin-top: 70px;
+        margin-top: 30px;
       }
       .parent-username {
         .input-username {
@@ -39,6 +40,29 @@
         }
         .input-password {
           @include inputLogin;
+        }
+      }
+      .parent-radio {
+        display: flex;
+        justify-content: space-around;
+        width: calc(100% - 78px);
+        margin-top: 20px;
+        margin-left: 40px;
+        // background-color: red;
+        .parent-rdEmployee {
+          // background: #059669;
+          input {
+            width: 15px;
+            height: 15px;
+            float: right;
+            margin-top: 3px;
+            margin-left: 7px;
+          }
+          label {
+            font-weight: 800px;
+            float: left;
+            font-size: 15px;
+          }
         }
       }
       .button-submit {
@@ -77,6 +101,7 @@
         }
       }
       h3 {
+        font-size: 13px;
         margin-top: 20px;
         text-align: center;
       }
@@ -123,6 +148,7 @@
         background-color: #10b981;
         padding: 15px 25px;
         p {
+          font-size: 15px;
           margin-left: 7px;
           color: white;
         }

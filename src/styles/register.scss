@@ -3,15 +3,24 @@
     height: 100%;
 }
 @mixin inputLogin {
-    margin-top: 20px;
-    margin-left: 40px;      
-    width: calc(100% - 80px);
+    margin-top: 15px;
+    width: 80%;
     height: 40px;     
-    background-color: #efefef;
-    border: none;
+    border: 1px solid black;
     padding-left: 20px;
     font-weight: bold;
     color: black;
+    font-size: 13px;
+}
+@mixin inputDOB{
+    width: 29%;
+    margin-top: 15px;
+    height: 40px;     
+    border: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    font-size: 13px;
 }
 body {
     background-color: #cbcdce;
@@ -19,9 +28,9 @@ body {
 .login-parent  {
     position: fixed;
     width: 65%;
-    height: 80%;
+    height: 95%;
     left: calc(50% - 428px);
-    top: calc(50% - 254px);
+    top: calc(50% - 265px);
     background-color: white;
     .big-wrap {
         width: 100%;
@@ -37,6 +46,9 @@ body {
                 margin-bottom: -0px;
             }
             .parent-username {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 .input-username {
                   @include inputLogin;
                 }
@@ -44,13 +56,88 @@ body {
                     @include inputLogin;
                   }
             }
+            .parent-phone {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .input-phone {
+                    margin-top: 15px;
+                    width: 50%;
+                    height: 40px;     
+                    border: 1px solid black;
+                    padding-left: 20px;
+                    font-weight: bold;
+                    color: black;
+                    font-size: 13px;
+                }
+                .custom-select {
+                    width:25%;
+                    margin-left: 5%;
+                    margin-top: 15px;
+                    height: 30px; 
+                    .custom {
+                        border: 1px solid black;
+                        height: 100%;
+                        width: 100%;
+                        border-radius: 1px;
+                        border-radius: 0;
+                        font-size: 13px;
+                    }
+                    option {
+                        border: 1px solid black;
+                       width: 100%;
+                        font-size: 13px;
+                    }
+                }
+            }
+            .parent-DOB {
+                width: 80%;
+                display: flex;
+                margin-left: calc(50% - 167px);
+                justify-content: space-between;
+                .input-Day{
+                 
+                    @include inputDOB;  
+                }
+                .input-Month{
+                 
+                    @include inputDOB;  
+                }
+                .input-Year{
+
+                    @include inputDOB;  
+                }
+              }
+              .parent-radio {
+                display: flex;
+                margin-top: 10px;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                .parent-employee {
+                    input {
+                        margin-left: 5px;
+                        display: flex;
+                        margin-top: 3px;
+                        float: right;
+                        width: 15px;
+                        height: 15px;
+                      }
+                      label {
+                        font-size: 16px;
+                         display: block;
+                         float: left;
+                          margin-left: 10px;
+                      }
+                }
+              }
             .button-submit {
                 cursor: pointer;
                 width: calc(100% - 80px);
-                height: 50px;
+                height: 40px;
                 background-color: #367cf4;
                 margin-left: 40px;   
-                margin-top: 20px;
+                margin-top: 10px;
                 color: white;
                 border-radius: 5px;
                 font-size: 19px;
@@ -59,17 +146,15 @@ body {
             .parent-icon {
                 margin-top: 15px;
                 font-size: 30px;
-                width: calc(100% - 80px);
-                margin-left: 25px;  
-               
+                width: calc(100%);
                 display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
                 .icon-facebook {   
-
                     color: #3a5897;
-                    margin-left: 128px;
                     border: none;
                     font-size: 30px;
-              
                     cursor: pointer;
                 }
                 .icon-google {
@@ -77,10 +162,11 @@ body {
                     color: #d95139;
                     font-size: 30px;
                     border: none;
+                    margin-left: 5px;
+                    margin-right: 5px;
                     cursor: pointer;
                 }
                 .icon-linkedin {
-
                     color: #0f76aa;
                     border: none;
                     font-size: 30px;
@@ -88,6 +174,7 @@ body {
                 }
             }
             h3 {
+                font-size: 13px;
                 font-weight: 500;
                 margin-top: 20px;
                 text-align: center;
@@ -134,6 +221,8 @@ body {
                 background-color: #2564ec;
                 text-decoration: none;
                 width: 250px;
+                padding-top: 13px;
+                padding-bottom: 13px;
                 p{
                     margin-left: 27px;
                     font-size: 20px;

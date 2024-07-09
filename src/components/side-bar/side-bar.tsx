@@ -10,6 +10,7 @@ import Link from 'next/link';
 import '@/styles/globals.css';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const SideBar = () => {
 
@@ -25,12 +26,15 @@ const SideBar = () => {
     const [routerWeb2, setRouterWeb2] = useState(lastSegment);
     const [checkColorOver, setCheckColorOver] = useState(false);
     const [checkColorSystem, setCheckColorSystem] = useState(false);
+    const [checkColorMySpace, setCheckColorMySpace] = useState(false);
+    const [checkColorGroupSpace, setCheckColorGroupSpace] = useState(false);
 
     const handleCheckNoneRadio = () => {
         setCheckNoneRadio(!CheckNoneRadio);
         setRouterWeb2(lastSegment);
         setCheckColorOver(false);
         setCheckColorSystem(false);
+        setCheckColorMySpace(false)
         setRouterWeb("null")
         // if (routerWeb2 === 'profile' || routerWeb === 'family' || routerWeb === 'birthday' || routerWeb === 'listEmployee') {
         //      setRouterWeb2("null")
@@ -40,15 +44,35 @@ const SideBar = () => {
     //tao 1 state giong checkColorSystem
     //tao 1 ham giong voi  const handleSetCheckColorOver =() -> doi dong dau tien thanh state vua tao
     // trong handleCheckNoneRadio -> set cai state vua tao la false
+
+    const handleSetCheckColorMyspace = () => {
+        setCheckColorMySpace(true)
+        setCheckColorOver(false);
+        setCheckcolorEPl(false);
+        setCheckNoneRadio(false);
+        setCheckColorGroupSpace(false)
+    }
+    const handleSetCheckColorGroupSpace = () => {
+        setCheckColorGroupSpace(true)
+        setCheckColorMySpace(false)
+        setCheckColorOver(false);
+        setCheckcolorEPl(false);
+        setCheckNoneRadio(false);
+    }
+
     const handleSetCheckColorOver = () => {
         setCheckColorOver(true);
         setCheckcolorEPl(false);
         setCheckNoneRadio(false);
+        setCheckColorMySpace(false)
+        setCheckColorGroupSpace(false)
     }
     const handleSetCheckColorSystem = () => {
         setCheckColorSystem(true);
         setCheckcolorEPl(false);
         setCheckNoneRadio(false);
+        setCheckColorMySpace(false)
+        setCheckColorGroupSpace(false)
     }
     //
     const handlecheckcolorEPl = () => {
@@ -57,8 +81,13 @@ const SideBar = () => {
     const handleCheckNoneRadio2 = () => {
         setRouterWeb2(lastSegment);
     };
+   
+    useEffect(() => {
+       
+    
+    },[])
 
-
+    
 
     useEffect(() => {
         if (routerWeb === 'profile' || routerWeb === 'family' || routerWeb === 'birthday' || routerWeb === 'listEmployee') {
@@ -129,10 +158,25 @@ const SideBar = () => {
                 <p>Hệ Thống</p>
             </Link>
 
-            <Link href={"/"} className={styles['overView']}>
+            <Link onClick={() => { handleSetCheckColorMyspace() 
+            }} href={"/myspace/actionlist"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'actionlist' ? styles['backGroundChange'] : ''}`}>
+                <i className={styles['iconOverView']}><IoSettingsOutline /></i>
+                <p>My Space</p>
+            </Link>
+
+            <Link onClick={() => { handleSetCheckColorGroupSpace() 
+            }} href={"/groupspace/list_member"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'list_member' ? styles['backGroundChange'] : ''}`}>
+                <i className={styles['iconOverView']}><IoSettingsOutline /></i>
+                <p>Group Space</p>
+            </Link>
+
+            
+
+
+            <button className={styles['overView']}>
                 <i className={styles['iconOverView']}><CiLogout /></i>
                 <p>Đăng Xuất</p>
-            </Link>
+            </button>
         </div>
     );
 }
