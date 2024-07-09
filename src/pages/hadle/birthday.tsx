@@ -1,9 +1,7 @@
-import NavBar from './navbar';
-import Sidebar from './sidebar';
-import styles from '../styles/birthday.module.scss';
+import styles from '@/styles/birthday.module.scss';
 import { FaChevronDown } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { FaSearch } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
 
@@ -11,8 +9,6 @@ import { FaDownload } from "react-icons/fa";
 const Birthday = () => {
   return (
     <>
-      <NavBar />
-      <Sidebar />
       <div className={styles['birthday-parent']}>
         <div className={styles['birthday-function']}>
           <div className={styles['birthday-select']}>

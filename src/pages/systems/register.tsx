@@ -7,8 +7,8 @@ import { ChangeEvent, MouseEvent, use, useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
-     
-     const [changeValue,setChangeValue] = useState(
+
+     const [changeValue, setChangeValue] = useState(
           {
                fullName: '',
                day: '',
@@ -25,28 +25,28 @@ const Register = () => {
                department_id: '',
           }
      );
-     const [errors,setErrors] = useState();
-     const [departments,setDepartments] = useState([]);
+     const [errors, setErrors] = useState();
+     const [departments, setDepartments] = useState([]);
 
      const handleSetChangeValue = (e) => {
           setChangeValue({
                ...changeValue,
-               [e.target.name] : e.target.value,
+               [e.target.name]: e.target.value,
           })
      }
      const handleSubmit = async (e) => {
           e.preventDefault();
-      
-     //     const DOB = `${changeValue.year}/${changeValue.month}/${changeValue.day}`;
-     //     const address = `${changeValue.district}/${changeValue.city}/${changeValue.country}`;
-         
-     
-     const newObj = {
+
+          //     const DOB = `${changeValue.year}/${changeValue.month}/${changeValue.day}`;
+          //     const address = `${changeValue.district}/${changeValue.city}/${changeValue.country}`;
+
+
+          const newObj = {
                fullName: changeValue.fullName,
                day: changeValue.day,
                month: changeValue.month,
                year: changeValue.year,
-               phone: parseInt(changeValue.phone), 
+               phone: parseInt(changeValue.phone),
                district: changeValue.district,
                city: changeValue.city,
                country: changeValue.country,
@@ -54,99 +54,99 @@ const Register = () => {
                username: changeValue.username,
                password: changeValue.password,
                role: changeValue.role,
-               department_id:  changeValue.department_id,       
+               department_id: changeValue.department_id,
           }
-         try {
-          const response = await axios.post('http://127.0.0.1:8000/api/register',newObj);
-          console.log("value submit",newObj);
-          alert(response.data.message);
-         } catch(error) {
-          setErrors(error.response.data.errors);
-          console.log(error.response.data.errors);
-         } 
+          try {
+               const response = await axios.post('http://127.0.0.1:8000/api/register', newObj);
+               console.log("value submit", newObj);
+               alert(response.data.message);
+          } catch (error) {
+               setErrors(error.response.data.errors);
+               console.log(error.response.data.errors);
+          }
      }
      // console.log("value submit",changeValue);
 
      useEffect(() => {
 
-          if(errors) {
-               if(errors.fullName == "The full name field is required.") {
+          if (errors) {
+               if (errors.fullName == "The full name field is required.") {
                     setErrors("");
                     return alert('Họ và tên không được phép rỗng');
                }
-               else if(errors.day == "The day field is required.") {
+               else if (errors.day == "The day field is required.") {
                     setErrors("");
-                      return alert('Năm sinh không được phép rỗng');
+                    return alert('Năm sinh không được phép rỗng');
                }
-               else if(errors.day == "The day field must not be greater than 31.") {
+               else if (errors.day == "The day field must not be greater than 31.") {
                     setErrors("");
                     return alert('Ngày sinh không được phép lớn hơn 31');
                }
-               else if(errors.day == "The day field must be at least 1.") {
+               else if (errors.day == "The day field must be at least 1.") {
                     setErrors("");
                     return alert('Ngày sinh không được nhỏ hơn 1');
                }
-     
-               else if(errors.day == "The day field must be a number.") {
+
+               else if (errors.day == "The day field must be a number.") {
                     setErrors("");
                     return alert('Ngày sinh phải là số');
                }
 
-               else if(errors.month == "The month field is required.") {
+               else if (errors.month == "The month field is required.") {
                     setErrors("");
                     return alert('Tháng sinh không được phép rỗng');
-              }
+               }
 
-               else if(errors.month == "The month field must be a number.") {
+               else if (errors.month == "The month field must be a number.") {
                     setErrors("");
                     return alert('Tháng sinh phải là số');
                }
-               else if(errors.month == "The month field must not be greater than 12.") {
+               else if (errors.month == "The month field must not be greater than 12.") {
                     setErrors("");
-                    return  alert('Tháng sinh không được lớn hơn 12');
+                    return alert('Tháng sinh không được lớn hơn 12');
                }
-               
-               else if(errors.month == "The month field must be at least 1") {
+
+               else if (errors.month == "The month field must be at least 1") {
                     setErrors("tháng sinh không được nhỏ hơn 1");
-                    return  alert('tháng sinh không được nhỏ hơn 1');
+                    return alert('tháng sinh không được nhỏ hơn 1');
                }
-               else if(errors.year == "The year field is required.") {
+               else if (errors.year == "The year field is required.") {
                     setErrors("");
                     return alert('Năm sinh không được phép rỗng');
                }
-               else if(errors.year == "The year field must be a number.") {
+               else if (errors.year == "The year field must be a number.") {
                     setErrors("");
                     return alert('Năm sinh phải là số');
                }
-               else if(errors.year == "The year field must be 4 digits.") {
+               else if (errors.year == "The year field must be 4 digits.") {
                     setErrors("");
                     return alert('Năm sinh phải đủ 4 ký tự');
                }
-               else if(errors.password == "The password field is required.") {
+               else if (errors.password == "The password field is required.") {
                     setErrors("");
                     return alert('Mật khẩu không được phép rỗng');
                }
-               else if(errors.district == "The district field is required.") {
+               else if (errors.district == "The district field is required.") {
                     setErrors("");
                     return alert('Quận không được phép rỗng');
                }
-               else if(errors.city == "The city field is required") {
+               else if (errors.city == "The city field is required") {
                     setErrors("");
                     return alert('Thành phố không được phép rỗng');
                }
-               else if(errors.country == "The country field is required.") {
+               else if (errors.country == "The country field is required.") {
                     setErrors("");
                     return alert('Quốc gia không được phép rỗng');
                }
-               else if(errors.username == "The username field is required.") {
+               else if (errors.username == "The username field is required.") {
                     setErrors("");
                     return alert('Tên tài khoản không được phép rỗng');
                }
-               else if(errors.role == "The role field is required.") {
+               else if (errors.role == "The role field is required.") {
                     setErrors("");
                     return alert('Mật khẩu không được phép rỗng');
                }
-               else if(errors.department_id == "The department id field is required.") {
+               else if (errors.department_id == "The department id field is required.") {
                     setErrors("");
                     return alert('Chưa chọn phòng ban');
                }
@@ -156,20 +156,20 @@ const Register = () => {
                     alert(errors)
                }
           }
-     },[errors]);
-    
+     }, [errors]);
+
      useEffect(() => {
           fetchData();
-      }, [])
-    
-      const fetchData = async () => {
+     }, [])
+
+     const fetchData = async () => {
           try {
-              const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
-              setDepartments(result.data.results);
+               const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
+               setDepartments(result.data.results);
           } catch (err) {
-              console.log("");
+               console.log("");
           }
-      }
+     }
 
      return (
           <div className='login-parent'>
@@ -190,60 +190,60 @@ const Register = () => {
                               </div>
 
                               <div className='parent-DOB'>
-                              <input  onChange={handleSetChangeValue} className='input-Day' placeholder='Enter Day' type="text" name="day" />
-                              <input  onChange={handleSetChangeValue} className='input-Month' placeholder='Enter Month' type="text" name="month" />
-                              <input  onChange={handleSetChangeValue} className='input-Year' placeholder='Enter Year' type="text" name="year" />
+                                   <input onChange={handleSetChangeValue} className='input-Day' placeholder='Enter Day' type="text" name="day" />
+                                   <input onChange={handleSetChangeValue} className='input-Month' placeholder='Enter Month' type="text" name="month" />
+                                   <input onChange={handleSetChangeValue} className='input-Year' placeholder='Enter Year' type="text" name="year" />
                               </div>
 
                               <div className='parent-phone'>
-                                   <input  onChange={handleSetChangeValue} className='input-phone' placeholder='Enter Phone' type="text" name="phone" />
+                                   <input onChange={handleSetChangeValue} className='input-phone' placeholder='Enter Phone' type="text" name="phone" />
                                    <div className={'custom-select'}>
-                                   <select className="custom" name="department_id" onChange={handleSetChangeValue}>
-                                   <option disabled selected hidden>Phòng ban</option>
-                                     {
-                                   departments.map((department,index) => (
-                                        <option className="department_id"  value={department.id}>{department.departments_name}</option>
-                                   ))
-                                   }
+                                        <select className="custom" name="department_id" onChange={handleSetChangeValue}>
+                                             <option disabled selected hidden>Phòng ban</option>
+                                             {
+                                                  departments.map((department, index) => (
+                                                       <option className="department_id" value={department.id}>{department.departments_name}</option>
+                                                  ))
+                                             }
 
-                                   </select>
-                              </div>
+                                        </select>
+                                   </div>
                               </div>
                               <div className='parent-username'>
                                    <input onChange={handleSetChangeValue} className='input-username' placeholder='Enter Email' type="text" name="email" />
                               </div>
                               <div className='parent-DOB'>
-                              <input  onChange={handleSetChangeValue} className='input-Day' placeholder='Enter District' type="text" name="district" />
-                              <input  onChange={handleSetChangeValue} className='input-Month' placeholder='Enter City' type="text" name="city" />
-                              <input  onChange={handleSetChangeValue} className='input-Year' placeholder='Enter Country' type="text" name="country" />
+                                   <input onChange={handleSetChangeValue} className='input-Day' placeholder='Enter District' type="text" name="district" />
+                                   <input onChange={handleSetChangeValue} className='input-Month' placeholder='Enter City' type="text" name="city" />
+                                   <input onChange={handleSetChangeValue} className='input-Year' placeholder='Enter Country' type="text" name="country" />
                               </div>
                               <div className='parent-username'>
-                                   <input  onChange={handleSetChangeValue} className='input-username' placeholder='Enter Username' type="text" name="username" />
+                                   <input onChange={handleSetChangeValue} className='input-username' placeholder='Enter Username' type="text" name="username" />
                               </div>
                               <div className='parent-username'>
-                                   <input  onChange={handleSetChangeValue} className='input-username' placeholder='Enter Password' type="password" name="password" />
+                                   <input onChange={handleSetChangeValue} className='input-username' placeholder='Enter Password' type="password" name="password" />
                               </div>
 
-                              <div className='parent-radio'> 
-                              <div className='parent-employee'>
-                              <label htmlFor="employee">Nhân viên</label>
-                              <input  onChange={handleSetChangeValue} className='input-employee' id='employee' placeholder='Enter Password' value='nv' type="radio" name="role" />
-                              </div>
+                              <div className='parent-radio'>
+                                   <div className='parent-employee'>
+                                        <label htmlFor="employee">Nhân viên</label>
+                                        <input onChange={handleSetChangeValue} className='input-employee' id='employee' placeholder='Enter Password' value='nv' type="radio" name="role" />
+                                   </div>
 
-                              <div className='parent-employee'>
-                              <label htmlFor="manager">Quản Lý</label>
-                              <input  onChange={handleSetChangeValue} className='input-employee' id='manager' placeholder='Enter Password' value='ql' type="radio" name="role" />
-                              </div>
+                                   <div className='parent-employee'>
+                                        <label htmlFor="manager">Quản Lý</label>
+                                        <input onChange={handleSetChangeValue} className='input-employee' id='manager' placeholder='Enter Password' value='ql' type="radio" name="role" />
+                                   </div>
 
-                              {/* {
+                                   {/* {
                                    departments.map(department => {
                                         
                                    })
                               }
            */}
                               </div>
-                              
-          
+
+
                               <button onClick={handleSubmit} className='button-submit'>
                                    Signup
                               </button>

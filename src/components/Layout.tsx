@@ -33,7 +33,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const update = router.pathname === "/user/update";
   const register = router.pathname === "/systems/register";
   const HaveRegister = router.pathname === "/systems/register";
+
   const overview = router.pathname === "/overview";
+  const event = router.pathname === "/hadle/birthday";
+
   const haveGroupSpace =
     router.pathname === "/groupspace/feeds" ||
     router.pathname === "/groupspace/list_member" ||
@@ -62,6 +65,29 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   else if (handle) {
     return <div className="">{handle && children}</div>;
+  }
+  else if (event) {
+    return <div className="">
+      <Header />
+      {event && (
+        <div className={styles["session"]}>
+          <div className={grid["grid"]}>
+            <div className={grid["grid__row"]}>
+              <div className={grid["grid__column-2__sidebar"]}>
+                <SideBar />
+              </div>
+              <div className={grid["grid__column-10"]}>
+                <div className={styles["container__my-space"]}>
+                  <div className={styles["content__myspace"]}>
+                    {children}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>;
   }
   else if (manager) {
     return (
