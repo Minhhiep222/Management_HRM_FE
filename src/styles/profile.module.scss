@@ -155,6 +155,7 @@
   margin-top: 20px;
   @include background;
   padding: 10px;
+  min-height: 30vh;
 
   .title__introduce {
     @include text();
@@ -535,4 +536,9 @@
   // }
 }
 @if () {
+}
+
+.change__content-infor.choose__list {
+  display: block !important;
+  flex: 1;
 }

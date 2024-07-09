@@ -22,7 +22,7 @@ function SideBarGroupSpace() {
 
             <div className={styles["list__member"]}>
                 <div className="" style={{ width: `100%` }}>
-                    <h3 style={{ textAlign: `start` }}>Thành viên nhóm</h3>
+                    <h3 style={{ textAlign: `start`, padding: '10px' }}>Thành viên nhóm</h3>
                 </div>
                 <div className={styles["member__item"]}>
                     <div className={styles["img__member"]} style={{

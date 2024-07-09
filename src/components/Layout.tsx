@@ -51,7 +51,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     || router.pathname === "/projects/detail"
     || router.pathname === "/teams/create"
     || router.pathname === "/teams/detail"
-    || router.pathname === "/teams/update";
+    || router.pathname === "/teams/update"
+    || router.pathname === "/user/update"
+    || router.pathname === "/user/create";
 
 
   if (register) {
@@ -225,16 +227,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     <SideBar />
                   </div>
                   <div className={grid["grid__column-10"]}>{children}</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {update && (
-            <div className={styles["session"]}>
-              <div className={grid["grid"]}>
-                <div className={grid["grid__row"]}>
-                  <div className={grid["grid__column-12"]}>{children}</div>
                 </div>
               </div>
             </div>

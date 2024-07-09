@@ -44,26 +44,10 @@ function UpdateProfile() {
         <div className={styles["session"]}>
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
                 <div className={styles["z_raty"]}>
-                    <div
-                        className={classNames(styles["box__img-user"], styles["box__img__user-update"])}
-                        style={{
-                            backgroundImage: `url("/images/space.jpg")`,
-                        }}
-                    >
-                    </div>
                     <div className={styles["infor__user"]}>
-                        <div className={styles["name__user"]}>Nguyễn Thành Công</div>
-                        <div className={styles["role__user"]}>CEO</div>
+                        <div style={{ fontSize: '1.8rem' }} className={styles["role__user"]}>Chỉnh sửa nhân viên</div>
                     </div>
                 </div>
-
-                <ul className={styles["ul__navbar"]}>
-                    <li className={classNames(styles["li__navbar"], styles["active__li"])}>Hồ sơ của tui</li>
-                    <li className={classNames(styles["li__navbar"], styles[""])}>Thuộc cấp</li>
-                    <li className={classNames(styles["li__navbar"], styles[""])}>Phòng</li>
-                    <li className={classNames(styles["li__navbar"], styles[""])}>Ý kiến phản hồi</li>
-                    <li className={classNames(styles["li__navbar"], styles[""])}>Dữ liệu liên quan</li>
-                </ul>
             </div>
             <div className={styles["container_profile"]}>
                 <div className={grid["grid"]}>
