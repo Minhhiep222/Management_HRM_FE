@@ -1,15 +1,8 @@
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
-import SideBar from "@/components/side-bar/side-bar";
-import SideBarGroupSpace from "@/components/side-bar/side-bar__group";
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import { AiOutlineLike } from "react-icons/ai";
 import { TfiCommentAlt } from "react-icons/tfi";
-import NavBarGroupSpace from "@/components/navbar/navbar_groupspace";
 import classNames from "classnames";
-
-
 
 function GroupSpace() {
     return (

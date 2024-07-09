@@ -9,10 +9,12 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useState } from 'react';
 import Link from 'next/link';
+import SideBar from '@/components/side-bar/side-bar';
+
 const overView = () => {
-    const [percent, setPercent] = useState(40);
+    const [percent, setPercent] = useState(40);   
     return (
-        <>
+        <> 
             <div>
                 <div className={grid["grid"]}>
                     <div className={grid["grid__row"]}>
@@ -176,13 +178,6 @@ const overView = () => {
                         </div >
                     </div >
                 </div >
-
-
-
-
-
-
-
             </div >
 
         </>

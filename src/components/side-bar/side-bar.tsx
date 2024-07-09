@@ -10,6 +10,7 @@ import Link from 'next/link';
 import '@/styles/globals.css';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const SideBar = () => {
 
@@ -80,8 +81,13 @@ const SideBar = () => {
     const handleCheckNoneRadio2 = () => {
         setRouterWeb2(lastSegment);
     };
+   
+    useEffect(() => {
+       
+    
+    },[])
 
-
+    
 
     useEffect(() => {
         if (routerWeb === 'profile' || routerWeb === 'family' || routerWeb === 'birthday' || routerWeb === 'listEmployee') {
@@ -167,10 +173,10 @@ const SideBar = () => {
             
 
 
-            <Link href={"/"} className={styles['overView']}>
+            <button className={styles['overView']}>
                 <i className={styles['iconOverView']}><CiLogout /></i>
                 <p>Đăng Xuất</p>
-            </Link>
+            </button>
         </div>
     );
 }

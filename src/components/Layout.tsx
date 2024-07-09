@@ -1,16 +1,16 @@
 import { FC, ReactNode } from 'react';
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
-import Header from './header/header';
-import HeaderMySpace from './header/header__myspace';
-import NavBarMySpace from './navbar/navbar_myspace';
-import SideBar from './side-bar/side-bar';
-import SideBarMySpace from './side-bar/side-bar__my-space';
-import Footer from './footer/footer';
+import Header from '@/components/header/header';
+import HeaderMySpace from '@/components/header/header__myspace';
+import NavBarMySpace from '@/components/navbar/navbar_myspace';
+import SideBar from '@/components/side-bar/side-bar';
+import SideBarMySpace from '@/components/side-bar/side-bar__my-space';
+import Footer from '@/components/footer/footer';
 import { useRouter } from 'next/router';
-import SideBarGroupSpace from './side-bar/side-bar__group';
-import NavBarGroupSpace from './navbar/navbar_groupspace';
-import HeaderGroupSpace from './header/header__groupspace';
+import SideBarGroupSpace from '@/components/side-bar/side-bar__group';
+import NavBarGroupSpace from '@/components/navbar/navbar_groupspace';
+import HeaderGroupSpace from '@/components/header/header__groupspace';
 
 interface LayoutProps {
   children: ReactNode;
@@ -31,6 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const profile = router.pathname === '/user/profile';
   const update = router.pathname === '/user/update';
   const register = router.pathname === '/systems/register';
+  const HaveRegister = router.pathname === '/systems/register';
   const overview = router.pathname === '/overview';
   const haveGroupSpace = router.pathname === '/groupspace/feeds'
     || router.pathname === '/groupspace/list_member'
@@ -44,7 +45,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
 
-      <Header />
+      {haveGroupSpace && <Header />}
+      {haveMySpace && <Header />}
+      {overview && <Header />}
+      {update && <Header />}
+      {profile && <Header />}
+      {noMySpace && <Header />}
       <main>
         {register && children}
         {haveGroupSpace &&
@@ -105,7 +111,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             <div className={grid["grid"]}>
               <div className={grid["grid__row"]}>
                 <div className={grid["grid__column-2__sidebar"]}>
-                  <SideBar />
+                <SideBar />
                 </div>
                 <div className={grid["grid__column-10"]}>
                   <div className={grid["grid__column-12"]}>
@@ -197,3 +203,5 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 };
 
 export default Layout;
+
+

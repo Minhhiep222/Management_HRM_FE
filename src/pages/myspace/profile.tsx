@@ -1,23 +1,15 @@
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
-import SideBar from "@/components/side-bar/side-bar";
-import SideBarMySpace from "@/components/side-bar/side-bar__my-space";
-import styles from "@/styles/myspace.module.scss";
 import profiles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
-import NavBarMySpace from "@/components/navbar/navbar_myspace";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faSearch,
     faHospital,
-    faCirclePlus,
-    faArrowUp,
     faArrowDown,
     faChair,
     faComputer,
     faClock,
-    faEnvelope
+    faEnvelope,
+    faArrowUp
 } from "@fortawesome/free-solid-svg-icons";
 
 
