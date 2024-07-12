@@ -106,7 +106,7 @@ function CreateBrand() {
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Tên Chi Nhánh</div>
-                                            <input className={styles["input__infor"]} required placeholder="Nhập tên nhóm" />
+                                            <input className={styles["input__infor"]} required placeholder="Nhập tên chi nhánh" />
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Địa Chỉ</div>

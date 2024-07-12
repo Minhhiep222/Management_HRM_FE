@@ -52,8 +52,9 @@ function CreateTeam() {
     };
 
     const handleClose = () => {
-
-    };
+        let address = ""
+        window.location.href = localStorage.getItem('address') || address;
+    }
 
     const handleSelect = (): void => {
         const content__infor = document.querySelectorAll(`.${styles.input__infor}`);
@@ -288,7 +289,14 @@ function CreateTeam() {
                                         </td>
                                         <td className={classNames(myspace["td__experience"], myspace["sticky-col-1"])}>Assistant Manager</td>
                                         <td className={classNames(myspace["td__experience"], myspace["sticky-col-2"])}>30-Apr-1998</td>
-                                        <td className={myspace["td__experience"]}>01-Jan-2004</td>
+                                        <td className={styles["td__experience"]} >
+                                            <div className={myspace["img__teams"]}>
+                                                <div className={myspace["td__img"]} style={{
+                                                    backgroundImage: 'url("/images/space.jpg")'
+                                                }}>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

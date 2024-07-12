@@ -19,6 +19,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function UpdateProJect() {
+
+    const handleClose = () => {
+        let address = ""
+        window.location.href = localStorage.getItem('address') || address;
+    }
+
     return (
         <div>
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
@@ -71,7 +77,7 @@ function UpdateProJect() {
 
 
             <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button className={classNames(styles["btn__save"])}>Đóng</button>
+                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
                 <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
         </div>

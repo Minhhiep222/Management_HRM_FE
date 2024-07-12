@@ -135,7 +135,14 @@ function ListGroup() {
                                     </div>
                                 </td>
                                 <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Management</td>
-                                <td className={styles["td__experience"]}></td>
+                                <td className={styles["td__experience"]} >
+                                    <div className={styles["img__teams"]}>
+                                        <div className={styles["td__img"]} style={{
+                                            backgroundImage: 'url("/images/space.jpg")'
+                                        }}>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td className={styles["td__experience"]}>Nguyễn Minh Hiệp</td>
                                 <td className={styles["td__experience"]}>Nguyễn Minh Minh, Trần Minh Tuấn</td>
                                 <td className={styles["td__experience"]}>Nhân sự</td>

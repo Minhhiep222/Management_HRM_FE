@@ -14,8 +14,9 @@ import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoMdSearch } from "react-icons/io";
 import { useState } from "react";
+import Image from "next/image";
 
-function ListProject() {
+function ListRoom() {
     const [address, setAddress] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -79,6 +80,11 @@ function ListProject() {
                                 </th>
                                 <th className={styles["th__experience"]}>
                                     <div>
+                                        <span>Ảnh</span>
+                                    </div>
+                                </th>
+                                <th className={styles["th__experience"]}>
+                                    <div>
                                         <span>Chi nhánh</span>
                                     </div>
                                 </th>
@@ -122,7 +128,14 @@ function ListProject() {
                                 </td>
                                 <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Quản lý nhà hàng</td>
                                 <td className={styles["td__experience"]}>Cở sở tổ chức quán lý nhà hàng hiệu quả</td>
-                                <td className={styles["td__experience"]}>30-Apr-1998</td>
+                                <td className={styles["td__experience"]} >
+                                    <div className={styles["img__teams"]}>
+                                        <div className={styles["td__img"]} style={{
+                                            backgroundImage: 'url("/images/space.jpg")'
+                                        }}>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td className={styles["td__experience"]}>01-Jan-2004</td>
                                 <td className={styles["td__experience"]}>Đang bắt đầu</td>
                             </tr>
@@ -135,4 +148,4 @@ function ListProject() {
     );
 }
 
-export default ListProject;
+export default ListRoom;

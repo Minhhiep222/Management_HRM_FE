@@ -12,8 +12,25 @@ import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
+import { useState } from "react";
 
 function ListProject() {
+    const [address, setAddress] = useState<string>('');
+
+    const saveAddress = (address: string) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
+    }
+
+    const handleUpdate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/projects/update";
+    };
+
+    const handleCreateProject = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/projects/create";
+    };
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -28,7 +45,7 @@ function ListProject() {
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
-                    <button className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
+                    <button onClick={handleCreateProject} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
                 </div>
             </div>
             <div className={styles["introduce"]}>

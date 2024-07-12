@@ -4,9 +4,27 @@ import myspace from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import { IoMdSearch } from "react-icons/io";
+import { useState } from "react";
 
 
 function ListProject() {
+    const [address, setAddress] = useState<string>('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const saveAddress = (address: string) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
+    }
+
+    const handleUpdate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/contracts/update";
+    };
+    const handleCreateContract = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/contracts/create";
+    };
     return (
         <div >
             <div className={myspace["control__project"]}>
@@ -16,7 +34,7 @@ function ListProject() {
                 </div>
 
                 <div className={myspace["control"]}>
-                    <button className={classNames(grid["btn"], myspace["btn__create-project"])}>Thêm</button>
+                    <button onClick={handleCreateContract} className={classNames(grid["btn"], myspace["btn__create-project"])}>Thêm</button>
                 </div>
             </div>
             <div className={styles["content__control"]}>

@@ -6,8 +6,10 @@ import classNames from "classnames";
 
 function CreateProJect() {
     const handleClose = () => {
-        window.location.href = "/groupspace/project";
+        let address = ""
+        window.location.href = localStorage.getItem('address') || address;
     }
+
     return (
         <div>
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>

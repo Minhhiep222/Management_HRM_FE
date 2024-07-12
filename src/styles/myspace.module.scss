@@ -669,3 +669,20 @@ td.sticky-col-4 {
   display: block;
   z-index: 99;
 }
+
+.img__teams {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.td__img {
+  background-repeat: no-repeat;
+  background-origin: center;
+  background-position: center;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgb(0, 0, 0, 0.1);
+}
