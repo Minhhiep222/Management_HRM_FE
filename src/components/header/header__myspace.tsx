@@ -1,24 +1,15 @@
 import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 function HeaderMySpace() {
-    var i = 0;
-    useEffect(() => {
-        const myspace_items = document.querySelectorAll(`.${globals["myspace__item"]}`);
-        const items = document.querySelectorAll(`.link__item`);
-        console.log(items);
-        items.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                i++;
-                myspace_items.forEach(item => item.classList.remove(`${globals["active"]}`))
-                myspace_items[index].classList.add(`${globals["active"]}`);
-                console.log("test thu gia tri render" + i);
-            })
-        });
+    const router = useRouter();
 
-    }, []);
-
+    const handlePath = (pathname: string): boolean => {
+        const url = ["/myspace/actionlist", "/myspace/feeds", "/myspace/profile", "/myspace/diligence"];
+        return url.includes(pathname);
+    }
     return (
         <div className={globals["grid"]}>
             <div className={globals["grid__row"]}>
@@ -26,13 +17,13 @@ function HeaderMySpace() {
                     <div className={globals["header__myspace"]}>
                         <div className={globals["navbar__myspace"]}>
                             <ul className={globals["list__navbar-myspace"]}>
-                                <li className={classNames(globals["myspace__item"], globals["active"])}>
+                                <li className={classNames(globals["myspace__item"], handlePath(router.pathname) ? globals["active"] : "")}>
                                     <Link className="link__item" href="/myspace/actionlist" > Khái quát </Link>
                                 </li>
-                                <li className={globals["myspace__item"]}>
+                                <li className={classNames(globals["myspace__item"], router.pathname == "/myspace/control" ? globals["active"] : "")}>
                                     <Link className="link__item" href="/myspace/control" > Bảng điều khiển </Link>
                                 </li>
-                                <li className={globals["myspace__item"]}>
+                                <li className={classNames(globals["myspace__item"], router.pathname == "/myspace/control" ? globals["active"] : "")}>
                                     <Link className="link__item" href="/myspace/control" > Lịch </Link>
                                 </li>
                             </ul>

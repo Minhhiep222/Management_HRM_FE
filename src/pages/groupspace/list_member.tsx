@@ -1,7 +1,7 @@
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
-import UserCreate from "@/pages/user/create";
+import ProfileUser from "@/pages/user/profile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoMdSearch } from "react-icons/io";
 import {
@@ -13,9 +13,14 @@ import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { useState } from "react";
 import Modal from "@/components/Modal";
+import ModalItem from "@/components/modal/Modal_Item";
+import Link from "next/link";
+import { IoEyeOutline } from "react-icons/io5";
 
 function ListView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenItem, setIsModalOpenItem] = useState(false);
+    const [address, setAddress] = useState<string>('');
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -25,7 +30,29 @@ function ListView() {
         setIsModalOpen(false);
 
     };
+    const handleOpenModalItem = () => {
+        setIsModalOpenItem(true);
+    };
 
+    const handleCloseModalItem = () => {
+        setIsModalOpenItem(false);
+
+    };
+
+    // const handleAddMember = () => {
+    //     setIsModalOpen(true);
+    // };
+
+    const saveAddress = (address: string) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
+
+    }
+
+    const handleUpdate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/user/update";
+    };
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -41,10 +68,7 @@ function ListView() {
 
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa </button>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}>Sửa</button>
-                    <button className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
-                    {/* <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button> */}
+                    <button onClick={handleOpenModalItem} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
                 </div>
             </div>
             <div className={styles["introduce"]}>
@@ -302,11 +326,15 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -350,11 +378,16 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
+
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -398,11 +431,15 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -446,11 +483,15 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -494,11 +535,15 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -542,11 +587,15 @@ function ListView() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -591,15 +640,230 @@ function ListView() {
                 </div>
             </div>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <UserCreate />
+                <ProfileUser />
                 <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
                     <button style={{
                         marginRight: '5px'
                     }} onClick={handleCloseModal} className={classNames(styles["btn__save"])}>Đóng</button>
-                    <button className={classNames(styles["btn__save"])}>Lưu</button>
                 </div>
             </Modal>
+
+            <ModalItem isOpen={isModalOpenItem} onClose={handleCloseModalItem}>
+                <div>
+                    <div className={styles["introduce"]}>
+                        <h3 className={styles["title__introduce"]}>Thêm thành viên nhóm</h3>
+                        <div className={styles["search__member"]}>
+                            <input type="text" placeholder="Tìm kiếm" />
+                            <IoMdSearch />
+                        </div>
+                        <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
+                            <table className={styles["table__experience"]}>
+                                <thead className={styles["head__experience"]}>
+                                    <tr className={styles["tr__experience"]}>
+                                        <th className={classNames(styles["th__experience-checkbox"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </th>
+                                        <th className={classNames(styles["th__experience"], styles["sticky-col-1"])}>
+                                            <div>
+                                                <span>Tên</span>
+                                                <span>
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                </span>
+                                            </div>
+                                        </th>
+                                        <th className={styles["th__experience"]}>
+                                            <div>
+                                                <span>Địa Chỉ Email</span>
+                                                <span>
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                </span>
+                                            </div>
+                                        </th>
+                                        <th className={styles["th__experience"]}>
+                                            <div>
+                                                <span> Ảnh </span>
+                                                <span>
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                </span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id={styles["body__experience"]}>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                    <tr className={styles["employee__item"]}>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                            <div>
+                                                <input type="checkbox" name="" id="" />
+                                            </div>
+                                        </td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>Assistant Manager</td>
+                                        <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>30-Apr-1998</td>
+                                        <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ModalItem>
         </div>
+
+
     );
 }
 

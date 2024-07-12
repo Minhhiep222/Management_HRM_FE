@@ -88,6 +88,17 @@
     }
   }
 
+  .action__btn {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    opacity: 0.7;
+  }
+
+  .action__btn:hover {
+    opacity: 1;
+  }
+
   .member__item:first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -187,21 +198,21 @@
 }
 
 .btn__check-in {
-  border: 1px solid rgb(14, 188, 107);
-  background-color: rgb(14, 188, 107, 0.05);
-  color: rgb(14, 188, 107);
+  border: 1px solid rgb(14, 188, 107) !important;
+  background-color: rgb(14, 188, 107, 0.05) !important;
+  color: rgb(14, 188, 107) !important;
   display: none;
 }
 
 .btn__check-in:hover {
-  background-color: rgb(14, 188, 107, 0.1);
+  background-color: rgb(14, 188, 107, 0.1) !important;
 }
 
 .btn__check-out {
-  border: 1px solid rgba(233, 14, 14, 0.5);
-  background-color: rgba(233, 14, 14, 0.05);
-  color: rgba(233, 14, 14, 0.5);
-  display: none;
+  border: 1px solid rgba(233, 14, 14, 0.5) !important;
+  background-color: rgba(233, 14, 14, 0.05) !important;
+  color: rgba(233, 14, 14, 0.5) !important;
+  display: none !important;
 }
 
 .btn__check-out:hover {
@@ -619,7 +630,7 @@ td.sticky-col-1 {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
   left: 35px;
-  z-index: 2;
+  z-index: 1;
 }
 
 th.sticky-col-2,

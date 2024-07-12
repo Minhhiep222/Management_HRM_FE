@@ -1,10 +1,11 @@
 import styles from "@/styles/myspace.module.scss";
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 function NavBarGroupSpace() {
-
+    const router = useRouter();
     useEffect(() => {
         const myspace_items = document.querySelectorAll(`.${styles["myspace__item"]}`);
         const items = document.querySelectorAll(`.link__item`);
@@ -22,16 +23,16 @@ function NavBarGroupSpace() {
     return (
         <div className={styles["navbar__myspace"]}>
             <ul className={styles["list__navbar-myspace"]}>
-                <li className={classNames(styles["myspace__item"], styles["active__myspace"])}>
+                <li className={classNames(styles["myspace__item"], router.pathname === "/groupspace/feeds" ? styles["active__myspace"] : "")}>
                     <Link href="/groupspace/feeds" > Tường của nhóm </Link>
                 </li>
-                <li className={styles["myspace__item"]}>
+                <li className={classNames(styles["myspace__item"], router.pathname === "/" ? styles["active__myspace"] : "")}>
                     Phê duyệt
                 </li>
-                <li className={styles["myspace__item"]}>
+                <li className={classNames(styles["myspace__item"], router.pathname === "/" ? styles["active__myspace"] : "")}>
                     Rời khỏi
                 </li>
-                <li className={styles["myspace__item"]}>
+                <li className={classNames(styles["myspace__item"], router.pathname === "/" ? styles["active__myspace"] : "")}>
                     <Link href="" >Chuyên cần</Link>
                 </li>
             </ul>

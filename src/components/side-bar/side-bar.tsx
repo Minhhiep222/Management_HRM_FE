@@ -81,13 +81,13 @@ const SideBar = () => {
     const handleCheckNoneRadio2 = () => {
         setRouterWeb2(lastSegment);
     };
-   
-    useEffect(() => {
-       
-    
-    },[])
 
-    
+    useEffect(() => {
+
+
+    }, [])
+
+
 
     useEffect(() => {
         if (routerWeb === 'profile' || routerWeb === 'family' || routerWeb === 'birthday' || routerWeb === 'listEmployee') {
@@ -158,19 +158,28 @@ const SideBar = () => {
                 <p>Hệ Thống</p>
             </Link>
 
-            <Link onClick={() => { handleSetCheckColorMyspace() 
+            <Link onClick={() => {
+                handleSetCheckColorMyspace()
             }} href={"/myspace/actionlist"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'actionlist' ? styles['backGroundChange'] : ''}`}>
                 <i className={styles['iconOverView']}><IoSettingsOutline /></i>
                 <p>My Space</p>
             </Link>
 
-            <Link onClick={() => { handleSetCheckColorGroupSpace() 
+            <Link onClick={() => {
+                handleSetCheckColorGroupSpace()
             }} href={"/groupspace/list_member"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'list_member' ? styles['backGroundChange'] : ''}`}>
                 <i className={styles['iconOverView']}><IoSettingsOutline /></i>
                 <p>Group Space</p>
             </Link>
 
-            
+            <Link onClick={() => {
+                handleSetCheckColorGroupSpace()
+            }} href={"/manager/listemployees"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'list_member' ? styles['backGroundChange'] : ''}`}>
+                <i className={styles['iconOverView']}><IoSettingsOutline /></i>
+                <p>Manager</p>
+            </Link>
+
+
 
 
             <button className={styles['overView']}>

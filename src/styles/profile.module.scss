@@ -152,7 +152,7 @@
 
 .introduce {
   position: relative;
-  margin-top: 20px;
+  margin-top: 30px;
   @include background;
   padding: 10px;
   min-height: 30vh;
@@ -354,6 +354,8 @@
 .infor__employee.scroll-infor {
   min-height: 50vh;
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
 .icon__arrow {
@@ -397,6 +399,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .btn__save:hover {

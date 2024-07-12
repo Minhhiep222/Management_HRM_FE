@@ -7,52 +7,33 @@ import classNames from "classnames";
 import Image from "next/image";
 import { Input } from "postcss";
 import Link from "next/link";
-function UpdateTeam() {
+function DetailRoom() {
 
     useEffect(() => {
-        handleSelect();
-        handleSelectImg();
-    }, []);
-
-    const handleSelect = (): void => {
-        const content__infor = document.querySelectorAll(`.${styles.input__infor}`);
-        content__infor.forEach(element => {
-            element.addEventListener('click', () => {
-                console.log(element);
-                const list__members = element.nextElementSibling;
-                const list = list__members as HTMLElement
-                if (list !== null) {
-                    list.style.display = 'block';
-                }
-                if (list__members && list__members.classList.contains(myspace["list__member"])) {
-                    const member__items = list__members.querySelectorAll(`.${myspace["member__item"]}`);
-                    member__items.forEach(item => {
-                        item.addEventListener('click', () => {
-                            var option = item as HTMLElement
-                            option.textContent;
-                            const valueInput = element as HTMLInputElement;
-                            valueInput.value = option.textContent || "";
-                            list.style.display = 'none';
-                        });
-                    })
-                }
-            });
-        });
-    }
-
-    const handleSelectImg = (): void => {
         const chooseImg = document.querySelector(`.${styles["input__infor-img"]}`);
         const inputFile = document.querySelector('input[type="file"]');
+        const inputGroup = document.querySelectorAll<HTMLInputElement>('input.choosen__item-infor');
+        const listMember = document.querySelectorAll(`.${styles["choose"]}`);
+        const itemMember = document.querySelectorAll(`.${styles["member__item"]}`);
+        const choose = document.querySelectorAll(`.${styles["choose"]}`)
         chooseImg?.addEventListener('click', () => {
             const file = inputFile as HTMLInputElement;
             file.click();
         })
-    }
 
-    const handleClose = () => {
-        let address = ""
-        window.location.href = localStorage.getItem('address') || address;
-    }
+        console.log(inputGroup);
+        // inputGroup.forEach((element, index) => {
+        //     const item = element as HTMLInputElement;
+        //     item.addEventListener('click', () => {
+        //         const list = listMember[index] as HTMLElement;
+        //         list.style.display = `block`;
+        //         console.log("wqew")
+        //     })
+        // })
+    }, []);
+
+
+
 
 
     return (
@@ -83,14 +64,13 @@ function UpdateTeam() {
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Tên Nhóm</div>
-                                            <input className={styles["input__infor"]} required defaultValue="Management" placeholder="Nhập tên nhóm" />
+                                            <input className={styles["input__infor"]} readOnly required defaultValue="Management" placeholder="Nhập tên nhóm" />
                                         </div>
                                         <div className={classNames(styles["infor__item"])}>
 
                                             <div className={styles["title__infor"]}>*Người Quản Lý</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} defaultValue="Nguyễn Minh Hiệp" placeholder="Chọn người quản lý" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
+                                                <div className={classNames(myspace["list__member"])} >
                                                     <div className={myspace["member__item"]} >
                                                         <div className={myspace["img__member"]} style={{
                                                             backgroundImage: `url('/images/space.jpg')`
@@ -104,42 +84,14 @@ function UpdateTeam() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Trần Đức Toản
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Nguyễn Văn Huy
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className={classNames(styles["infor__item"])}>
-
                                             <div className={styles["title__infor"]}>*Thành viên nhóm</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} defaultValue="Nguyễn Minh Hiệp, Nguyễn Thành Đạt" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
+                                                <div className={classNames(myspace["list__member"])} >
                                                     <div className={myspace["member__item"]} >
                                                         <div className={myspace["img__member"]} style={{
                                                             backgroundImage: `url('/images/space.jpg')`
@@ -186,69 +138,12 @@ function UpdateTeam() {
                                             <div className={styles["title__infor"]}>*Phòng</div>
                                             <div className={styles["groups__choose"]}>
                                                 <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} defaultValue="Management" placeholder="Chọn phòng" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Management
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    CEO
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
                                             </div>
                                         </div>
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Khu Vực</div>
                                             <div className={styles["groups__choose"]}>
                                                 <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} defaultValue="Chi nhánh Thủ Đức" placeholder="Chọn khu vực" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Chi nhánh Thủ Đức
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Chinh Nhánh Quận 1
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <div className={styles["infor__item"]}>
@@ -265,12 +160,11 @@ function UpdateTeam() {
 
 
             <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
-                <button className={classNames(styles["btn__save"])}>Lưu</button>
+                <button className={classNames(styles["btn__save"])}>Đóng</button>
             </div>
         </div>
 
     );
 }
 
-export default UpdateTeam;
+export default DetailRoom;

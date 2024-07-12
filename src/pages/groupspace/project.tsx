@@ -12,8 +12,30 @@ import { CiExport } from "react-icons/ci";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
-
+import { IoEyeOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import Modal from "@/components/Modal";
+import ProejectCreate from "@/pages/projects/create";
+import Link from "next/link";
 function Project() {
+    useEffect(() => {
+
+    }, []);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+
+    };
+
+    const handleCreateProject = () => {
+        window.location.href = "/projects/create";
+    }
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -28,7 +50,7 @@ function Project() {
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
-                    <button className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
+                    <button onClick={handleCreateProject} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button>
                 </div>
@@ -85,14 +107,18 @@ function Project() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <Link href="/projects/detail" className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </Link>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <li className={styles["contacts__item"]}>
+                                            <Link href="/projects/update" className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
-                                            </li>
+                                            </Link>
                                         </ul>
                                     </div>
                                 </td>
@@ -112,6 +138,15 @@ function Project() {
                     </table>
                 </div>
             </div >
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                <ProejectCreate />
+                <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
+                    <button style={{
+                        marginRight: '5px'
+                    }} onClick={handleCloseModal} className={classNames(styles["btn__save"])}>Đóng</button>
+                    <button className={classNames(styles["btn__save"])}>Lưu</button>
+                </div>
+            </Modal>
         </div>
     );
 }

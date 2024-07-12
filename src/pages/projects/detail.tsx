@@ -2,21 +2,7 @@ import { useEffect } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
-import { IoCloseSharp } from "react-icons/io5";
-import { TiPencil } from "react-icons/ti";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from "classnames";
-import {
-    faSearch,
-    faHospital,
-    faCirclePlus,
-    faArrowUp,
-    faArrowDown,
-    faChair,
-    faComputer,
-    faClock,
-    faEnvelope
-} from "@fortawesome/free-solid-svg-icons";
 
 function DetailProJect() {
     return (

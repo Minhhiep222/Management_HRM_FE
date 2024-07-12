@@ -19,35 +19,50 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
-  const haveMySpace =
-    router.pathname !== "/myspace/control" &&
-    router.pathname !== "/user/profile" &&
-    router.pathname !== "/user/update" &&
-    router.pathname !== "/overview" &&
-    router.pathname !== "/systems/register" &&
-    router.pathname !== "/groupspace/list_member" &&
-    router.pathname !== "/groupspace/project" &&
-    router.pathname !== "/groupspace/feeds";
+  const pathsMySpace = [
+    "/myspace/control",
+    "/user/profile",
+    "/user/update",
+    "/overview",
+    "/systems/register",
+    "/groupspace/list_member",
+    "/groupspace/project",
+    "/groupspace/feeds"
+  ]
+  const haveMySpace = !pathsMySpace.includes(router.pathname);
+  const control = router.pathname === "/myspace/control";
   const noMySpace = router.pathname === "/myspace/control";
   const profile = router.pathname === "/user/profile";
-  const update = router.pathname === "/user/update";
   const register = router.pathname === "/systems/register";
-  const HaveRegister = router.pathname === "/systems/register";
-
   const overview = router.pathname === "/overview";
   const event = router.pathname === "/hadle/birthday";
 
-  const haveGroupSpace =
-    router.pathname === "/groupspace/feeds" ||
+  // const pathsGroupSpace =
+
+
+
+
+  const haveGroupSpace = router.pathname === "/groupspace/feeds" ||
     router.pathname === "/groupspace/list_member" ||
     router.pathname === "/groupspace/project";
+
   const listview = router.pathname !== "/groupspace/list_member";
   const project = router.pathname !== "/groupspace/project";
 
   const Havelistview = router.pathname === "/groupspace/list_member";
   const Haveproject = router.pathname === "/groupspace/project";
 
-  const manager = router.pathname === "/manager/listemployees" || router.pathname === "/manager/listgroups" || router.pathname === "/manager/listprojects";
+  const manager =
+    router.pathname === "/manager/listemployees"
+    || router.pathname === "/manager/listgroups"
+    || router.pathname === "/manager/listprojects"
+    || router.pathname === "/manager/listcontracts"
+    || router.pathname === "/manager/listrooms"
+    || router.pathname === "/manager/listbrands";
+
+  const pathSHandle = [
+
+  ]
 
   const handle = router.pathname === "/projects/create"
     || router.pathname === "/projects/update"
@@ -56,7 +71,17 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     || router.pathname === "/teams/detail"
     || router.pathname === "/teams/update"
     || router.pathname === "/user/update"
-    || router.pathname === "/user/create";
+    || router.pathname === "/user/create"
+    || router.pathname === "/brands/create"
+    || router.pathname === "/brands/update"
+    || router.pathname === "/brands/detail"
+    || router.pathname === "/rooms/create"
+    || router.pathname === "/rooms/update"
+    || router.pathname === "/rooms/detail"
+    || router.pathname === "/contracts/create"
+    || router.pathname === "/contracts/update"
+    || router.pathname === "/contracts/detail"
+    ;
 
 
   if (register) {
@@ -201,12 +226,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                             {haveMySpace && <SideBarMySpace />}
                           </div>
 
-                          <div className={grid["grid__column-9"]}>
-                            <div className={styles["content__myspace"]}>
-                              <NavBarMySpace />
-                              {children}
+                          {!control &&
+                            <div className={grid["grid__column-9"]}>
+                              <div className={styles["content__myspace"]}>
+                                <NavBarMySpace />
+                                {children}
+                              </div>
                             </div>
-                          </div>
+                          }
                         </div>
                       </div>
                     </div>
@@ -239,7 +266,23 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             <div className={styles["session"]}>
               <div className={grid["grid"]}>
                 <div className={grid["grid__row"]}>
-                  <div className={grid["grid__column-12"]}>{children}</div>
+                  <div className={grid["grid__column-2__sidebar"]}>
+                    <SideBar />
+                  </div>
+                  <div className={grid["grid__column-10"]}>
+                    <HeaderMySpace />
+                    <div className={styles["container__my-space"]}>
+                      <div className={grid["grid"]}>
+                        <div className={grid["grid__row"]}>
+                          <div className={grid["grid__column-12"]}>
+                            <div className={styles["content__myspace"]}>
+                              {children}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

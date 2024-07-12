@@ -2,23 +2,12 @@ import { useEffect } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
-import { IoCloseSharp } from "react-icons/io5";
-import { TiPencil } from "react-icons/ti";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from "classnames";
-import {
-    faSearch,
-    faHospital,
-    faCirclePlus,
-    faArrowUp,
-    faArrowDown,
-    faChair,
-    faComputer,
-    faClock,
-    faEnvelope
-} from "@fortawesome/free-solid-svg-icons";
 
 function CreateProJect() {
+    const handleClose = () => {
+        window.location.href = "/groupspace/project";
+    }
     return (
         <div>
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
@@ -71,7 +60,7 @@ function CreateProJect() {
 
 
             <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button className={classNames(styles["btn__save"])}>Đóng</button>
+                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
                 <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
         </div>

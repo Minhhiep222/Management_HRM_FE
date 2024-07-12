@@ -15,30 +15,17 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-function CreateTeam() {
+function CreateBrand() {
     const [isModalOpenItem, setIsModalOpenItem] = useState(false);
     const [address, setAddress] = useState<string>('');
 
     useEffect(() => {
         handleSelect();
         handleSelectImg();
-        const choose = document.querySelector(".choose__member");
-        console.log(choose)
-        choose?.addEventListener('click', () => {
-            handleOpenModalItem();
-        })
     }, []);
 
     const handleOpenModalItem = () => {
         setIsModalOpenItem(true);
-    };
-
-    const handleCloseModalItem = () => {
-        setIsModalOpenItem(false);
-    };
-
-    const handleCreateRoom = () => {
-
     };
 
     const saveAddress = (address: string) => {
@@ -52,8 +39,9 @@ function CreateTeam() {
     };
 
     const handleClose = () => {
-
-    };
+        let address = ""
+        window.location.href = localStorage.getItem('address') || address;
+    }
 
     const handleSelect = (): void => {
         const content__infor = document.querySelectorAll(`.${styles.input__infor}`);
@@ -95,7 +83,7 @@ function CreateTeam() {
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
                 <div className={styles["z_raty"]}>
                     <div className={styles["infor__user"]}>
-                        <div className={styles["role__user"]} style={{ fontSize: '1.8rem' }}>Thêm Nhóm Làm Việc</div>
+                        <div className={styles["role__user"]} style={{ fontSize: '1.8rem' }}>Thêm Chi Nhánh Làm Việc</div>
                     </div>
                 </div>
             </div>
@@ -106,7 +94,7 @@ function CreateTeam() {
                         <div className={grid["grid__column-12"]}>
                             <div className={styles["content_user"]}>
                                 <div className={styles["introduce"]}>
-                                    <h3 className={styles["title__introduce"]}>Thông Tin Cấu Hình Nhóm</h3>
+                                    <h3 className={styles["title__introduce"]}>Thông Tin Cấu Hình Chi Nhánh</h3>
                                     <div className={styles["infor__project"]}>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Hình ảnh</div>
@@ -117,8 +105,12 @@ function CreateTeam() {
                                             <input style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" />
                                         </div>
                                         <div className={styles["infor__item"]}>
-                                            <div className={styles["title__infor"]}>*Tên Nhóm</div>
+                                            <div className={styles["title__infor"]}>*Tên Chi Nhánh</div>
                                             <input className={styles["input__infor"]} required placeholder="Nhập tên nhóm" />
+                                        </div>
+                                        <div className={styles["infor__item"]}>
+                                            <div className={styles["title__infor"]}>*Địa Chỉ</div>
+                                            <input className={styles["input__infor"]} required placeholder="Nhập địa chỉ" />
                                         </div>
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Người Quản Lý</div>
@@ -167,55 +159,9 @@ function CreateTeam() {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className={classNames(styles["infor__item"])}>
-
-                                            <div className={styles["title__infor"]}>*Thành viên nhóm</div>
-                                            <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"], "choose__member")} placeholder="Chọn thành viên nhóm" />
-
-                                            </div>
-                                        </div>
-                                        <div className={classNames(styles["infor__item"])}>
-                                            <div className={styles["title__infor"]}>*Phòng</div>
-                                            <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn phòng" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        CEO
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        Management
-                                                    </div>
-
-                                                    <div className={myspace["action__btn"]}>
-                                                        <button onClick={handleCreateRoom} className={grid["btn"]}>
-                                                            <IoAddOutline />
-                                                            Thêm phòng
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={classNames(styles["infor__item"])}>
-                                            <div className={styles["title__infor"]}>*Khu Vực</div>
-                                            <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn khu vực" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        Chi nhánh Thủ Đức
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        Chinh Nhánh Quận 1
-                                                    </div>
-                                                    <div className={myspace["action__btn"]}>
-                                                        <button className={grid["btn"]}>
-                                                            <IoAddOutline />
-                                                            Thêm khu vực
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className={styles["infor__item"]}>
+                                            <div className={styles["title__infor"]}>*Hotline</div>
+                                            <input className={styles["input__infor"]} required placeholder="Nhập số điện thoại" />
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Mô Tả</div>
@@ -233,72 +179,9 @@ function CreateTeam() {
                 <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
                 <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
-            <ModalItem isOpen={isModalOpenItem} onClose={handleCloseModalItem}>
-                <div>
-                    <div className={myspace["introduce"]}>
-                        <h3 className={myspace["title__introduce"]}>Thêm thành viên nhóm</h3>
-                        <div className={myspace["search__member"]}>
-                            <input type="text" placeholder="Tìm kiếm" />
-                            <IoMdSearch />
-                        </div>
-                        <div className={classNames(myspace["infor__employee"], myspace["scroll-infor"])}>
-                            <table className={myspace["table__experience"]}>
-                                <thead className={myspace["head__experience"]}>
-                                    <tr className={myspace["tr__experience"]}>
-                                        <th className={classNames(myspace["th__experience-checkbox"], myspace["sticky-col-0"])}>
-                                            <div>
-                                                <input type="checkbox" name="" id="" />
-                                            </div>
-                                        </th>
-                                        <th className={classNames(myspace["th__experience"], myspace["sticky-col-1"])}>
-                                            <div>
-                                                <span>Tên</span>
-                                                <span>
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"], myspace["active"])} icon={faArrowUp} />
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"])} icon={faArrowDown} />
-                                                </span>
-                                            </div>
-                                        </th>
-                                        <th className={myspace["th__experience"]}>
-                                            <div>
-                                                <span>Địa Chỉ Email</span>
-                                                <span>
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"], myspace["active"])} icon={faArrowUp} />
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"])} icon={faArrowDown} />
-                                                </span>
-                                            </div>
-                                        </th>
-                                        <th className={myspace["th__experience"]}>
-                                            <div>
-                                                <span> Ảnh </span>
-                                                <span>
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"], myspace["active"])} icon={faArrowUp} />
-                                                    <FontAwesomeIcon className={classNames(myspace["icon__arrow"])} icon={faArrowDown} />
-                                                </span>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id={myspace["body__experience"]}>
-                                    <tr className={myspace["employee__item"]}>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-0"])}>
-                                            <div>
-                                                <input type="checkbox" name="" id="" />
-                                            </div>
-                                        </td>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-1"])}>Assistant Manager</td>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-2"])}>30-Apr-1998</td>
-                                        <td className={myspace["td__experience"]}>01-Jan-2004</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </ModalItem>
         </div>
 
     );
 }
 
-export default CreateTeam;
+export default CreateBrand;

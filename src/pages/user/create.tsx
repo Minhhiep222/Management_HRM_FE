@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import myspace from "@/styles/myspace.module.scss";
@@ -10,9 +10,35 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
+// import * as React from "react"
+// import { format } from "date-fns"
+// import { Calendar as CalendarIcon } from "lucide-react"
 
+// import { cn } from "@/lib/utils"
+// import { Button } from "@/components/ui/button"
+// import { Calendar } from "@/components/ui/calendar"
+// import {
+//     Popover,
+//     PopoverContent,
+//     PopoverTrigger,
+// } from "@/components/ui/popover"
 function CreateProfile() {
+    const [address, setAddress] = useState<string>('');
+    // const [date, setDate] = React.useState<Date>();
+
     useEffect(() => {
+        handleSelect();
+        handleChange();
+        handleSelectImg();
+    }, []);
+
+
+    const handleClose = () => {
+        let address = ""
+        window.location.href = localStorage.getItem('address') || address;
+    }
+
+    const handleSelect = (): void => {
         const content__infor = document.querySelectorAll(`.${styles.content__infor}`);
         content__infor.forEach(element => {
             element.addEventListener('click', () => {
@@ -33,7 +59,30 @@ function CreateProfile() {
                 }
             });
         });
-    }, []);
+    }
+
+    const handleChange = (): void => {
+        const content__infor = document.querySelectorAll(`.${styles.content__infor}`);
+        const pencils = document.querySelectorAll(`.${styles["change__content-infor"]}`)
+        pencils.forEach((element, index) => {
+            element.addEventListener('click', () => {
+                const inputItem = content__infor[index] as HTMLInputElement
+                inputItem.readOnly = false;
+                //thiết lập vị trí bắt đầu và kết thúc của chuỗi nhập liệu
+                inputItem.setSelectionRange(inputItem.value.length, inputItem.value.length);
+                inputItem.focus();
+            })
+        });
+    }
+
+    const handleSelectImg = (): void => {
+        const chooseImg = document.querySelector(`.${styles["input__infor-img"]}`);
+        const inputFile = document.querySelector('input[type="file"]');
+        chooseImg?.addEventListener('click', () => {
+            const file = inputFile as HTMLInputElement;
+            file.click();
+        })
+    }
 
     return (
         <div className={styles["session"]}>
@@ -50,6 +99,21 @@ function CreateProfile() {
                         <div className={grid["grid__column-12"]}>
                             <div className={styles["content_user"]}>
                                 <div className={styles["title__information"]}>
+                                    {/* IMAGES */}
+                                    <div className={styles["introduce"]}>
+                                        <h3 className={styles["title__introduce"]}>Hình ảnh</h3>
+                                        <div className={styles["infor__project"]}>
+                                            <div className={styles["infor__item"]}>
+                                                <div className={styles["input__infor-img"]} style={{
+                                                    backgroundImage: 'url("/images/space.jpg")'
+                                                }}>
+                                                </div>
+                                                <input style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     {/* Personal Details */}
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Chi Tiết Cá Nhân</h3>
@@ -65,6 +129,28 @@ function CreateProfile() {
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Ngày sinh</div>
                                                 <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="dd/mm/yyyy" />
+                                                {/* <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <Button
+                                                            variant={"outline"}
+                                                            className={cn(
+                                                                "w-[280px] justify-start text-left font-normal",
+                                                                !date && "text-muted-foreground"
+                                                            )}
+                                                        >
+                                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                                            {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                                        </Button>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-auto p-0">
+                                                        <Calendar
+                                                            mode="single"
+                                                            selected={date}
+                                                            onSelect={setDate}
+                                                            initialFocus
+                                                        />
+                                                    </PopoverContent>
+                                                </Popover> */}
                                                 <div className={styles["change__content-infor"]}>
                                                     <TiPencil />
                                                     <div className={styles["change"]}>Chỉnh sửa</div>
@@ -123,7 +209,6 @@ function CreateProfile() {
                                             </div>
                                         </div>
                                     </div>
-
 
                                     {/* Job Description */}
                                     <div className={styles["introduce"]}>
@@ -501,7 +586,7 @@ function CreateProfile() {
                 </div>
             </div>
             <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button className={classNames(styles["btn__save"])}>Đóng</button>
+                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
                 <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
         </div >

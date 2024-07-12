@@ -7,8 +7,9 @@
     flex-wrap: wrap;
     .box__item {
       @include background;
-      height: var(--height-item);
+      height: calc(var(--height-item) + 20px);
       margin-bottom: 10px;
+      padding: 10px;
       //   overflow: hidden;
 
       .header__box {
@@ -23,7 +24,7 @@
       .content__box {
         padding: 10px 20px;
         height: var(--height-content);
-        overflow-y: scroll;
+        overflow-y: auto;
         // @if height > var(--height-content) {
         //   height: var(--height-content);
         // }

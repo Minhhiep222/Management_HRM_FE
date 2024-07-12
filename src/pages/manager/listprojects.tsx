@@ -10,6 +10,8 @@ import {
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import Link from "next/link";
+import { IoEyeOutline } from "react-icons/io5";
 
 function ListProject() {
     return (
@@ -81,14 +83,18 @@ function ListProject() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <Link href="/projects/detail" className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </Link>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <li className={styles["contacts__item"]}>
+                                            <Link href="/projects/update" className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
-                                            </li>
+                                            </Link>
                                         </ul>
                                     </div>
                                 </td>

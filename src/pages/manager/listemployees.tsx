@@ -13,9 +13,12 @@ import UserCreate from "@/pages/user/create";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { IoEyeOutline } from "react-icons/io5";
+import Link from "next/link";
+import ProfileUser from "@/pages/user/profile";
 
 function ListEmployee() {
-
+    const [address, setAddress] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -24,7 +27,16 @@ function ListEmployee() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
 
+    const saveAddress = (address: string) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
+    }
+
+    const handleUpdate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/user/update";
     };
     return (
         <div>
@@ -40,9 +52,7 @@ function ListEmployee() {
                 </div>
 
                 <div className={styles["control"]}>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa </button>
-                    <button onClick={handleOpenModal} className={classNames(grid["btn"], styles["btn__control-project"])}>Sửa</button>
-                    <button onClick={handleOpenModal} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
+                    <button className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
                     {/* <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button> */}
                 </div>
@@ -303,11 +313,15 @@ function ListEmployee() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
+                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                <IoEyeOutline />
+                                                <span>Xem</span>
+                                            </button>
                                             <li className={styles["contacts__item"]}>
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
                                             </button>
@@ -353,12 +367,11 @@ function ListEmployee() {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <UserCreate />
+                <ProfileUser />
                 <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
                     <button style={{
                         marginRight: '5px'
                     }} onClick={handleCloseModal} className={classNames(styles["btn__save"])}>Đóng</button>
-                    <button className={classNames(styles["btn__save"])}>Lưu</button>
                 </div>
             </Modal>
 

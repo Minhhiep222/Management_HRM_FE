@@ -2,20 +2,10 @@ import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
 // import styles from "@/styles/myspace.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 function HeaderGroupSpace() {
-    useEffect(() => {
-        const myspace_items = document.querySelectorAll(`.${globals["myspace__item"]}`);
-        const items = document.querySelectorAll(`.link__item`);
-        items.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                myspace_items.forEach(item => item.classList.remove(`${globals["active"]}`))
-                myspace_items[index].classList.add(`${globals["active"]}`);
-            })
-        });
-
-    }, []);
-
+    const router = useRouter();
     return (
         <div className={globals["grid"]}>
             <div className={globals["grid__row"]}>
@@ -23,13 +13,13 @@ function HeaderGroupSpace() {
                     <div className={globals["header__myspace"]}>
                         <div className={globals["navbar__myspace"]}>
                             <ul className={globals["list__navbar-myspace"]}>
-                                <li className={classNames(globals["myspace__item"], globals["active"])}>
+                                <li className={classNames(globals["myspace__item"], router.pathname === '/groupspace/feeds' ? globals["active"] : '')}>
                                     <Link className="link__item" href="/groupspace/feeds" > Không gian nhóm </Link>
                                 </li>
-                                <li className={globals["myspace__item"]}>
+                                <li className={classNames(globals["myspace__item"], router.pathname === '/groupspace/project' ? globals["active"] : '')}>
                                     <Link className="link__item" href="/groupspace/project" > Dự án  </Link>
                                 </li>
-                                <li className={globals["myspace__item"]}>
+                                <li className={classNames(globals["myspace__item"], router.pathname === '/groupspace/list_member' ? globals["active"] : '')}>
                                     <Link className="link__item" href="/groupspace/list_member" > Danh sách nhóm  </Link>
                                 </li>
                             </ul>

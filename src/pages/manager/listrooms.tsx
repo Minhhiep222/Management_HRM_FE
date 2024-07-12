@@ -12,48 +12,44 @@ import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { IoMdSearch } from "react-icons/io";
+import { useState } from "react";
 
-function ListGroup() {
+function ListProject() {
     const [address, setAddress] = useState<string>('');
-
-    useEffect(() => {
-
-    })
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const saveAddress = (address: string) => {
         setAddress(address);
         localStorage.setItem('address', address);
-
     }
+
+    const handleCreate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/rooms/create";
+    };
 
     const handleUpdate = () => {
         saveAddress(window.location.href);
-        window.location.href = "/teams/update";
+        window.location.href = "/rooms/update";
     };
 
-    const handleCreateTeam = () => {
-        window.location.href = "/teams/create";
-    }
     return (
         <div>
             <div className={styles["control__project"]}>
-                <div className={styles["list__select"]}>
-                    <select name="name__project" id="" className={styles["select__name-project"]}>
-                        Nhóm
-                        <option value="Quản lý nhân sự" className={styles["item__project"]}>Quản lý nhân sự</option>
-                        <option value="Thương mại điện tử" className={styles["item__project"]}>Thương mại điện tử</option>
-                    </select>
+                <div className={styles["search__member"]}>
+                    <input type="text" placeholder="Tìm kiếm" />
+                    <IoMdSearch />
                 </div>
 
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
-                    <button onClick={handleCreateTeam} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm nhóm</button>
+                    <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm phòng ban</button>
                 </div>
             </div>
             <div className={styles["introduce"]}>
-                <h3 className={styles["title__introduce"]}>Danh sách nhóm</h3>
+                <h3 className={styles["title__introduce"]}>Danh sách phòng ban</h3>
                 <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
                     <table className={styles["table__experience"]}>
                         <thead className={styles["head__experience"]}>
@@ -69,7 +65,7 @@ function ListGroup() {
                                     minWidth: '400px'
                                 }} >
                                     <div>
-                                        <span>Tên nhóm</span>
+                                        <span>ID Phòng</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
@@ -78,7 +74,12 @@ function ListGroup() {
                                 </th>
                                 <th className={styles["th__experience"]}>
                                     <div>
-                                        <span>Ảnh</span>
+                                        <span>Tên phòng</span>
+                                    </div>
+                                </th>
+                                <th className={styles["th__experience"]}>
+                                    <div>
+                                        <span>Chi nhánh</span>
                                     </div>
                                 </th>
                                 <th className={styles["th__experience"]}>
@@ -88,22 +89,7 @@ function ListGroup() {
                                 </th>
                                 <th className={styles["th__experience"]}>
                                     <div>
-                                        <span>Thành viên </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Phòng</span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Khu vực</span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Mô tả</span>
+                                        <span>Trạng thái</span>
                                     </div>
                                 </th>
                             </tr>
@@ -114,7 +100,7 @@ function ListGroup() {
                                     <div className={styles["control__project"]}>
                                         <HiOutlineDotsHorizontal />
                                         <ul className={styles["list__contacts"]}>
-                                            <Link href="/teams/detail" className={styles["contacts__item"]}>
+                                            <Link href="/projects/detail" className={styles["contacts__item"]}>
                                                 <IoEyeOutline />
                                                 <span>Xem</span>
                                             </Link>
@@ -134,13 +120,11 @@ function ListGroup() {
                                         <input type="checkbox" name="" id="" />
                                     </div>
                                 </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Management</td>
-                                <td className={styles["td__experience"]}></td>
-                                <td className={styles["td__experience"]}>Nguyễn Minh Hiệp</td>
-                                <td className={styles["td__experience"]}>Nguyễn Minh Minh, Trần Minh Tuấn</td>
-                                <td className={styles["td__experience"]}>Nhân sự</td>
-                                <td className={styles["td__experience"]}>Thủ Đức</td>
-                                <td className={styles["td__experience"]}>Một cây làm chẳng nên non</td>
+                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Quản lý nhà hàng</td>
+                                <td className={styles["td__experience"]}>Cở sở tổ chức quán lý nhà hàng hiệu quả</td>
+                                <td className={styles["td__experience"]}>30-Apr-1998</td>
+                                <td className={styles["td__experience"]}>01-Jan-2004</td>
+                                <td className={styles["td__experience"]}>Đang bắt đầu</td>
                             </tr>
 
                         </tbody>
@@ -151,4 +135,4 @@ function ListGroup() {
     );
 }
 
-export default ListGroup;
+export default ListProject;

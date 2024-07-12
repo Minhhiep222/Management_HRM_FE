@@ -115,6 +115,8 @@
   @include background;
   width: 100%;
   border-radius: 0;
+  position: sticky;
+  top: 10px;
 
   .list__navbar-myspace {
     display: flex;
@@ -129,13 +131,4 @@
 
 .myspace__item.active {
   border-bottom: 3px solid rgba($color: #000000, $alpha: 1);
-}
-
-.modal {
-  .modal_body {
-    .modal__title {
-    }
-    .modal__content {
-    }
-  }
 }

@@ -7,7 +7,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { Input } from "postcss";
 import Link from "next/link";
-function UpdateTeam() {
+function UpdateRoom() {
 
     useEffect(() => {
         handleSelect();
@@ -182,41 +182,7 @@ function UpdateTeam() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={classNames(styles["infor__item"])}>
-                                            <div className={styles["title__infor"]}>*Phòng</div>
-                                            <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} defaultValue="Management" placeholder="Chọn phòng" />
-                                                <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Management
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    CEO
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Khu Vực</div>
                                             <div className={styles["groups__choose"]}>
@@ -273,4 +239,4 @@ function UpdateTeam() {
     );
 }
 
-export default UpdateTeam;
+export default UpdateRoom;
