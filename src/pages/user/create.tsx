@@ -28,7 +28,7 @@ function CreateProfile() {
 
     useEffect(() => {
         handleSelect();
-        handleChange();
+        // handleChange();
         handleSelectImg();
     }, []);
 

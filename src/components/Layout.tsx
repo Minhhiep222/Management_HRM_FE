@@ -21,6 +21,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const pathsMySpace = [
     "/myspace/control",
+    "/myspace/calendar__work",
     "/user/profile",
     "/user/update",
     "/overview",
@@ -31,7 +32,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   ]
   const haveMySpace = !pathsMySpace.includes(router.pathname);
   const control = router.pathname === "/myspace/control";
-  const noMySpace = router.pathname === "/myspace/control";
+  const noMySpace = router.pathname === "/myspace/control" || router.pathname === "/myspace/calendar__work";
   const profile = router.pathname === "/user/profile";
   const register = router.pathname === "/systems/register";
   const overview = router.pathname === "/overview";
@@ -164,9 +165,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     <SideBar />
                   </div>
                   <div className={grid["grid__column-10"]}>
-                    <div className={grid["grid__column-12"]}>
-                      {haveGroupSpace && <HeaderGroupSpace />}
-                    </div>
+                    {haveGroupSpace && <HeaderGroupSpace />}
                     <div className={styles["container__my-space"]}>
                       <div className={grid["grid"]}>
                         <div className={grid["grid__row"]}>
@@ -216,9 +215,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     <SideBar />
                   </div>
                   <div className={grid["grid__column-10"]}>
-                    <div className={grid["grid__column-12"]}>
-                      {haveMySpace && <HeaderMySpace />}
-                    </div>
+                    {haveMySpace && <HeaderMySpace />}
                     <div className={styles["container__my-space"]}>
                       <div className={grid["grid"]}>
                         <div className={grid["grid__row"]}>

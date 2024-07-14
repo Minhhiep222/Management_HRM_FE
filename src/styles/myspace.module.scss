@@ -1,8 +1,5 @@
 @import "./profile.module.scss";
 
-.side__bar-myspace {
-  margin-bottom: 20px;
-}
 .infor__myspace {
   padding: 20px;
 }
@@ -71,7 +68,8 @@
 
 .list__member {
   margin-top: 10px;
-  // min-height: 40vh;
+  min-height: 42.5vh;
+  max-height: 42.5vh;
   width: 100%;
 
   .member__item {
@@ -414,7 +412,7 @@
 
   .feeds__list {
     margin: 10px 0;
-    max-height: 55vh;
+    max-height: 59.25vh;
     overflow-y: scroll;
   }
 
@@ -530,7 +528,7 @@
 }
 
 .container__my-space {
-  padding: 20px 20px;
+  padding: 20px 20px 0 20px;
   // margin-top: 30px;
 }
 

@@ -18,10 +18,9 @@ import Modal from "@/components/Modal";
 import ProejectCreate from "@/pages/projects/create";
 import Link from "next/link";
 function Project() {
-    useEffect(() => {
 
-    }, []);
 
+    const [address, setAddress] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -30,12 +29,22 @@ function Project() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-
     };
 
-    const handleCreateProject = () => {
-        window.location.href = "/projects/create";
+    const saveAddress = (address: string) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
     }
+
+    const handleCreate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/projects/create";
+    };
+
+    const handleUpdate = () => {
+        saveAddress(window.location.href);
+        window.location.href = "/projects/update";
+    };
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -50,7 +59,7 @@ function Project() {
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
-                    <button onClick={handleCreateProject} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
+                    <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm sự án</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button>
                 </div>
@@ -115,10 +124,10 @@ function Project() {
                                                 <TiUserDelete />
                                                 <span>Xóa</span>
                                             </li>
-                                            <Link href="/projects/update" className={styles["contacts__item"]}>
+                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
                                                 <MdOutlineTipsAndUpdates />
                                                 <span>Sửa</span>
-                                            </Link>
+                                            </button>
                                         </ul>
                                     </div>
                                 </td>

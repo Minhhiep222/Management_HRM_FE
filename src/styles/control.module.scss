@@ -45,6 +45,15 @@
     justify-content: space-between;
   }
 
+  .notification__item-employee {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    max-height: 60px;
+    padding: 10px 0;
+    display: flex;
+    // justify-content: space-between;
+    gap: 10px;
+  }
+
   .notification__content {
     @include text;
   }
