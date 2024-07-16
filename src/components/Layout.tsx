@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import Header from "@/components/header/header";
@@ -8,16 +8,22 @@ import SideBar from "@/components/side-bar/side-bar";
 import SideBarMySpace from "@/components/side-bar/side-bar__my-space";
 import Footer from "@/components/footer/footer";
 import { useRouter } from "next/router";
+
 import SideBarGroupSpace from "@/components/side-bar/side-bar__group";
 import NavBarGroupSpace from "@/components/navbar/navbar_groupspace";
 import HeaderGroupSpace from "@/components/header/header__groupspace";
 import HeaderManager from "@/components/header/header__manager";
+import axios from "axios";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
+
+
 const Layout: FC<LayoutProps> = ({ children }) => {
+
+
   const router = useRouter();
   const haveMySpace =
     router.pathname !== "/myspace/control" &&
