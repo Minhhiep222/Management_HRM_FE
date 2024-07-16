@@ -11,7 +11,7 @@ function notFoundPage() {
                 <Link href="/overview">
                     <a className={styles.link}>Go back to Home</a>
                 </Link>
-                <span>Go back to Home </span>
+                <span>Go back to Home Now</span>
             </LinkAddress>
 
         </div>

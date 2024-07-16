@@ -7,7 +7,7 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import UserCreate from "@/pages/user/create";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -16,9 +16,11 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { IoEyeOutline } from "react-icons/io5";
 import Link from "next/link";
 import ProfileUser from "@/pages/user/profile";
+import axios from "axios";
 
 function ListEmployee() {
     const [address, setAddress] = useState<string>('');
+    const [employees, setEmployees] = useState<any[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -43,6 +45,21 @@ function ListEmployee() {
         saveAddress(window.location.href);
         window.location.href = "/user/create";
     };
+
+    const handleGetUser = async () => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees");
+            setEmployees(result.data.result);
+
+        } catch (e) {
+            console.log("Something wrong");
+        }
+    };
+
+    useEffect(() => {
+        handleGetUser();
+    }, [])
+
     return (
         <div>
             <div className={styles["control__project"]}>
@@ -57,6 +74,7 @@ function ListEmployee() {
                 </div>
 
                 <div className={styles["control"]}>
+                    <button className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
                     <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
                     {/* <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button> */}
@@ -87,25 +105,27 @@ function ListEmployee() {
                                 </th>
                                 <th className={classNames(styles["th__experience"], styles["sticky-col-3"])}>
                                     <div>
-                                        <span>Tên</span>
+                                        <span>Họ và Tên</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
                                         </span>
                                     </div>
                                 </th>
+
                                 <th className={classNames(styles["th__experience"], styles["sticky-col-4"])}>
                                     <div>
-                                        <span>Họ</span>
+                                        <span>Biệt Danh</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
                                         </span>
                                     </div>
                                 </th>
+
                                 <th className={styles["th__experience"]}>
                                     <div>
-                                        <span>Biệt Danh</span>
+                                        <span>Địa Chỉ</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
@@ -314,301 +334,65 @@ function ListEmployee() {
                             </tr>
                         </thead>
                         <tbody style={{ minHeight: '10px    ', overflowY: 'scroll' }} id={styles["body__experience"]}>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </button>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Infomax</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>Assistant Manager</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>30-Apr-1998</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
+
+                            {employees.map((employee, index) =>
+                                <tr className={styles["employee__item"]} key={employee.id}>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                        <div className={styles["control__project"]}>
+                                            <HiOutlineDotsHorizontal />
+                                            <ul className={styles["list__contacts"]}>
+                                                <button onClick={handleOpenModal} className={styles["contacts__item"]}>
+                                                    <IoEyeOutline />
+                                                    <span>Xem</span>
+                                                </button>
+                                                <li className={styles["contacts__item"]}>
+                                                    <TiUserDelete />
+                                                    <span>Xóa</span>
+                                                </li>
+                                                <button onClick={handleUpdate} className={styles["contacts__item"]}>
+                                                    <MdOutlineTipsAndUpdates />
+                                                    <span>Sửa</span>
+                                                </button>
+                                            </ul>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                            </tr>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </button>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Infomax</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>Assistant Manager</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>30-Apr-1998</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
+                                    </td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
+                                        <div>
+                                            <input type="checkbox" name="" id="" />
                                         </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                            </tr>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </button>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Infomax</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>Assistant Manager</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>30-Apr-1998</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
+                                    </td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>{employee.id}</td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>{employee.fullname}</td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>{employee.nickname}</td>
+                                    <td className={styles["td__experience"]}>{employee.address}</td>
+                                    <td className={styles["td__experience"]} >
+                                        <div className={styles["img__teams"]}>
+                                            <div className={styles["td__img"]} style={{
+                                                backgroundImage: `url("/images/${employee.img}")`
+                                            }}>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                            </tr>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </button>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Infomax</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>Assistant Manager</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>30-Apr-1998</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                            </tr>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </button>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Infomax</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>Assistant Manager</td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>30-Apr-1998</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                                <td className={styles["td__experience"]}>Yes</td>
-                                <td className={styles["td__experience"]}>01-Jan-2004</td>
-                                <td className={styles["td__experience"]}>-</td>
-                            </tr>
+                                    </td>
+                                    <td className={styles["td__experience"]}>{employee.email}</td>
+                                    <td className={styles["td__experience"]}>{employee.dob}</td>
+                                    <td className={styles["td__experience"]}>{employee.sex}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.marital_status}</td>
+                                    <td className={styles["td__experience"]}>{employee.marital_status}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.phone}</td>
+                                    <td className={styles["td__experience"]}>{employee.type}</td>
+                                    <td className={styles["td__experience"]}>{employee.state_work}</td>
+                                    <td className={styles["td__experience"]}>{employee.start_date}</td>
+                                </tr>
+                            )}
 
                         </tbody>
                     </table>

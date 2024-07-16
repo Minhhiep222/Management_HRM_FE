@@ -23,7 +23,7 @@ function HeaderMySpace() {
                     </li>
                     <li className={classNames(globals["myspace__item"], router.pathname == "/myspace/calendar__work" ? globals["active"] : "")}>
                         <Link className="link__item" href="/myspace/calendar__work" > Lịch </Link>
-                    </li>
+                    </li>``
                 </ul>
             </div>
         </div>

@@ -41,15 +41,6 @@ function CreateTeam() {
 
     };
 
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-    }
-
-    const handleUpdate = () => {
-        saveAddress(window.location.href);
-        window.location.href = "/user/update";
-    };
 
     const handleClose = () => {
         let address = ""
@@ -234,6 +225,7 @@ function CreateTeam() {
                 <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
                 <button className={classNames(styles["btn__save"])}>Lưu</button>
             </div>
+
             <ModalItem isOpen={isModalOpenItem} onClose={handleCloseModalItem}>
                 <div>
                     <div className={myspace["introduce"]}>

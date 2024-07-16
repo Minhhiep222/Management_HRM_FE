@@ -72,7 +72,7 @@
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 999;
 }
 
 .header__myspace {
@@ -123,6 +123,7 @@
   box-shadow: 0 0 3px rgab(0, 0, 0, 0.5);
   .list__navbar-myspace {
     display: flex;
+    z-index: 99;
   }
 }
 .myspace__item {

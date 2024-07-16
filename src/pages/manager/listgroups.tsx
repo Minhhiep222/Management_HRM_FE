@@ -13,13 +13,22 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function ListGroup() {
     const [address, setAddress] = useState<string>('');
+    const [teams, setTeams] = useState<any[]>([]);
 
-    useEffect(() => {
 
-    })
+    const handleGetTeams = async () => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees");
+            setTeams(result.data.result);
+            console.log(teams);
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
 
     const saveAddress = (address: string) => {
         setAddress(address);
@@ -35,6 +44,12 @@ function ListGroup() {
     const handleCreateTeam = () => {
         window.location.href = "/teams/create";
     }
+
+
+    useEffect(() => {
+        handleGetTeams();
+    });
+
     return (
         <div>
             <div className={styles["control__project"]}>
