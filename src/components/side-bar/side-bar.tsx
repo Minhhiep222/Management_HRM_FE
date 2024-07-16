@@ -1,4 +1,5 @@
 "use client";
+
 import styles from '@/styles/sidebar.module.scss';
 import { FaUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -7,10 +8,13 @@ import { GrOverview } from "react-icons/gr";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiLogout } from "react-icons/ci";
 import Link from 'next/link';
-import '@/styles/globals.css';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import React from 'react';
+
+
+import Cookies from 'js-cookie'
 
 const SideBar = () => {
 
@@ -29,6 +33,66 @@ const SideBar = () => {
     const [checkColorMySpace, setCheckColorMySpace] = useState(false);
     const [checkColorGroupSpace, setCheckColorGroupSpace] = useState(false);
 
+
+    //  const getUser = async () => {
+    //     const myCookies = document.cookie 
+    //     console.log(myCookies);
+    //     const headers = {
+    //         "Authorization": `Bearer ${myCookies}`
+    //     };
+    //     const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
+    //     console.log(response.data.value);
+    //  }
+    
+    //  const fetchData = async () => {
+    //     // const myCookies = document.cookie 
+    //     //     console.log(myCookies);
+    //     const headers = {
+    //         "Authorization": "Bearer 49|vDmM2mYBZJTCwFSwPnD6dvIZQvD7OFIBPxa5X3lJbfed53e1"
+    //     };
+    
+    //     try {
+    //         const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
+    //         console.log("User data:", response.data);
+    //     } catch (error) {
+    //         console.error("Error fetching department data:", error);
+    //     }
+    // };
+//     const fetchData = async () => {
+//         const myCookies = document.cookie ;
+//         const newCookie = myCookies.substring(4);
+//        console.log('mycookie:',newCookie);
+   
+//        const headers = {
+//            "Authorization": `Bearer ${newCookie}`
+//        };
+   
+//        try {
+//         const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
+//         console.log("User data:", response.data);
+//        } catch (error) {
+//            console.error("Error fetching department data:", error);
+//        }
+//    };
+
+//    useEffect(() => {
+//     fetchData()
+//  })
+
+    // const handleLogout = () => {
+    //     const myCookies = document.cookie ;
+    //     const newCookie = myCookies.substring(4);
+    //     cookies().delete("jwt")
+    //     window.location.href = '/'
+    // }
+
+   
+    function handleLogout() {
+        const myCookies = document.cookie ;
+        console.log(myCookies);
+        document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        window.location.href = '/'
+    }
     const handleCheckNoneRadio = () => {
         setCheckNoneRadio(!CheckNoneRadio);
         setRouterWeb2(lastSegment);
@@ -94,6 +158,9 @@ const SideBar = () => {
             setCheckNoneRadio(!CheckNoneRadio);
         }
     }, [routerWeb]);
+
+
+   
 
 
     return (
@@ -182,7 +249,7 @@ const SideBar = () => {
 
 
 
-            <button className={styles['overView']}>
+            <button onClick={handleLogout} className={styles['overView']}>
                 <i className={styles['iconOverView']}><CiLogout /></i>
                 <p>Đăng Xuất</p>
             </button>

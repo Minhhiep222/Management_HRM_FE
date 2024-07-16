@@ -158,18 +158,18 @@ const Register = () => {
           }
      }, [errors]);
 
-     useEffect(() => {
-          fetchData();
-     }, [])
+          useEffect(() => {
+               fetchData();
+          }, [])
 
-     const fetchData = async () => {
-          try {
-               const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
-               setDepartments(result.data.results);
-          } catch (err) {
-               console.log("");
+          const fetchData = async () => {
+               try {
+                    const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
+                    setDepartments(result.data.results);
+               } catch (err) {
+                    console.log("");
+               }
           }
-     }
 
      return (
           <div className='login-parent'>

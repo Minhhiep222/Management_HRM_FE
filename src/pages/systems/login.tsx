@@ -6,6 +6,7 @@ import { FaGooglePlus } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { useState, useEffect, use } from 'react';
 import axios from 'axios'
+import { cookies } from 'next/headers';
 
 const Login = () => {
 
@@ -15,6 +16,8 @@ const Login = () => {
           role: '',
      });
      const [error,setError] = useState();
+     const [token,setToken] = useState();
+
 
      const handleChangeValue = (e) => {
           setChangeValue({
@@ -27,20 +30,23 @@ const Login = () => {
           e.preventDefault();
           try {
             const response = await axios.post('http://127.0.0.1:8000/api/login', changeValue);
-        
+            console.log(response);
             if(response.data.message) {
                alert(response.data.message); 
-               window.location.href = '/overview';
+               setToken(response.data.token);
+               document.cookie = `jwt=${response.data.token}; path=/`;
+               // window.location.href = '/overview'
             }  
           } catch (error) {
                setError(error.response.data.errors);
           }
         };
-       
+      
+    
 
     
      useEffect(() => {
-          
+        
         if(error) {
          if(error.username == 'The username field is required.') {
           setError('')
@@ -100,7 +106,7 @@ const Login = () => {
                                    <label htmlFor="admin">Quản trị viên</label>
                                    <input onClick={handleChangeValue} type="radio" name="role" value={'qtv'} id="admin" />
                               </div>
-                         </div>
+                         </div>    
                          <button onClick={handleSubmit} className='button-submit'>
                               Signin
                          </button>
