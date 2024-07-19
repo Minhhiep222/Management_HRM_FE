@@ -48,8 +48,8 @@ function ListEmployee() {
 
     const handleGetUser = async () => {
         try {
-            const result = await axios("http://127.0.0.1:8000/api/employees");
-            setEmployees(result.data.result);
+            const result = await axios("http://127.0.0.1:8000/api/employees/list");
+            setEmployees(result.data.employees);
 
         } catch (e) {
             console.log("Something wrong");

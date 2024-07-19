@@ -1,4 +1,3 @@
-
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
@@ -18,17 +17,38 @@ import axios from "axios";
 function ListGroup() {
     const [address, setAddress] = useState<string>('');
     const [teams, setTeams] = useState<any[]>([]);
+    const [teamDetail, setTeamDetail] = useState<any[]>([]);
+    const [member, setMember] = useState([]);
 
 
     const handleGetTeams = async () => {
         try {
-            const result = await axios("http://127.0.0.1:8000/api/employees");
-            setTeams(result.data.result);
-            console.log(teams);
+            const result = await axios("http://127.0.0.1:8000/api/teams/list");
+            setTeams(result.data.teams);
         } catch (e) {
             console.log("Something wrong !");
         }
     }
+
+    const handleGetTeamDetail = async () => {
+        try {
+            const result = await axios(`http://127.0.0.1:8000/api/teams/list`);
+            setTeamDetail(result.data.teamDetails);
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
+    const handleGetEmployee = async () => {
+        try {
+            const result = await axios(`http://127.0.0.1:8000/api/employees/list`);
+            setMember(result.data.employees);
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
+
 
     const saveAddress = (address: string) => {
         setAddress(address);
@@ -45,10 +65,19 @@ function ListGroup() {
         window.location.href = "/teams/create";
     }
 
+    const handle = () => {
+        const memberr = document.querySelector(`.${styles["members"]}`);
+        console.log(memberr)
+    }
 
     useEffect(() => {
         handleGetTeams();
-    });
+        // handleGetTeamDetail();
+        // handleGetEmployee();
+
+        // handle();    
+
+    }, []);
 
     return (
         <div>
@@ -124,46 +153,52 @@ function ListGroup() {
                             </tr>
                         </thead>
                         <tbody id={styles["body__experience"]}>
-                            <tr className={styles["employee__item"]}>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                    <div className={styles["control__project"]}>
-                                        <HiOutlineDotsHorizontal />
-                                        <ul className={styles["list__contacts"]}>
-                                            <Link href="/teams/detail" className={styles["contacts__item"]}>
-                                                <IoEyeOutline />
-                                                <span>Xem</span>
-                                            </Link>
-                                            <li className={styles["contacts__item"]}>
-                                                <TiUserDelete />
-                                                <span>Xóa</span>
-                                            </li>
-                                            <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                <MdOutlineTipsAndUpdates />
-                                                <span>Sửa</span>
-                                            </button>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                    <div className="">
-                                        <input type="checkbox" name="" id="" />
-                                    </div>
-                                </td>
-                                <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>Management</td>
-                                <td className={styles["td__experience"]} >
-                                    <div className={styles["img__teams"]}>
-                                        <div className={styles["td__img"]} style={{
-                                            backgroundImage: 'url("/images/space.jpg")'
-                                        }}>
+                            {teams.map((team, index) =>
+                                <tr className={styles["employee__item"]} key={index}>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
+                                        <div className={styles["control__project"]}>
+                                            <HiOutlineDotsHorizontal />
+                                            <ul className={styles["list__contacts"]}>
+                                                <Link href="/teams/detail" className={styles["contacts__item"]}>
+                                                    <IoEyeOutline />
+                                                    <span>Xem</span>
+                                                </Link>
+                                                <li className={styles["contacts__item"]}>
+                                                    <TiUserDelete />
+                                                    <span>Xóa</span>
+                                                </li>
+                                                <button onClick={handleUpdate} className={styles["contacts__item"]}>
+                                                    <MdOutlineTipsAndUpdates />
+                                                    <span>Sửa</span>
+                                                </button>
+                                            </ul>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className={styles["td__experience"]}>Nguyễn Minh Hiệp</td>
-                                <td className={styles["td__experience"]}>Nguyễn Minh Minh, Trần Minh Tuấn</td>
-                                <td className={styles["td__experience"]}>Nhân sự</td>
-                                <td className={styles["td__experience"]}>Thủ Đức</td>
-                                <td className={styles["td__experience"]}>Một cây làm chẳng nên non</td>
-                            </tr>
+                                    </td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
+                                        <div className="">
+                                            <input type="checkbox" name="" id="" />
+                                        </div>
+                                    </td>
+                                    <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>{team.name}</td>
+                                    <td className={styles["td__experience"]} >
+                                        <div className={styles["img__teams"]}>
+                                            <div className={styles["td__img"]} style={{
+                                                backgroundImage: `url("/images/${team.img}")`
+                                            }}>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className={styles["td__experience"]}>{team.managerID}</td>
+                                    <td className={classNames(styles["td__experience"])}>
+                                        {team.member.map((mem: any, index: any) =>
+                                            <div key={index} className={styles["members"]}></div>
+                                        )}
+                                    </td>
+                                    <td className={styles["td__experience"]}>{team.roomID}</td>
+                                    <td className={styles["td__experience"]}>{team.brandID}</td>
+                                    <td className={styles["td__experience"]}>Một cây làm chẳng nên non</td>
+                                </tr>
+                            )}
 
                         </tbody>
                     </table>

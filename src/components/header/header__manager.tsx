@@ -10,7 +10,6 @@ function HeaderManager() {
     useEffect(() => {
         const myspace_items = document.querySelectorAll(`.${globals["myspace__item"]}`);
         const items = document.querySelectorAll(`.link__item`);
-        console.log(items);
         items.forEach((element, index) => {
             element.addEventListener('click', () => {
                 myspace_items.forEach(item => item.classList.remove(`${globals["active"]}`))
