@@ -39,8 +39,6 @@ const Register = () => {
 
           //     const DOB = `${changeValue.year}/${changeValue.month}/${changeValue.day}`;
           //     const address = `${changeValue.district}/${changeValue.city}/${changeValue.country}`;
-
-
           const newObj = {
                fullName: changeValue.fullName,
                day: changeValue.day,
@@ -158,18 +156,18 @@ const Register = () => {
           }
      }, [errors]);
 
-          useEffect(() => {
-               fetchData();
-          }, [])
+     useEffect(() => {
+          fetchData();
+     }, [])
 
-          const fetchData = async () => {
-               try {
-                    const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
-                    setDepartments(result.data.results);
-               } catch (err) {
-                    console.log("");
-               }
+     const fetchData = async () => {
+          try {
+               const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
+               setDepartments(result.data.results);
+          } catch (err) {
+               console.log("");
           }
+     }
 
      return (
           <div className='login-parent'>

@@ -89,20 +89,6 @@ function Control() {
 
                                                             </div>
                                                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                     </div>
                                                 </div>
                                             </div>

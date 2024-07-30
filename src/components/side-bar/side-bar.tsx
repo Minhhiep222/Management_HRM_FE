@@ -14,7 +14,6 @@ import axios from 'axios';
 import React from 'react';
 
 
-import Cookies from 'js-cookie'
 
 const SideBar = () => {
 
@@ -43,14 +42,14 @@ const SideBar = () => {
     //     const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
     //     console.log(response.data.value);
     //  }
-    
+
     //  const fetchData = async () => {
     //     // const myCookies = document.cookie 
     //     //     console.log(myCookies);
     //     const headers = {
     //         "Authorization": "Bearer 49|vDmM2mYBZJTCwFSwPnD6dvIZQvD7OFIBPxa5X3lJbfed53e1"
     //     };
-    
+
     //     try {
     //         const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
     //         console.log("User data:", response.data);
@@ -58,26 +57,26 @@ const SideBar = () => {
     //         console.error("Error fetching department data:", error);
     //     }
     // };
-//     const fetchData = async () => {
-//         const myCookies = document.cookie ;
-//         const newCookie = myCookies.substring(4);
-//        console.log('mycookie:',newCookie);
-   
-//        const headers = {
-//            "Authorization": `Bearer ${newCookie}`
-//        };
-   
-//        try {
-//         const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
-//         console.log("User data:", response.data);
-//        } catch (error) {
-//            console.error("Error fetching department data:", error);
-//        }
-//    };
+    //     const fetchData = async () => {
+    //         const myCookies = document.cookie ;
+    //         const newCookie = myCookies.substring(4);
+    //        console.log('mycookie:',newCookie);
 
-//    useEffect(() => {
-//     fetchData()
-//  })
+    //        const headers = {
+    //            "Authorization": `Bearer ${newCookie}`
+    //        };
+
+    //        try {
+    //         const response = await axios.get("http://127.0.0.1:8000/api/setSidebar", { headers });
+    //         console.log("User data:", response.data);
+    //        } catch (error) {
+    //            console.error("Error fetching department data:", error);
+    //        }
+    //    };
+
+    //    useEffect(() => {
+    //     fetchData()
+    //  })
 
     // const handleLogout = () => {
     //     const myCookies = document.cookie ;
@@ -86,9 +85,9 @@ const SideBar = () => {
     //     window.location.href = '/'
     // }
 
-   
+
     function handleLogout() {
-        const myCookies = document.cookie ;
+        const myCookies = document.cookie;
         console.log(myCookies);
         document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         window.location.href = '/'
@@ -160,7 +159,7 @@ const SideBar = () => {
     }, [routerWeb]);
 
 
-   
+
 
 
     return (

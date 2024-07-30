@@ -14,24 +14,14 @@ import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoMdSearch } from "react-icons/io";
 import { useState } from "react";
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 
 function ListProject() {
 
-    const [address, setAddress] = useState<string>('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
+    const { address, saveAddress } = useAddress();
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-    }
 
     const handleCreate = () => {
         saveAddress(window.location.href);

@@ -12,15 +12,12 @@ import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
-import { useState } from "react";
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 
 function ListProject() {
-    const [address, setAddress] = useState<string>('');
-
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-    }
+    const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
+    const { address, saveAddress } = useAddress();
 
     const handleUpdate = () => {
         saveAddress(window.location.href);

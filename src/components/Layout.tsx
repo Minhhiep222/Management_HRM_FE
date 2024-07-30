@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from "react";
+import { FC, memo, ReactNode, useEffect } from "react";
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import Header from "@/components/header/header";
@@ -44,11 +44,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const overview = router.pathname === "/overview";
   const event = router.pathname === "/hadle/birthday";
 
-  // const pathsGroupSpace =
-
-
-
-
   const haveGroupSpace = router.pathname === "/groupspace/feeds" ||
     router.pathname === "/groupspace/list_member" ||
     router.pathname === "/groupspace/project";
@@ -66,10 +61,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     || router.pathname === "/manager/listcontracts"
     || router.pathname === "/manager/listrooms"
     || router.pathname === "/manager/listbrands";
-
-  const pathSHandle = [
-
-  ]
 
   const handle = router.pathname === "/projects/create"
     || router.pathname === "/projects/update"
@@ -147,7 +138,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                             </div>
                           </div>
                         )}
-
                       </div>
                     </div>
                   </div>

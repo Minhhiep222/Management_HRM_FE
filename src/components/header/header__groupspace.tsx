@@ -3,7 +3,7 @@ import classNames from "classnames";
 // import styles from "@/styles/myspace.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 function HeaderGroupSpace() {
     const router = useRouter();
     return (

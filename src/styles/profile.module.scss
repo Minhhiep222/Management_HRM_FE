@@ -106,7 +106,7 @@
 
 .footer__information__user-update {
   bottom: 0;
-  position: sticky;
+  position: fixed;
   right: 0;
   left: 0;
 }
@@ -156,7 +156,6 @@
   @include background;
   padding: 10px;
   min-height: 30vh;
-
   .title__introduce {
     @include text();
   }

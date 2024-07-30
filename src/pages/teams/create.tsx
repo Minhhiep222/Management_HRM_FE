@@ -1,32 +1,87 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, use, useCallback, useEffect, useRef, useState } from "react";
 import styles from "@/styles/profile.module.scss";
 import myspace from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
 import classNames from "classnames";
-import Image from "next/image";
-import { Input } from "postcss";
-import Link from "next/link";
 import { IoAddOutline } from "react-icons/io5";
 import ModalItem from "@/components/modal/Modal_Item";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useSelectImage from '@/components/hook/useSelectImage';
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 import { IoMdSearch } from "react-icons/io";
-import {
-    faArrowUp,
-    faArrowDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import DataList from "../api/datalist";
+
 function CreateTeam() {
+
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { img, handleSelectImg, handleUpload } = useSelectImage(inputRef);
     const [isModalOpenItem, setIsModalOpenItem] = useState(false);
-    const [address, setAddress] = useState<string>('');
+    const {
+        employees, handleGetUser,
+        managers, handleGetManager,
+        brands, handleGetBrand,
+        rooms, handleGetRoom
+    } = DataList();
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const chooseRef = useRef<HTMLInputElement | null>(null);
+    const { address, saveAddress } = useAddress();
+    const idAllUserRef = useRef<HTMLInputElement | null>(null);
+    const memberRef = useRef<HTMLDivElement | null>(null);
+    const [selectedRoom, setSelectedRoom] = useState({ department_id: '' });
+    const [selectedManager, setSelectedManager] = useState({ id: '' });
+    const [selectedBrand, setSelectedBrand] = useState({ brand_id: '' });
+    const [selectMember, setSelectMember] = useState<any[]>([]);
+    const [changeValue, setChangeValue] = useState({
+        name: '',
+        managerID: '',
+        img: '',
+        roomID: '',
+        brandID: '',
+        description: '',
+    });
 
     useEffect(() => {
-        handleSelect();
-        handleSelectImg();
-        const choose = document.querySelector(".choose__member");
-        console.log(choose)
-        choose?.addEventListener('click', () => {
-            handleOpenModalItem();
-        })
+        handleGetManager();
+        handleGetRoom();
+        handleGetBrand();
+        handleGetUser();
+        if (memberRef) {
+            handleSelect();
+        }
+        if (chooseRef) {
+            chooseRef.current?.addEventListener('click', () => {
+                handleOpenModalItem();
+            });
+        }
+        console.log("Minh hiep");
+    }, []);
+
+    const handleGetValue = (e: any) => {
+        handleCloseModalItem();
+    }
+
+    const handleCheckedAll = () => {
+        const checkeds = document.querySelectorAll("input[name='idUser']") as NodeListOf<HTMLInputElement>;
+        checkeds.forEach(element => {
+            if (idAllUserRef.current?.checked === false) {
+                element.checked = false
+                setSelectMember([]);
+            }
+            else {
+                element.checked = true;
+                setSelectMember(employees);
+            }
+        });
+
+    }
+
+    const handleUpdate = useCallback(() => {
+        saveAddress(window.location.href);
+        window.location.href = "/user/update";
     }, []);
 
     const handleOpenModalItem = () => {
@@ -41,6 +96,50 @@ function CreateTeam() {
 
     };
 
+    const handleSetChangeValue = (e: any) => {
+        console.log(changeValue);
+        setChangeValue({
+            ...changeValue,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleSetImg = (e: any) => {
+        setChangeValue({
+            ...changeValue,
+            [e.target.name]: e.target.files[0].name
+        });
+        console.log(changeValue);
+    }
+
+    const handleSetSelectedBrand = (room: any) => {
+        setSelectedBrand(room);
+    }
+
+    const handleSubmitTeam = async (e: any) => {
+        e.preventDefault();
+        handleUpload();
+        const newObj = {
+            name: changeValue.name,
+            managerID: selectedManager.id,
+            memberID: selectMember,
+            img: changeValue.img,
+            roomID: selectedRoom.department_id,
+            brandID: selectedBrand.brand_id,
+            description: changeValue.description
+        }
+        console.log(changeValue);
+        console.log(newObj);
+
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/api/teams", newObj);
+            alert(response.data.message);
+            if (response.status == 200)
+                window.location.href = '/manager/listgroups';
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleClose = () => {
         let address = ""
@@ -51,7 +150,6 @@ function CreateTeam() {
         const content__infor = document.querySelectorAll(`.${styles.input__infor}`);
         content__infor.forEach(element => {
             element.addEventListener('click', () => {
-                console.log(element);
                 const list__members = element.nextElementSibling;
                 const list = list__members as HTMLElement
                 if (list !== null) {
@@ -66,6 +164,10 @@ function CreateTeam() {
                             const valueInput = element as HTMLInputElement;
                             valueInput.value = option.textContent || "";
                             list.style.display = 'none';
+                            setChangeValue({
+                                ...changeValue,
+                                [valueInput.name]: valueInput.value
+                            });
                         });
                     })
                 }
@@ -73,17 +175,35 @@ function CreateTeam() {
         });
     }
 
-    const handleSelectImg = (): void => {
-        const chooseImg = document.querySelector(`.${styles["input__infor-img"]}`);
-        const inputFile = document.querySelector('input[type="file"]');
-        chooseImg?.addEventListener('click', () => {
-            const file = inputFile as HTMLInputElement;
-            file.click();
-        })
+    const handleSelectRoom = (e: any): void => {
+        setSelectedRoom(e)
     }
+
+    //method chọn manager                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    const handleSelectManager = (e: any): void => {
+        setSelectedManager(e)
+    }
+
+    //method chọn thành viên
+    const handleSelectMember = (e: any): void => {
+        setSelectMember(prevMembers => {
+            const isMemberSelected = prevMembers.some(member => member.id === e.id);
+            if (isMemberSelected) {
+                return prevMembers.filter(member => member.id !== e.id);
+            } else {
+                return [...prevMembers, e];
+            }
+        });
+    }
+
+    const isMemberSelected = (employee: any): boolean => {
+        return selectMember.some(member => member.id === employee.id);
+    };
+
 
     return (
         <div>
+
             <div className={classNames(styles["header__information-user"], styles["header__information__user-update"])}>
                 <div className={styles["z_raty"]}>
                     <div className={styles["infor__user"]}>
@@ -96,89 +216,76 @@ function CreateTeam() {
                 <div className={grid["grid"]}>
                     <div className={grid["grid__row"]}>
                         <div className={grid["grid__column-12"]}>
-                            <div className={styles["content_user"]}>
+                            <form className={styles["content_user"]} method="POST" ref={formRef}    >
                                 <div className={styles["introduce"]}>
                                     <h3 className={styles["title__introduce"]}>Thông Tin Cấu Hình Nhóm</h3>
                                     <div className={styles["infor__project"]}>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Hình ảnh</div>
-                                            <div className={styles["input__infor-img"]} style={{
-                                                backgroundImage: 'url("/images/space.jpg")'
-                                            }}>
+                                            <div className={styles["infor__item"]}>
+                                                <div onClick={handleSelectImg} className={styles["input__infor-img"]} style={{
+                                                    backgroundImage: `url("${img}")`
+                                                }}>
+                                                </div>
+                                                <input ref={inputRef} onChange={handleSetImg} name="img" style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" accept="image/*" />
                                             </div>
-                                            <input style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" />
                                         </div>
+
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Tên Nhóm</div>
-                                            <input className={styles["input__infor"]} required placeholder="Nhập tên nhóm" />
+                                            <input onChange={handleSetChangeValue} name="name" className={styles["input__infor"]} required placeholder="Nhập tên nhóm" />
                                         </div>
+
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Người Quản Lý</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn người quản lý" />
+                                                <input onChange={handleSetChangeValue} name="managerID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn người quản lý" />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Nguyễn Minh Hiệp
+                                                    {managers.map((manager: any) =>
+                                                        manager.members.map((member: any) =>
+                                                            <div onClick={() => handleSelectManager(member)} className={myspace["member__item"]} key={member.id}>
+                                                                <div className={myspace["img__member"]} style={{
+                                                                    backgroundImage: `url('/images/${member.img}')`
+                                                                }}>
+                                                                </div>
+                                                                <div className={myspace["member__infor"]}>
+                                                                    <div className={myspace["main__infor"]}>
+                                                                        <div className={myspace["name__member"]}>
+                                                                            {member.fullname}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Trần Đức Toản
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        <div className={myspace["img__member"]} style={{
-                                                            backgroundImage: `url('/images/space.jpg')`
-                                                        }}>
-                                                        </div>
-                                                        <div className={myspace["member__infor"]}>
-                                                            <div className={myspace["main__infor"]}>
-                                                                <div className={myspace["name__member"]}>
-                                                                    Nguyễn Văn Huy
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        )
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className={classNames(styles["infor__item"])}>
-
                                             <div className={styles["title__infor"]}>*Thành viên nhóm</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"], "choose__member")} placeholder="Chọn thành viên nhóm" />
-
+                                                <input name="memberID" ref={chooseRef} readOnly
+                                                    className={classNames(styles["input__infor"], styles["choosen__item-infor"], "choose__member")}
+                                                    placeholder="Chọn thành viên nhóm"
+                                                    defaultValue={selectMember.map(member =>
+                                                        member.fullname
+                                                    )}
+                                                    required
+                                                />
                                             </div>
                                         </div>
+
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Phòng</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn phòng" />
+                                                <input name="roomID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn phòng" />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        CEO
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        Management
-                                                    </div>
+                                                    {rooms.map((room, index) =>
+                                                        <div onClick={() => handleSelectRoom(room)} className={myspace["member__item"]} key={index}>
+                                                            {room.department_name}
+                                                        </div>
+                                                    )}
 
                                                     <div className={myspace["action__btn"]}>
                                                         <button onClick={handleCreateRoom} className={grid["btn"]}>
@@ -189,17 +296,17 @@ function CreateTeam() {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Khu Vực</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn khu vực" />
+                                                <input onClick={handleSetChangeValue} name="brandID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn khu vực" />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                    <div className={myspace["member__item"]} >
-                                                        Chi nhánh Thủ Đức
-                                                    </div>
-                                                    <div className={myspace["member__item"]} >
-                                                        Chinh Nhánh Quận 1
-                                                    </div>
+                                                    {brands.map((brand, index) =>
+                                                        <div onClick={e => handleSetSelectedBrand(brand)} className={myspace["member__item"]} key={index}>
+                                                            {brand.brand_address}
+                                                        </div>
+                                                    )}
                                                     <div className={myspace["action__btn"]}>
                                                         <button className={grid["btn"]}>
                                                             <IoAddOutline />
@@ -211,20 +318,20 @@ function CreateTeam() {
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Mô Tả</div>
-                                            <textarea className={styles["input__infor"]} required placeholder="Nhập mô tả dự án" />
+                                            <textarea onChange={handleSetChangeValue} name="description" className={styles["input__infor"]} required placeholder="Nhập mô tả dự án" />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
+                                    <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
+                                    <button type="submit" onClick={e => handleSubmitTeam(e)} className={classNames(styles["btn__save"])}>Lưu</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
-                <button className={classNames(styles["btn__save"])}>Lưu</button>
-            </div>
 
             <ModalItem isOpen={isModalOpenItem} onClose={handleCloseModalItem}>
                 <div>
@@ -240,7 +347,7 @@ function CreateTeam() {
                                     <tr className={myspace["tr__experience"]}>
                                         <th className={classNames(myspace["th__experience-checkbox"], myspace["sticky-col-0"])}>
                                             <div>
-                                                <input type="checkbox" name="" id="" />
+                                                <input onClick={handleCheckedAll} ref={idAllUserRef} type="checkbox" onChange={handleSetChangeValue} name="allIdUser" id="" />
                                             </div>
                                         </th>
                                         <th className={classNames(myspace["th__experience"], myspace["sticky-col-1"])}>
@@ -273,30 +380,38 @@ function CreateTeam() {
                                     </tr>
                                 </thead>
                                 <tbody id={myspace["body__experience"]}>
-                                    <tr className={myspace["employee__item"]}>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-0"])}>
-                                            <div>
-                                                <input type="checkbox" name="" id="" />
-                                            </div>
-                                        </td>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-1"])}>Assistant Manager</td>
-                                        <td className={classNames(myspace["td__experience"], myspace["sticky-col-2"])}>30-Apr-1998</td>
-                                        <td className={styles["td__experience"]} >
-                                            <div className={myspace["img__teams"]}>
-                                                <div className={myspace["td__img"]} style={{
-                                                    backgroundImage: 'url("/images/space.jpg")'
-                                                }}>
+
+                                    {employees.map((employee, index) =>
+                                        <tr className={myspace["employee__item"]} key={employee.id}>
+                                            <td className={classNames(myspace["td__experience"], myspace["sticky-col-0"])}>
+                                                <div>
+                                                    <input checked={isMemberSelected(employee)} type="checkbox" onChange={() => handleSelectMember(employee)} name="idUser" id="" defaultValue={employee.fullname} />
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td className={classNames(myspace["td__experience"], myspace["sticky-col-1"])}>{employee.fullname}</td>
+                                            <td className={classNames(myspace["td__experience"], myspace["sticky-col-2"])}>{employee.email}</td>
+                                            <td className={styles["td__experience"]} >
+                                                <div className={myspace["img__teams"]}>
+                                                    <div className={myspace["td__img"]} style={{
+                                                        backgroundImage: `url("/images/${employee.img}")`
+                                                    }}>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+
                                 </tbody>
                             </table>
+                        </div>
+                        <div style={{ justifyContent: "end", margin: "10px 0" }} className={myspace["search__member"]}>
+                            <button onClick={handleGetValue} className={classNames(styles["btn__save"])}>Chọn</button>
                         </div>
                     </div>
                 </div>
             </ModalItem>
-        </div>
+
+        </div >
 
     );
 }

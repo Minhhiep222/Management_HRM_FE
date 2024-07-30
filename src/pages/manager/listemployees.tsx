@@ -7,50 +7,35 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Modal from "@/components/Modal";
-import UserCreate from "@/pages/user/create";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { TiUserDelete } from "react-icons/ti";
-import { MdOutlineTipsAndUpdates } from "react-icons/md";
-import { IoEyeOutline } from "react-icons/io5";
-import Link from "next/link";
 import ProfileUser from "@/pages/user/profile";
 import axios from "axios";
+import Employee from "@/components/Employee";
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 
 function ListEmployee() {
-    const [address, setAddress] = useState<string>('');
     const [employees, setEmployees] = useState<any[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
+    const { address, saveAddress } = useAddress();
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-    }
-
-    const handleUpdate = () => {
+    const handleUpdate = useCallback(() => {
         saveAddress(window.location.href);
         window.location.href = "/user/update";
-    };
+    }, []);
 
+    //create user
     const handleCreate = () => {
         saveAddress(window.location.href);
         window.location.href = "/user/create";
     };
 
+    //get user
     const handleGetUser = async () => {
         try {
             const result = await axios("http://127.0.0.1:8000/api/employees/list");
             setEmployees(result.data.employees);
-
         } catch (e) {
             console.log("Something wrong");
         }
@@ -64,11 +49,6 @@ function ListEmployee() {
         <div>
             <div className={styles["control__project"]}>
                 <div className={styles["search__member"]}>
-                    {/* <select name="name__project" id="" className={styles["select__name-project"]}>
-                        Dự án
-                        <option value="Quản lý nhân sự" className={styles["item__project"]}>Quản lý nhân sự</option>
-                        <option value="Thương mại điện tử" className={styles["item__project"]}>Thương mại điện tử</option>
-                    </select> */}
                     <input type="text" placeholder="Tìm kiếm" />
                     <IoMdSearch />
                 </div>
@@ -76,8 +56,6 @@ function ListEmployee() {
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
                     <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
-                    {/* <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiImport /> Nhập</button>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}> <CiExport /> Xuất</button> */}
                 </div>
             </div>
             <div className={styles["introduce"]}>
@@ -336,62 +314,13 @@ function ListEmployee() {
                         <tbody style={{ minHeight: '10px    ', overflowY: 'scroll' }} id={styles["body__experience"]}>
 
                             {employees.map((employee, index) =>
-                                <tr className={styles["employee__item"]} key={employee.id}>
-                                    <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
-                                        <div className={styles["control__project"]}>
-                                            <HiOutlineDotsHorizontal />
-                                            <ul className={styles["list__contacts"]}>
-                                                <button onClick={handleOpenModal} className={styles["contacts__item"]}>
-                                                    <IoEyeOutline />
-                                                    <span>Xem</span>
-                                                </button>
-                                                <li className={styles["contacts__item"]}>
-                                                    <TiUserDelete />
-                                                    <span>Xóa</span>
-                                                </li>
-                                                <button onClick={handleUpdate} className={styles["contacts__item"]}>
-                                                    <MdOutlineTipsAndUpdates />
-                                                    <span>Sửa</span>
-                                                </button>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
-                                        <div>
-                                            <input type="checkbox" name="" id="" />
-                                        </div>
-                                    </td>
-                                    <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>{employee.id}</td>
-                                    <td className={classNames(styles["td__experience"], styles["sticky-col-3"])}>{employee.fullname}</td>
-                                    <td className={classNames(styles["td__experience"], styles["sticky-col-4"])}>{employee.nickname}</td>
-                                    <td className={styles["td__experience"]}>{employee.address}</td>
-                                    <td className={styles["td__experience"]} >
-                                        <div className={styles["img__teams"]}>
-                                            <div className={styles["td__img"]} style={{
-                                                backgroundImage: `url("/images/${employee.img}")`
-                                            }}>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className={styles["td__experience"]}>{employee.email}</td>
-                                    <td className={styles["td__experience"]}>{employee.dob}</td>
-                                    <td className={styles["td__experience"]}>{employee.sex}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.marital_status}</td>
-                                    <td className={styles["td__experience"]}>{employee.marital_status}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.phone}</td>
-                                    <td className={styles["td__experience"]}>{employee.type}</td>
-                                    <td className={styles["td__experience"]}>{employee.state_work}</td>
-                                    <td className={styles["td__experience"]}>{employee.start_date}</td>
-                                </tr>
+                                /*Employee*/
+                                <Employee key={index}
+                                    employee={employee}
+                                    onOpenModal={handleOpenModal}
+                                    onCloseModal={handleCloseModal}
+                                    onUpdate={handleUpdate}
+                                />
                             )}
 
                         </tbody>
@@ -413,3 +342,7 @@ function ListEmployee() {
 }
 
 export default ListEmployee;
+function useModal(): [any, any] {
+    throw new Error("Function not implemented.");
+}
+

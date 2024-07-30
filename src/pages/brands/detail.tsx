@@ -22,14 +22,6 @@ function DetailBrand() {
         })
 
         console.log(inputGroup);
-        // inputGroup.forEach((element, index) => {
-        //     const item = element as HTMLInputElement;
-        //     item.addEventListener('click', () => {
-        //         const list = listMember[index] as HTMLElement;
-        //         list.style.display = `block`;
-        //         console.log("wqew")
-        //     })
-        // })
     }, []);
 
 

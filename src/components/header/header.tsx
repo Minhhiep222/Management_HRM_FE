@@ -1,6 +1,6 @@
 import globals from "@/styles/globals.module.scss";
 import "@/app/globals.css"
-import React from 'react';
+import React, { memo } from 'react';
 import styles from '@/styles/navbar.module.scss';
 import '@/styles/globals.css';
 import { FaList } from "react-icons/fa";

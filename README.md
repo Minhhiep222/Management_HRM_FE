@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+import { writeFile } from "fs";
+import { NextRequest, NextResponse } from "next/server";
+import { join } from "path";
+import { buffer } from "stream/consumers";
+
+export async function POST(request: NextRequest) {
+const data = await request.formData();
+const file: File | null = data.get('file') as unknown as File
+
+    if (!file)
+        return NextResponse.json({ success: false });
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const path = join('/', 'tmp', file.name);
+    await writeFile(path, buffer);
+    console.log(`open ${path}`);
+    return { success: true }
+
+}

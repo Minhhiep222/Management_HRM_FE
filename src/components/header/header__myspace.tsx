@@ -2,7 +2,7 @@ import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 function HeaderMySpace() {
     const router = useRouter();
 

@@ -4,23 +4,19 @@ import myspace from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import { IoMdSearch } from "react-icons/io";
-import { useState } from "react";
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 
 
 function ListProject() {
-    const [address, setAddress] = useState<string>('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-    }
+    const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
+    const { address, saveAddress } = useAddress();
 
     const handleUpdate = () => {
         saveAddress(window.location.href);
         window.location.href = "/contracts/update";
     };
+
     const handleCreateContract = () => {
         saveAddress(window.location.href);
         window.location.href = "/contracts/create";
@@ -84,7 +80,5 @@ function ListProject() {
 }
 
 export default ListProject;
-function clsx() {
-    throw new Error("Function not implemented.");
-}
+
 

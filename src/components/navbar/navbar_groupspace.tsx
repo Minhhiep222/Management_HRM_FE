@@ -6,19 +6,6 @@ import { useEffect } from "react";
 
 function NavBarGroupSpace() {
     const router = useRouter();
-    useEffect(() => {
-        const myspace_items = document.querySelectorAll(`.${styles["myspace__item"]}`);
-        const items = document.querySelectorAll(`.link__item`);
-        console.log(items);
-        items.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                console.log(element);
-                myspace_items.forEach(item => item.classList.remove(`${styles["active__myspace"]}`))
-                myspace_items[index].classList.add(`${styles["active__myspace"]}`);
-            })
-        });
-
-    }, []);
 
     return (
         <div className={styles["navbar__myspace"]}>

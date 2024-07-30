@@ -11,29 +11,22 @@ import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import Link from "next/link";
 import { IoEyeOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
 
 function ListGroup() {
-    const [address, setAddress] = useState<string>('');
+    const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
+    const { address, saveAddress } = useAddress();
     const [teams, setTeams] = useState<any[]>([]);
-    const [teamDetail, setTeamDetail] = useState<any[]>([]);
-    const [member, setMember] = useState([]);
-
+    const [members, setMember] = useState<any[]>([]);
 
     const handleGetTeams = async () => {
         try {
             const result = await axios("http://127.0.0.1:8000/api/teams/list");
             setTeams(result.data.teams);
-        } catch (e) {
-            console.log("Something wrong !");
-        }
-    }
-
-    const handleGetTeamDetail = async () => {
-        try {
-            const result = await axios(`http://127.0.0.1:8000/api/teams/list`);
-            setTeamDetail(result.data.teamDetails);
+            console.log(result.data.teams);
         } catch (e) {
             console.log("Something wrong !");
         }
@@ -48,14 +41,6 @@ function ListGroup() {
         }
     }
 
-
-
-    const saveAddress = (address: string) => {
-        setAddress(address);
-        localStorage.setItem('address', address);
-
-    }
-
     const handleUpdate = () => {
         saveAddress(window.location.href);
         window.location.href = "/teams/update";
@@ -65,19 +50,11 @@ function ListGroup() {
         window.location.href = "/teams/create";
     }
 
-    const handle = () => {
-        const memberr = document.querySelector(`.${styles["members"]}`);
-        console.log(memberr)
-    }
-
     useEffect(() => {
         handleGetTeams();
-        // handleGetTeamDetail();
         // handleGetEmployee();
-
-        // handle();    
-
     }, []);
+
 
     return (
         <div>
@@ -153,6 +130,7 @@ function ListGroup() {
                             </tr>
                         </thead>
                         <tbody id={styles["body__experience"]}>
+
                             {teams.map((team, index) =>
                                 <tr className={styles["employee__item"]} key={index}>
                                     <td className={classNames(styles["td__experience"], styles["sticky-col-0"])}>
@@ -188,18 +166,19 @@ function ListGroup() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className={styles["td__experience"]}>{team.managerID}</td>
+                                    <td className={styles["td__experience"]}>{team.manager.fullname}</td>
                                     <td className={classNames(styles["td__experience"])}>
-                                        {team.member.map((mem: any, index: any) =>
-                                            <div key={index} className={styles["members"]}></div>
+                                        {team.members.map((mem: any, index: any) =>
+                                            <div key={index} className={styles["members"]}>
+                                                {mem.fullname}
+                                            </div>
                                         )}
                                     </td>
-                                    <td className={styles["td__experience"]}>{team.roomID}</td>
-                                    <td className={styles["td__experience"]}>{team.brandID}</td>
-                                    <td className={styles["td__experience"]}>Một cây làm chẳng nên non</td>
+                                    <td className={styles["td__experience"]}>{team.room.department_name}</td>
+                                    <td className={styles["td__experience"]}>{team.brand.brand_address}</td>
+                                    <td className={styles["td__experience"]}>{team.description}</td>
                                 </tr>
                             )}
-
                         </tbody>
                     </table>
                 </div>
@@ -209,3 +188,5 @@ function ListGroup() {
 }
 
 export default ListGroup;
+
+

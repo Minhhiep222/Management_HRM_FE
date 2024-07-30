@@ -21,7 +21,7 @@ import {
     faClock,
     faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 
 function Profile() {
@@ -49,42 +49,42 @@ function Profile() {
         fetchData();
         // fetchData2();
         // fetchData3();
-   }, [])
+    }, [])
 
-   const fetchData = async () => {
-    const myCookies = document.cookie ;
-    const newCookie = myCookies.substring(4);
-   console.log('mycookie:',myCookies);
-   console.log('newCookie:',newCookie);
+    const fetchData = async () => {
+        const myCookies = document.cookie;
+        const newCookie = myCookies.substring(4);
+        console.log('mycookie:', myCookies);
+        console.log('newCookie:', newCookie);
 
-   const headers = {
-       "Authorization": `Bearer ${newCookie}`
-   };
-   
-   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/getValues", { headers });
-    console.log("User data:", response.data);
-   } catch (error) {
-       console.error("Error fetching department data:", error);
-   }
-};
+        const headers = {
+            "Authorization": `Bearer ${newCookie}`
+        };
 
-//    const fetchData2 = async () => {
-//     try {
-//          const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
-//          console.log("dpm",result);
-//     } catch (err) {
-//          console.log("");
-//     }
-// }
-// const fetchData3 = async () => {
-//     try {
-//          const result = await axios.post("http://127.0.0.1:8000/api/login");
-//          console.log("login",result);
-//     } catch (err) {
-//          console.log("");
-//     }
-// }
+        try {
+            const response = await axios.get("http://127.0.0.1:8000/api/getValues", { headers });
+            console.log("User data:", response.data);
+        } catch (error) {
+            console.error("Error fetching department data:", error);
+        }
+    };
+
+    //    const fetchData2 = async () => {
+    //     try {
+    //          const result = await axios("http://127.0.0.1:8000/api/getAllDepartment");
+    //          console.log("dpm",result);
+    //     } catch (err) {
+    //          console.log("");
+    //     }
+    // }
+    // const fetchData3 = async () => {
+    //     try {
+    //          const result = await axios.post("http://127.0.0.1:8000/api/login");
+    //          console.log("login",result);
+    //     } catch (err) {
+    //          console.log("");
+    //     }
+    // }
 
 
 

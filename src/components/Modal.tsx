@@ -1,5 +1,5 @@
 // components/Modal.tsx
-import { FC, ReactNode, MouseEvent } from 'react';
+import { FC, ReactNode, MouseEvent, memo } from 'react';
 import styles from '@/styles/modal.module.scss';
 
 interface ModalProps {
@@ -29,4 +29,4 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
     );
 };
 
-export default Modal;
+export default memo(Modal);

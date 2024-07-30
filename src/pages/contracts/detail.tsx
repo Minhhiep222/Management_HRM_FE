@@ -7,7 +7,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { Input } from "postcss";
 import Link from "next/link";
-function DetailRoom() {
+function DetailContract() {
 
     useEffect(() => {
         const chooseImg = document.querySelector(`.${styles["input__infor-img"]}`);
@@ -167,4 +167,4 @@ function DetailRoom() {
     );
 }
 
-export default DetailRoom;
+export default DetailContract;

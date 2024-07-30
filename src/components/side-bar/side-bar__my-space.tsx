@@ -6,6 +6,7 @@ import { MdOutlineVideoCall } from "react-icons/md";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import classNames from "classnames";
 import Link from "next/link";
+import { memo } from "react";
 function SideBarMySpace() {
     return (
         <div className={styles["side__bar-myspace"]}>

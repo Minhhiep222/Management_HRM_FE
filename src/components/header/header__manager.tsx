@@ -3,21 +3,9 @@ import classNames from "classnames";
 // import styles from "@/styles/myspace.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 function HeaderManager() {
     const router = useRouter();
-
-    useEffect(() => {
-        const myspace_items = document.querySelectorAll(`.${globals["myspace__item"]}`);
-        const items = document.querySelectorAll(`.link__item`);
-        items.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                myspace_items.forEach(item => item.classList.remove(`${globals["active"]}`))
-                myspace_items[index].classList.add(`${globals["active"]}`);
-            })
-        });
-
-    }, []);
 
     return (
         <div className={globals["header__myspace"]}>

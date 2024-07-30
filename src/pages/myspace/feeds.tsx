@@ -5,7 +5,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { TfiCommentAlt } from "react-icons/tfi";
 import classNames from "classnames";
 
-function MySpace() {
+function Feed() {
     return (
 
         <div className={styles["box__feeds"]}>
@@ -303,4 +303,4 @@ function MySpace() {
     );
 }
 
-export default MySpace;
+export default Feed;
