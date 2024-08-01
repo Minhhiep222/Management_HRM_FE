@@ -5,11 +5,48 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { IoEyeOutline } from "react-icons/io5";
-
-function Employee(props: { employee: any; onOpenModal: () => void | undefined; onCloseModal: () => void | undefined; onUpdate: () => void | undefined }) {
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+function Employee(props: {
+    employee: any;
+    onOpenModal: () => void | undefined;
+    onCloseModal: () => void | undefined;
+    onSelectMember: (e: any) => void | undefined;
+    onDelete: (e: any) => void;
+    onUpdate: () => void
+}) {
     const { employee } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [address, setAddress] = useState<string>('');
+
+    interface DeleteConfirmationDialogProps {
+        open: boolean;
+        onClose: () => void;
+        onConfirm: () => void;
+    }
+
+    const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({ open, onClose, onConfirm }) => (
+        <Dialog open={open} onClose={onClose}>
+            <DialogTitle>Xác nhận xóa</DialogTitle>
+            <DialogContent>
+                <p>Bạn có chắc chắn muốn xóa thành viên này không?</p>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} color="primary">
+                    Hủy
+                </Button>
+                <Button
+                    onClick={() => {
+                        onConfirm();
+                        onClose();
+                    }}
+                    color="secondary"
+                >
+                    Xóa
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+
 
     return (
         <>
@@ -22,10 +59,10 @@ function Employee(props: { employee: any; onOpenModal: () => void | undefined; o
                                 <IoEyeOutline />
                                 <span>Xem</span>
                             </button>
-                            <li className={styles["contacts__item"]}>
+                            <button onClick={e => props.onDelete(employee.id)} className={styles["contacts__item"]}>
                                 <TiUserDelete />
                                 <span>Xóa</span>
-                            </li>
+                            </button>
                             <button onClick={props.onUpdate} className={styles["contacts__item"]}>
                                 <MdOutlineTipsAndUpdates />
                                 <span>Sửa</span>
@@ -35,7 +72,7 @@ function Employee(props: { employee: any; onOpenModal: () => void | undefined; o
                 </td>
                 <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
                     <div>
-                        <input type="checkbox" name="" id="" />
+                        <input onClick={e => props.onSelectMember(employee)} defaultValue={employee} type="checkbox" name="idUser" id="" />
                     </div>
                 </td>
                 <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>{employee.id}</td>
@@ -51,9 +88,11 @@ function Employee(props: { employee: any; onOpenModal: () => void | undefined; o
                     </div>
                 </td>
                 <td className={styles["td__experience"]}>{employee.email}</td>
+                <td className={styles["td__experience"]}>{employee.email_work}</td>
                 <td className={styles["td__experience"]}>{employee.dob}</td>
                 <td className={styles["td__experience"]}>{employee.sex}</td>
                 <td className={styles["td__experience"]}>{employee.phone}</td>
+                <td className={styles["td__experience"]}>{employee.phone_work}</td>
                 <td className={styles["td__experience"]}>{employee.marital_status}</td>
                 <td className={styles["td__experience"]}>{employee.marital_status}</td>
                 <td className={styles["td__experience"]}>{employee.phone}</td>

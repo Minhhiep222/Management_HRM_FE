@@ -13,13 +13,13 @@ import { IoMdSearch } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import DataList from "../api/datalist";
-import { count } from "console";
+import DataList from "../../api/datalist";
+import { useParams } from "next/navigation";
 
-function CreateTeam() {
-
+function UpdateTeam() {
+    const param = useParams();
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const { img, handleSelectImg, handleUpload } = useSelectImage(inputRef);
+    const { img, setImg, handleSelectImg, handleUpload } = useSelectImage(inputRef);
     const [isModalOpenItem, setIsModalOpenItem] = useState(false);
     const {
         employees, handleGetUser,
@@ -32,14 +32,18 @@ function CreateTeam() {
     const { address, saveAddress } = useAddress();
     const idAllUserRef = useRef<HTMLInputElement | null>(null);
     const memberRef = useRef<HTMLDivElement | null>(null);
-    const [selectedRoom, setSelectedRoom] = useState({ department_id: '' });
-    const [selectedManager, setSelectedManager] = useState({ id: '' });
-    const [selectedBrand, setSelectedBrand] = useState({ brand_id: '' });
+    const [selectedRoom, setSelectedRoom] = useState({ department_id: '', department_name: '' });
+    const [selectedManager, setSelectedManager] = useState({ id: '', fullname: '' });
+    const [selectedBrand, setSelectedBrand] = useState({ brand_id: '', brand_address: '' });
     const [selectMember, setSelectMember] = useState<any[]>([]);
-    const [changeValue, setChangeValue] = useState({
+    const [teamField, setTeamField] = useState({
+        id: '',
         name: '',
         img: '',
         description: '',
+        managerID: '',
+        brandID: '',
+        roomID: '',
     });
 
     useEffect(() => {
@@ -48,12 +52,43 @@ function CreateTeam() {
         handleGetBrand();
         handleGetUser();
         handleSelect();
-    }, []);
-    console.log("Minh hiep");
+        if (param) {
+            handleGetTeamByID(param.id);
+        }
+    }, [param]);
+
+    const handleGetUserByID = async (id: any) => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
+            setUserField(result.data.employee);
+            setDate(result.data.employee.dob);
+            setImg(`/images/${result.data.employee.img}`)
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
+    //method lấy team bằng id
+    const handleGetTeamByID = async (id: any) => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/teams/" + id);
+            setTeamField(result.data.team);
+            setImg(`/images/${result.data.team.img}`)
+            setSelectMember(result.data.team.members);
+            setSelectedManager(result.data.team.manager);
+            setSelectedRoom(result.data.team.room);
+            setSelectedBrand(result.data.team.brand);
+            console.log(result.data.team)
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
     const handleGetValue = (e: any) => {
         handleCloseModalItem();
     }
 
+    // method chọn hoặc hủy tất cả
     const handleCheckedAll = () => {
         const checkeds = document.querySelectorAll("input[name='idUser']") as NodeListOf<HTMLInputElement>;
         checkeds.forEach(element => {
@@ -87,16 +122,16 @@ function CreateTeam() {
     };
 
     const handleSetChangeValue = (e: any) => {
-        console.log(changeValue);
-        setChangeValue({
-            ...changeValue,
+        console.log(teamField);
+        setTeamField({
+            ...teamField,
             [e.target.name]: e.target.value
         });
     }
 
     const handleSetImg = (e: any) => {
-        setChangeValue({
-            ...changeValue,
+        setTeamField({
+            ...teamField,
             [e.target.name]: e.target.files[0].name
         });
     }
@@ -105,17 +140,17 @@ function CreateTeam() {
         e.preventDefault();
         handleUpload();
         const newObj = {
-            name: changeValue.name,
+            name: teamField.name,
             managerID: selectedManager.id,
             memberID: selectMember,
-            img: changeValue.img,
+            img: teamField.img,
             roomID: selectedRoom.department_id,
             brandID: selectedBrand.brand_id,
-            description: changeValue.description
+            description: teamField.description
         }
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/teams", newObj);
+            const response = await axios.put("http://127.0.0.1:8000/api/teams/" + teamField.id, newObj);
             alert(response.data.message);
             if (response.status == 200)
                 window.location.href = '/manager/listgroups';
@@ -208,13 +243,14 @@ function CreateTeam() {
 
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Tên Nhóm</div>
-                                            <input onChange={handleSetChangeValue} name="name" className={styles["input__infor"]} required placeholder="Nhập tên nhóm" />
+                                            <input onChange={handleSetChangeValue} name="name" className={styles["input__infor"]} required placeholder="Nhập tên nhóm" defaultValue={teamField.name} />
                                         </div>
 
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Người Quản Lý</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input name="managerID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn người quản lý" />
+                                                <input name="managerID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])}
+                                                    placeholder="Chọn người quản lý" defaultValue={selectedManager.fullname} />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
                                                     {managers.map((manager: any) =>
                                                         manager.members.map((member: any) =>
@@ -254,7 +290,7 @@ function CreateTeam() {
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Phòng</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input name="roomID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn phòng" />
+                                                <input name="roomID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn phòng" defaultValue={selectedRoom.department_name} />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
                                                     {rooms.map((room, index) =>
                                                         <div onClick={() => setSelectedRoom(room)} className={myspace["member__item"]} key={index}>
@@ -275,7 +311,7 @@ function CreateTeam() {
                                         <div className={classNames(styles["infor__item"])}>
                                             <div className={styles["title__infor"]}>*Khu Vực</div>
                                             <div className={styles["groups__choose"]}>
-                                                <input onClick={handleSetChangeValue} name="brandID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn khu vực" />
+                                                <input onClick={handleSetChangeValue} name="brandID" readOnly className={classNames(styles["input__infor"], styles["choosen__item-infor"])} placeholder="Chọn khu vực" defaultValue={selectedBrand.brand_address} />
                                                 <div className={classNames(myspace["list__member"], styles["choose"])} >
                                                     {brands.map((brand, index) =>
                                                         <div key={index} onClick={e => setSelectedBrand(brand)} className={myspace["member__item"]} >
@@ -293,7 +329,7 @@ function CreateTeam() {
                                         </div>
                                         <div className={styles["infor__item"]}>
                                             <div className={styles["title__infor"]}>*Mô Tả</div>
-                                            <textarea onChange={handleSetChangeValue} name="description" className={styles["input__infor"]} required placeholder="Nhập mô tả dự án" />
+                                            <textarea onChange={handleSetChangeValue} name="description" className={styles["input__infor"]} required placeholder="Nhập mô tả dự án" defaultValue={teamField.description} />
                                         </div>
                                     </div>
                                 </div>
@@ -392,4 +428,4 @@ function CreateTeam() {
     );
 }
 
-export default CreateTeam;
+export default UpdateTeam;

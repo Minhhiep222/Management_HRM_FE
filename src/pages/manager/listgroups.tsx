@@ -20,13 +20,15 @@ function ListGroup() {
     const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
     const { address, saveAddress } = useAddress();
     const [teams, setTeams] = useState<any[]>([]);
-    const [members, setMember] = useState<any[]>([]);
+    const [Teams, setTeam] = useState<any[]>([]);
+    const [employees, setEmployees] = useState<any[]>([]);
+    const idAllUserRef = useRef<HTMLInputElement | null>(null);
+    const [selectTeam, setSelectTeam] = useState<any[]>([]);
 
     const handleGetTeams = async () => {
         try {
             const result = await axios("http://127.0.0.1:8000/api/teams/list");
             setTeams(result.data.teams);
-            console.log(result.data.teams);
         } catch (e) {
             console.log("Something wrong !");
         }
@@ -35,19 +37,81 @@ function ListGroup() {
     const handleGetEmployee = async () => {
         try {
             const result = await axios(`http://127.0.0.1:8000/api/employees/list`);
-            setMember(result.data.employees);
+            setTeam(result.data.employees);
         } catch (e) {
             console.log("Something wrong !");
         }
     }
 
-    const handleUpdate = () => {
+    const handleUpdate = (id: any) => {
         saveAddress(window.location.href);
-        window.location.href = "/teams/update";
+        window.location.href = `/teams/update/${id}`;
     };
 
     const handleCreateTeam = () => {
         window.location.href = "/teams/create";
+    }
+
+    const handleCheckedAll = () => {
+        const checkeds = document.querySelectorAll("input[name='idTeam']") as NodeListOf<HTMLInputElement>;
+        checkeds.forEach((element, index) => {
+            if (idAllUserRef.current?.checked === false) {
+                element.checked = false
+                setSelectTeam([]);
+            }
+            else {
+                element.checked = true;
+                setSelectTeam(employees)
+            }
+        });
+    }
+
+    const handleSelectTeam = (e: any): void => {
+        setSelectTeam(prevTeams => {
+            const isTeamSelected = prevTeams.some(Team => Team.id === e.id);
+            if (isTeamSelected) {
+                return prevTeams.filter(Team => Team.id !== e.id);
+            } else {
+                return [...prevTeams, e];
+            }
+        });
+    }
+
+    const handleDeleteTeams = async () => {
+        try {
+            var arrayId: any = [];
+            if (selectTeam) {
+                selectTeam.map((Team, index) =>
+                    arrayId[index] = Team.id
+                )
+            }
+
+            const result = await axios.patch("http://127.0.0.1:8000/api/teams/deleteAll", arrayId);
+
+            if (result.status == 200) {
+                console.log("xóa thành công");
+                handleGetTeams();
+                const checkeds = document.querySelectorAll("input[name='idTeam']") as NodeListOf<HTMLInputElement>;
+                checkeds.forEach(checked => checked.checked = false);
+            }
+
+        } catch (e) {
+            console.log("something wrong")
+        }
+    }
+
+    const handleDeleteTeamById = async (id: any) => {
+        const confim = window.confirm("Bạn có muốn xóa nhóm này không");
+        if (confim)
+            try {
+                const result = await axios.delete("http://127.0.0.1:8000/api/teams/" + id);
+                if (result.status == 200) {
+                    console.log("xóa thành công");
+                    handleGetTeams();
+                }
+            } catch (e) {
+                console.log("something wrong")
+            }
     }
 
     useEffect(() => {
@@ -70,6 +134,7 @@ function ListGroup() {
                 <div className={styles["control"]}>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Nhân viên</button>
                     <button className={classNames(grid["btn"], styles["btn__control-project"])}>Phòng</button>
+                    <button onClick={handleDeleteTeams} className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
                     <button onClick={handleCreateTeam} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm nhóm</button>
                 </div>
             </div>
@@ -83,7 +148,7 @@ function ListGroup() {
                                 </th>
                                 <th className={classNames(styles["th__experience-checkbox"], styles["sticky-col-1"])}>
                                     <div>
-                                        <input type="checkbox" name="" id="" />
+                                        <input ref={idAllUserRef} onClick={handleCheckedAll} type="checkbox" name="" id="" />
                                     </div>
                                 </th>
                                 <th className={classNames(styles["th__experience"], styles["sticky-col-2"])} style={{
@@ -141,11 +206,11 @@ function ListGroup() {
                                                     <IoEyeOutline />
                                                     <span>Xem</span>
                                                 </Link>
-                                                <li className={styles["contacts__item"]}>
+                                                <button onClick={() => handleDeleteTeamById(team.id)} className={styles["contacts__item"]}>
                                                     <TiUserDelete />
                                                     <span>Xóa</span>
-                                                </li>
-                                                <button onClick={handleUpdate} className={styles["contacts__item"]}>
+                                                </button>
+                                                <button onClick={() => handleUpdate(team.id)} className={styles["contacts__item"]}>
                                                     <MdOutlineTipsAndUpdates />
                                                     <span>Sửa</span>
                                                 </button>
@@ -154,7 +219,7 @@ function ListGroup() {
                                     </td>
                                     <td className={classNames(styles["td__experience"], styles["sticky-col-1"])}>
                                         <div className="">
-                                            <input type="checkbox" name="" id="" />
+                                            <input onClick={() => handleSelectTeam(team)} type="checkbox" name="idTeam" id="" />
                                         </div>
                                     </td>
                                     <td className={classNames(styles["td__experience"], styles["sticky-col-2"])}>{team.name}</td>

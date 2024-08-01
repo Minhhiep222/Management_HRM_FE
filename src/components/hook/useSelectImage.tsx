@@ -79,7 +79,7 @@ function useSelecImage(object: any) {
         }
     };
 
-    return { img, handleSelectImg, handleUpload, handleDelete, selectedFile }
+    return { img, setImg, handleSelectImg, handleUpload, handleDelete, selectedFile }
 }
 
 export default useSelecImage;

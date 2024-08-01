@@ -25,7 +25,7 @@ import useAddress from '@/components/hook/useAddress';
 import axios from "axios";
 import DataList from "../api/datalist";
 
-function CreateProfile() {
+function CreateTeam() {
     const [date, setDate] = React.useState<Date>();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const { img, handleSelectImg, handleUpload, handleDelete, selectedFile } = useSelectImage(inputRef);
@@ -46,6 +46,12 @@ function CreateProfile() {
     const [selectedManager, setSelectedManager] = useState({ id: '' });
     const [selectedBrand, setSelectedBrand] = useState({ brand_id: '' });
     const [selectMember, setSelectMember] = useState<any[]>([]);
+    const [sex, setSex] = useState('');
+    const [marry, setMarry] = useState('');
+    const [stateEmployee, setStateEmployee] = useState('');
+    const [typework, setTypework] = useState('');
+    const [seat, setSeat] = useState('');
+    const [position, setPosition] = useState('');
     const [changeValue, setChangeValue] = useState({
         fullname: '',
         img: '',
@@ -55,7 +61,7 @@ function CreateProfile() {
         phone: '',
         phone_work: '',
         sex: '',
-        marital_status: '',
+        marital_status: 'Khác',
         dob: '',
         email: '',
         email_work: '',
@@ -63,11 +69,11 @@ function CreateProfile() {
         finish_date: '2024-07-03',
         type_work: '',
         position: '',
-        state_work: 'new',
-        type: 'intern',
+        state_work: 'Mới',
+        type: 'Part Time',
         seat: '',
         tag: '',
-        state_employee: '',
+        state_employee: 'Hoạt động',
     });
 
     useEffect(() => {
@@ -75,11 +81,9 @@ function CreateProfile() {
         handleGetRoom();
         handleGetBrand();
         handleGetUser();
-        if (memberRef) {
-            handleSelect();
-        }
-
+        handleSelect();
     }, []);
+    console.log("Minh lỏ")
 
     const handleSetChangeValue = (e: any) => {
         console.log(changeValue);
@@ -96,11 +100,9 @@ function CreateProfile() {
         });
     }
 
-
     const handleClose = () => {
-        handleDelete();
         let address = "";
-        window.location.href = localStorage.getItem('address') || address;
+        window.location.href = localStorage.getItem('address') || "/manager/listemployees";
     }
 
     const handleSelect = (): void => {
@@ -130,7 +132,6 @@ function CreateProfile() {
         handleUpload();
         buttonRef.current?.click();
     }
-
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -179,12 +180,7 @@ function CreateProfile() {
             console.log(e);
         }
     }
-    const [sex, setSex] = useState('');
-    const [marry, setMarry] = useState('');
-    const [stateEmployee, setStateEmployee] = useState('');
-    const [typework, setTypework] = useState('');
-    const [seat, setSeat] = useState('');
-    const [position, setPosition] = useState('');
+
 
     return (
         <div className={styles["session"]}>
@@ -243,13 +239,13 @@ function CreateProfile() {
                                                     <div className={styles["groups__choose"]}>
                                                         <input name="sex" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn giới tính" />
                                                         <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                            <div onClick={() => setSex('male')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Nam')} className={myspace["member__item"]} >
                                                                 Nam
                                                             </div>
-                                                            <div onClick={() => setSex('female')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Nữ')} className={myspace["member__item"]} >
                                                                 Nữ
                                                             </div>
-                                                            <div onClick={() => setSex('other')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Khác')} className={myspace["member__item"]} >
                                                                 Khác
                                                             </div>
                                                         </div>
@@ -262,13 +258,13 @@ function CreateProfile() {
                                                     <div className={styles["groups__choose"]}>
                                                         <input name="marital_status" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn tình trạng hôn nhân" />
                                                         <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                            <div onClick={() => setMarry('single')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setMarry('Chưa kết hôn')} className={myspace["member__item"]} >
                                                                 Chưa kết hôn
                                                             </div>
-                                                            <div onClick={() => setMarry('married')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setMarry('Đã kết hôn')} className={myspace["member__item"]} >
                                                                 Đã kết hôn
                                                             </div>
-                                                            <div onClick={() => setMarry('other')} className={myspace["member__item"]} >
+                                                            <div onClick={() => setMarry('Khác')} className={myspace["member__item"]} >
                                                                 Khác
                                                             </div>
                                                         </div>
@@ -294,6 +290,7 @@ function CreateProfile() {
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Ngày sinh</div>
                                                 <input name="dob" readOnly
+                                                    style={{ display: 'none' }}
                                                     required className={classNames(styles["content__infor"],
                                                         styles["input__change-infor"])}
                                                     value={date ? format(date, 'dd/MM/yyyy') : ''} placeholder="dd/mm/yyyy" />
@@ -390,13 +387,13 @@ function CreateProfile() {
                                                                 <div className={styles["groups__choose"]}>
                                                                     <input onChange={handleSetChangeValue} name="position" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn chức vụ" />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div onClick={() => setPosition('ceo')} className={myspace["member__item"]} >
+                                                                        <div onClick={() => setPosition('CEO')} className={myspace["member__item"]} >
                                                                             CEO
                                                                         </div>
-                                                                        <div onClick={() => setPosition('manager')} className={myspace["member__item"]} >
+                                                                        <div onClick={() => setPosition('Manager')} className={myspace["member__item"]} >
                                                                             Manager
                                                                         </div>
-                                                                        <div onClick={() => setPosition('employee')} className={myspace["member__item"]} >
+                                                                        <div onClick={() => setPosition('Employee')} className={myspace["member__item"]} >
                                                                             Employee
                                                                         </div>
 
@@ -412,7 +409,7 @@ function CreateProfile() {
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Loại công việc</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input onClick={handleSetChangeValue} name="type_work" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn loại công việc" />
+                                                                    <input onClick={handleSetChangeValue} name="type" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn loại công việc" />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
                                                                         <div onClick={() => setTypework('Part Time')} className={myspace["member__item"]} >
                                                                             Part Time
@@ -435,11 +432,11 @@ function CreateProfile() {
                                                                 <div className={styles["groups__choose"]}>
                                                                     <input onClick={handleSetChangeValue} name="state_employee" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn trạng thái nhân viên" />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div onClick={() => setStateEmployee('Đang hoạt động')} className={myspace["member__item"]} >
-                                                                            Đang hoạt động
+                                                                        <div onClick={() => setStateEmployee('Hoạt động')} className={myspace["member__item"]} >
+                                                                            Hoạt động
                                                                         </div>
-                                                                        <div onClick={() => setStateEmployee('Dừng hoạt động')} className={myspace["member__item"]} >
-                                                                            Dừng hoạt động
+                                                                        <div onClick={() => setStateEmployee('Dừng')} className={myspace["member__item"]} >
+                                                                            Dừng
                                                                         </div>
 
                                                                     </div>
@@ -713,4 +710,4 @@ function CreateProfile() {
     );
 }
 
-export default CreateProfile;
+export default CreateTeam;

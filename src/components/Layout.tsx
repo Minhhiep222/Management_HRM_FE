@@ -63,21 +63,21 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     || router.pathname === "/manager/listbrands";
 
   const handle = router.pathname === "/projects/create"
-    || router.pathname === "/projects/update"
+    || router.pathname === "/projects/update/[id]"
     || router.pathname === "/projects/detail"
     || router.pathname === "/teams/create"
     || router.pathname === "/teams/detail"
-    || router.pathname === "/teams/update"
-    || router.pathname === "/user/update"
+    || router.pathname === "/teams/update/[id]"
+    || router.pathname === "/user/update/[id]"
     || router.pathname === "/user/create"
     || router.pathname === "/brands/create"
-    || router.pathname === "/brands/update"
+    || router.pathname === "/brands/update/[id]"
     || router.pathname === "/brands/detail"
     || router.pathname === "/rooms/create"
-    || router.pathname === "/rooms/update"
+    || router.pathname === "/rooms/update/[id]"
     || router.pathname === "/rooms/detail"
     || router.pathname === "/contracts/create"
-    || router.pathname === "/contracts/update"
+    || router.pathname === "/contracts/update/[id]"
     || router.pathname === "/contracts/detail"
     ;
 

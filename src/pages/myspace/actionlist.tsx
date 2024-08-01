@@ -3,7 +3,82 @@ import grid from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import { MdMoreTime } from "react-icons/md";
 import { FaPeopleLine } from "react-icons/fa6";
+import { IoAddOutline } from "react-icons/io5";
+import ModalItem from "@/components/modal/Modal_Item";
+import useSelectImage from '@/components/hook/useSelectImage';
+import useModals from '@/components/hook/useModal';
+import useAddress from '@/components/hook/useAddress';
+import { IoMdSearch } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import DataList from "../api/datalist";
+import { count } from "console";
+import { useEffect, useRef, useState } from "react";
 function MySpace() {
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { img, setImg, handleSelectImg, handleUpload } = useSelectImage(inputRef);
+    const [isModalOpenItem, setIsModalOpenItem] = useState(false);
+    const {
+        employees, handleGetUser,
+        managers, handleGetManager,
+        brands, handleGetBrand,
+        rooms, handleGetRoom
+    } = DataList();
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const chooseRef = useRef<HTMLInputElement | null>(null);
+    const { address, saveAddress } = useAddress();
+    const idAllUserRef = useRef<HTMLInputElement | null>(null);
+    const memberRef = useRef<HTMLDivElement | null>(null);
+    const [selectedRoom, setSelectedRoom] = useState({ department_id: '' });
+    const [selectedManager, setSelectedManager] = useState({ id: '' });
+    const [selectedBrand, setSelectedBrand] = useState({ brand_id: '' });
+    const [selectMember, setSelectMember] = useState<any[]>([]);
+    const [userField, setUserField] = useState({
+        id: '',
+        fullname: '',
+        img: '',
+        description: '',
+        nickname: '',
+        address: '',
+        phone: '',
+        phone_work: '',
+        sex: '',
+        marital_status: '',
+        dob: '',
+        email: '',
+        email_work: '',
+        start_date: '2024/07/03',
+        finish_date: '2024/07/03',
+        position: '',
+        state_work: 'Mới',
+        type: 'Part time',
+        seat: '',
+        tag: '',
+        state_employee: '',
+        brandID: '',
+        departmentID: '',
+    });
+
+    useEffect(() => {
+        handleGetManager();
+        handleGetRoom();
+        handleGetBrand();
+        handleGetUser();
+        // handleSelect();
+    }, []);
+
+    const handleGetUserByID = async (id: any) => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
+            setUserField(result.data.employee);
+            // setDate(result.data.employee.dob);
+            // setImg(`/images/${result.data.employee.img}`)
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
     return (
         <div >
             <div className={styles["greating__my-space"]}>

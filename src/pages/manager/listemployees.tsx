@@ -7,29 +7,31 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import Modal from "@/components/Modal";
 import ProfileUser from "@/pages/user/profile";
 import axios from "axios";
 import Employee from "@/components/Employee";
 import useModals from '@/components/hook/useModal';
 import useAddress from '@/components/hook/useAddress';
-
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 function ListEmployee() {
     const [employees, setEmployees] = useState<any[]>([]);
     const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
     const { address, saveAddress } = useAddress();
+    const idAllUserRef = useRef<HTMLInputElement | null>(null);
+    const [selectMember, setSelectMember] = useState<any[]>([]);
+    //create user
+    const handleCreate = (id: any) => {
+        saveAddress(window.location.href);
+        window.location.href = "/user/create";
+    };
 
+    //update
     const handleUpdate = useCallback(() => {
         saveAddress(window.location.href);
         window.location.href = "/user/update";
     }, []);
-
-    //create user
-    const handleCreate = () => {
-        saveAddress(window.location.href);
-        window.location.href = "/user/create";
-    };
 
     //get user
     const handleGetUser = async () => {
@@ -41,9 +43,73 @@ function ListEmployee() {
         }
     };
 
+    const handleCheckedAll = () => {
+        const checkeds = document.querySelectorAll("input[name='idUser']") as NodeListOf<HTMLInputElement>;
+        checkeds.forEach((element, index) => {
+            if (idAllUserRef.current?.checked === false) {
+                element.checked = false
+                setSelectMember([]);
+            }
+            else {
+                element.checked = true;
+                setSelectMember(employees)
+            }
+        });
+    }
+
+    const handleSelectMember = (e: any): void => {
+        setSelectMember(prevMembers => {
+            const isMemberSelected = prevMembers.some(member => member.id === e.id);
+            if (isMemberSelected) {
+                return prevMembers.filter(member => member.id !== e.id);
+            } else {
+                return [...prevMembers, e];
+            }
+        });
+    }
+
+    const handleDeleteMembers = async () => {
+        try {
+            var arrayId: any = [];
+            if (selectMember) {
+                selectMember.map((member, index) =>
+                    arrayId[index] = member.id
+                )
+            }
+
+            const result = await axios.patch("http://127.0.0.1:8000/api/employees/deleteAll", arrayId);
+
+            if (result.status == 200) {
+                console.log("xóa thành công");
+                handleGetUser();
+                const checkeds = document.querySelectorAll("input[name='idUser']") as NodeListOf<HTMLInputElement>;
+                checkeds.forEach(checked => checked.checked = false);
+            }
+
+        } catch (e) {
+            console.log("something wrong")
+        }
+    }
+
+
+    const handleDeleteMemberById = async (id: any) => {
+        const confim = window.confirm("Bạn có muốn xóa nhân viên này không");
+        if (confim)
+            try {
+                const result = await axios.delete("http://127.0.0.1:8000/api/employees/" + id);
+                if (result.status == 200) {
+                    console.log("xóa thành công");
+                    handleGetUser();
+                }
+            } catch (e) {
+                console.log("something wrong")
+            }
+    }
+
     useEffect(() => {
         handleGetUser();
     }, [])
+
 
     return (
         <div>
@@ -54,7 +120,7 @@ function ListEmployee() {
                 </div>
 
                 <div className={styles["control"]}>
-                    <button className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
+                    <button onClick={handleDeleteMembers} className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
                     <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
                 </div>
             </div>
@@ -69,7 +135,7 @@ function ListEmployee() {
                                 </th>
                                 <th className={classNames(styles["th__experience-checkbox"], styles["sticky-col-1"])}>
                                     <div>
-                                        <input type="checkbox" name="" id="" />
+                                        <input onClick={handleCheckedAll} ref={idAllUserRef} type="checkbox" name="" id="" />
                                     </div>
                                 </th>
                                 <th className={classNames(styles["th__experience"], styles["sticky-col-2"])}>
@@ -121,7 +187,17 @@ function ListEmployee() {
                                 </th>
                                 <th className={styles["th__experience"]}>
                                     <div>
-                                        <span>Địa Chỉ Email</span>
+                                        <span>Địa Chỉ Email Cá Nhân</span>
+                                        <span>
+                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                        </span>
+                                    </div>
+                                </th>
+
+                                <th className={styles["th__experience"]}>
+                                    <div>
+                                        <span>Địa Chỉ Email Công Việc</span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
@@ -150,6 +226,15 @@ function ListEmployee() {
                                 <th className={styles["th__experience"]}>
                                     <div>
                                         <span> Số Điện Thoại Cá Nhân </span>
+                                        <span>
+                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                        </span>
+                                    </div>
+                                </th>
+                                <th className={styles["th__experience"]}>
+                                    <div>
+                                        <span> Số Điện Thoại Công Việc </span>
                                         <span>
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
                                             <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
@@ -317,9 +402,12 @@ function ListEmployee() {
                                 /*Employee*/
                                 <Employee key={index}
                                     employee={employee}
+                                    onSelectMember={handleSelectMember}
                                     onOpenModal={handleOpenModal}
                                     onCloseModal={handleCloseModal}
-                                    onUpdate={handleUpdate}
+                                    onDelete={handleDeleteMemberById}
+                                    onUpdate={() => window.location.href = `/user/update/${employee.id}`}
+                                // onUpdate={handleCreate}
                                 />
                             )}
 
@@ -341,8 +429,5 @@ function ListEmployee() {
     );
 }
 
-export default ListEmployee;
-function useModal(): [any, any] {
-    throw new Error("Function not implemented.");
-}
+export default memo(ListEmployee);
 

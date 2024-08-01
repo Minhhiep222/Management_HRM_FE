@@ -8,6 +8,7 @@ function DataList() {
     const [brands, setBrand] = useState<any[]>([]);
     const [rooms, setRoom] = useState<any[]>([]);
     const [managers, setManager] = useState<any[]>([]);
+    const [employee, setEmployee] = useState<any[]>([]);
 
     const handleGetUser = async () => {
         try {
@@ -54,8 +55,18 @@ function DataList() {
         }
     }
 
+    const handleGetUserByID = async (id: any) => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
+            setEmployee(result.data.employee);
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
     return {
         employees, handleGetUser,
+        employee, handleGetUserByID,
         teams, handleGetTeams,
         brands, handleGetBrand,
         rooms, handleGetRoom,

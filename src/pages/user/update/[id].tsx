@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+"use client";
+
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import styles from "@/styles/profile.module.scss";
 import grid from "@/styles/globals.module.scss";
 import myspace from "@/styles/myspace.module.scss";
@@ -10,17 +12,112 @@ import {
     faArrowUp,
     faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import useSelectImage from '@/components/hook/useSelectImage';
+import useAddress from '@/components/hook/useAddress';
+import axios from "axios";
+import DataList from "../../api/datalist";
+import { useParams } from "next/navigation";
 
-function UpdateProfile() {
+function UpdateUser() {
+    const param = useParams();
+    const [date, setDate] = React.useState<Date>();
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { img, setImg, handleSelectImg, handleUpload, handleDelete, selectedFile } = useSelectImage(inputRef);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const [isModalOpenItem, setIsModalOpenItem] = useState(false);
+    const {
+        brands, handleGetBrand,
+        rooms, handleGetRoom
+    } = DataList();
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const chooseRef = useRef<HTMLInputElement | null>(null);
+    const { address, saveAddress } = useAddress();
+    const idAllUserRef = useRef<HTMLInputElement | null>(null);
+    const memberRef = useRef<HTMLDivElement | null>(null);
+    const [selectedRoom, setSelectedRoom] = useState({ department_id: '' });
+    const [selectedBrand, setSelectedBrand] = useState({ brand_id: '' });
+    const [selectMember, setSelectMember] = useState<any>([]);
+    const [sex, setSex] = useState('');
+    const [marry, setMarry] = useState('');
+    const [stateEmployee, setStateEmployee] = useState('');
+    const [typework, setTypework] = useState('');
+    const [seat, setSeat] = useState('');
+    const [position, setPosition] = useState('');
+    const [employee, setEmployee] = useState<any>([]);
+    const [userField, setUserField] = useState({
+        id: '',
+        fullname: '',
+        img: '',
+        description: '',
+        nickname: '',
+        address: '',
+        phone: '',
+        phone_work: '',
+        sex: '',
+        marital_status: '',
+        dob: employee.dob,
+        email: '',
+        email_work: '',
+        start_date: '2024/07/03',
+        finish_date: '2024/07/03',
+        position: '',
+        state_work: 'Mới',
+        type: 'Part time',
+        seat: '',
+        tag: '',
+        state_employee: '',
+        brandID: '',
+        departmentID: '',
+    });
+
     useEffect(() => {
         handleSelect();
-        handleChange();
-        handleSelectImg();
-    }, []);
+        handleGetBrand();
+        handleGetRoom();
+        if (param) {
+            handleGetUserByID(param.id);
+        }
+    }, [param]);
+
+
+    const handleGetUserByID = async (id: any) => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
+            setUserField(result.data.employee);
+            setDate(result.data.employee.dob);
+            setImg(`/images/${result.data.employee.img}`)
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
+    const changeUserFieldHandle = (e: any) => {
+        setUserField({
+            ...userField,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleSetImg = (e: any) => {
+        setUserField({
+            ...userField,
+            [e.target.name]: e.target.files[0].name
+        });
+    }
+
 
     const handleClose = () => {
-        let address = ""
-        window.location.href = localStorage.getItem('address') || address;
+        window.location.href = "/manager/listemployees";
     }
 
     const handleSelect = (): void => {
@@ -46,28 +143,50 @@ function UpdateProfile() {
         });
     }
 
-    const handleChange = (): void => {
-        const content__infor = document.querySelectorAll(`.${styles.content__infor}`);
-        const pencils = document.querySelectorAll(`.${styles["change__content-infor"]}`)
-        pencils.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                const inputItem = content__infor[index] as HTMLInputElement
-                // inputItem.readOnly = false;
-                //thiết lập vị trí bắt đầu và kết thúc của chuỗi nhập liệu
-                inputItem.setSelectionRange(inputItem.value.length, inputItem.value.length);
-                inputItem.focus();
-            })
-        });
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        let dob = "";
+        if (date instanceof Object) {
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            dob = `${year}/${month}/${day}`;
+            userField.dob = dob;
+        }
+
+        if (sex)
+            userField.sex = sex;
+        if (selectedRoom)
+            userField.departmentID = selectedRoom.department_id;
+        if (selectedBrand)
+            userField.brandID = selectedBrand.brand_id
+        if (position)
+            userField.position = position
+        if (seat)
+            userField.seat = seat
+        if (typework)
+            userField.type = typework
+        if (stateEmployee)
+            userField.state_employee = stateEmployee
+        if (marry)
+            userField.marital_status = marry
+
+        console.log(userField);
+
+        try {
+            const response = await axios.put("http://127.0.0.1:8000/api/employees/" + userField.id, userField);
+            alert(response.data.message);
+            if (response.status == 200) {
+                handleUpload();
+                setTimeout(() => {
+                    window.location.href = '/manager/listemployees';
+                }, 1000)
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
-    const handleSelectImg = (): void => {
-        const chooseImg = document.querySelector(`.${styles["input__infor-img"]}`);
-        const inputFile = document.querySelector('input[type="file"]');
-        chooseImg?.addEventListener('click', () => {
-            const file = inputFile as HTMLInputElement;
-            file.click();
-        })
-    }
 
     return (
         <div className={styles["session"]}>
@@ -82,18 +201,18 @@ function UpdateProfile() {
                 <div className={grid["grid"]}>
                     <div className={grid["grid__row"]}>
                         <div className={grid["grid__column-12"]}>
-                            <div className={styles["content_user"]}>
+                            <form className={styles["content_user"]} method="POST" ref={formRef}>
                                 <div className={styles["title__information"]}>
                                     {/* IMAGES */}
                                     <div className={styles["introduce"]}>
                                         <h3 className={styles["title__introduce"]}>Hình ảnh</h3>
                                         <div className={styles["infor__project"]}>
                                             <div className={styles["infor__item"]}>
-                                                <div className={styles["input__infor-img"]} style={{
-                                                    backgroundImage: 'url("/images/space.jpg")'
+                                                <div onClick={handleSelectImg} className={styles["input__infor-img"]} style={{
+                                                    backgroundImage: `url("${img}")`
                                                 }}>
                                                 </div>
-                                                <input style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" />
+                                                <input ref={inputRef} onChange={handleSetImg} name="img" style={{ display: 'none' }} type="file" className={styles["input__infor"]} required placeholder="Chọn hình ảnh" accept="image/*" />
                                             </div>
                                         </div>
                                     </div>
@@ -104,33 +223,36 @@ function UpdateProfile() {
                                         <div className={styles["infor__employee"]}>
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Họ và tên</div>
-                                                <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm họ tên" />
+                                                <input onChange={e => changeUserFieldHandle(e)} name="fullname" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm họ tên" defaultValue={userField.fullname} />
                                                 <div className={styles["change__content-infor"]}>
                                                     <TiPencil />
                                                     <div className={styles["change"]}>Chỉnh sửa</div>
                                                 </div>
                                             </div>
+
                                             <div className={styles["infor__item"]}>
-                                                <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Ngày sinh</div>
-                                                <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="dd/mm/yyyy" />
+                                                <div className={styles["title__infor"]}>Nick name</div>
+                                                <input onChange={e => changeUserFieldHandle(e)} name="nickname" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm nick name" defaultValue={userField.nickname} />
                                                 <div className={styles["change__content-infor"]}>
                                                     <TiPencil />
                                                     <div className={styles["change"]}>Chỉnh sửa</div>
                                                 </div>
                                             </div>
+
                                             <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Giới tính</div>
                                                 <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                     <div className={styles["groups__choose"]}>
-                                                        <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn giới tính" />
+                                                        <input name="sex" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"],
+                                                            styles["input__change-infor"])} readOnly placeholder="Chọn giới tính" defaultValue={userField.sex} />
                                                         <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                            <div className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Nam')} className={myspace["member__item"]} >
                                                                 Nam
                                                             </div>
-                                                            <div className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Nữ')} className={myspace["member__item"]} >
                                                                 Nữ
                                                             </div>
-                                                            <div className={myspace["member__item"]} >
+                                                            <div onClick={() => setSex('Khác')} className={myspace["member__item"]} >
                                                                 Khác
                                                             </div>
                                                         </div>
@@ -141,29 +263,73 @@ function UpdateProfile() {
                                                 <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Tình trạng hôn nhân</div>
                                                 <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                     <div className={styles["groups__choose"]}>
-                                                        <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn tình trạng hôn nhân" />
+                                                        <input name="marital_status" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn tình trạng hôn nhân" defaultValue={userField.marital_status} />
                                                         <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                            <div className={myspace["member__item"]} >
+                                                            <div onClick={() => setMarry('Chưa kết hôn')} className={myspace["member__item"]} >
                                                                 Chưa kết hôn
                                                             </div>
-                                                            <div className={myspace["member__item"]} >
+                                                            <div onClick={() => setMarry('Đã kết hôn')} className={myspace["member__item"]} >
                                                                 Đã kết hôn
+                                                            </div>
+                                                            <div onClick={() => setMarry('Khác')} className={myspace["member__item"]} >
+                                                                Khác
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
-                                                <div className={styles["title__infor"]}>Tự giới thiệu</div>
-                                                <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Địa chỉ</div>
+                                                <input onChange={e => changeUserFieldHandle(e)} name="address" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm địa chỉ" defaultValue={userField['address']} />
                                                 <div className={styles["change__content-infor"]}>
                                                     <TiPencil />
                                                     <div className={styles["change"]}>Chỉnh sửa</div>
                                                 </div>
                                             </div>
                                             <div className={styles["infor__item"]}>
+                                                <div className={styles["title__infor"]}>Tự giới thiệu</div>
+                                                <input onChange={e => changeUserFieldHandle(e)} name="introSeft" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm thông tin giới thiệu" />
+                                                <div className={styles["change__content-infor"]}>
+                                                    <TiPencil />
+                                                    <div className={styles["change"]}>Chỉnh sửa</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles["infor__item"]}>
+                                                <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Ngày sinh</div>
+                                                <input name="dob" readOnly
+                                                    required className={classNames(styles["content__infor"],
+                                                        styles["input__change-infor"])}
+                                                    value={date ? format(date, 'dd/MM/yyyy') : ''} placeholder="dd/mm/yyyy" defaultValue={userField["dob"]} />
+                                                <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <Button
+                                                            variant={"outline"}
+                                                            className={classNames(cn(
+                                                                "w-[280px] justify-start text-left font-normal flex-1",
+                                                                !date && "text-muted-foreground"
+                                                            ))}
+                                                            onClick={e => changeUserFieldHandle(e)}>
+                                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                                            {date ? format(date, 'dd/MM/yyyy') : <span>Pick a date</span>}
+
+                                                        </Button>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-auto p-0">
+                                                        <Calendar
+                                                            mode="single"
+                                                            selected={date}
+                                                            onSelect={(date) => {
+                                                                setDate(date);
+                                                            }}
+                                                            initialFocus
+                                                        />
+                                                    </PopoverContent>
+                                                </Popover>
+
+                                            </div>
+                                            <div className={styles["infor__item"]}>
                                                 <div className={styles["title__infor"]}>Thông tin khác</div>
-                                                <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                <input onChange={e => changeUserFieldHandle(e)} name="difInfor" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm thông tin khác" />
                                                 <div className={styles["change__content-infor"]}>
                                                     <TiPencil />
                                                     <div className={styles["change"]}>Chỉnh sửa</div>
@@ -183,35 +349,23 @@ function UpdateProfile() {
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Phòng</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn phòng" />
+                                                                    <input onClick={e => changeUserFieldHandle(e)} name="roomID" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn phòng" defaultValue={userField.departmentID} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            <div className={myspace["img__member"]} style={{
-                                                                                backgroundImage: `url('/images/space.jpg')`
-                                                                            }}>
-                                                                            </div>
-                                                                            <div className={myspace["member__infor"]}>
-                                                                                <div className={myspace["main__infor"]}>
-                                                                                    <div className={myspace["name__member"]}>
-                                                                                        Management
+                                                                        {rooms.map((room, index) =>
+                                                                            <div onClick={e => setSelectedRoom(room)} key={index} className={myspace["member__item"]} >
+                                                                                <div className={myspace["img__member"]} style={{
+                                                                                    backgroundImage: `url('/images/${room.img}')`
+                                                                                }}>
+                                                                                </div>
+                                                                                <div className={myspace["member__infor"]}>
+                                                                                    <div className={myspace["main__infor"]}>
+                                                                                        <div className={myspace["name__member"]}>
+                                                                                            {room.department_name}
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div className={myspace["member__item"]} >
-                                                                            <div className={myspace["img__member"]} style={{
-                                                                                backgroundImage: `url('/images/space.jpg')`
-                                                                            }}>
-                                                                            </div>
-                                                                            <div className={myspace["member__infor"]}>
-                                                                                <div className={myspace["main__infor"]}>
-                                                                                    <div className={myspace["name__member"]}>
-                                                                                        CEO
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -221,14 +375,13 @@ function UpdateProfile() {
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Địa điểm</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn địa điểm" />
+                                                                    <input onClick={e => changeUserFieldHandle(e)} name="brandID" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn địa điểm" defaultValue={userField.brandID} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Thủ Đức
-                                                                        </div>
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Quận 1
-                                                                        </div>
+                                                                        {brands.map((brand, index) =>
+                                                                            <div key={index} onClick={e => setSelectedBrand(brand)} className={myspace["member__item"]} >
+                                                                                {brand.brand_address}
+                                                                            </div>
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -238,14 +391,18 @@ function UpdateProfile() {
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Chức vụ</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn chức vụ" />
+                                                                    <input onChange={e => changeUserFieldHandle(e)} name="position" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn chức vụ" defaultValue={userField.position} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Trưởng phòng
-                                                                        </div>
-                                                                        <div className={myspace["member__item"]} >
+                                                                        <div onClick={() => setPosition('CEO')} className={myspace["member__item"]} >
                                                                             CEO
                                                                         </div>
+                                                                        <div onClick={() => setPosition('Manager')} className={myspace["member__item"]} >
+                                                                            Manager
+                                                                        </div>
+                                                                        <div onClick={() => setPosition('Employee')} className={myspace["member__item"]} >
+                                                                            Employee
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -253,34 +410,39 @@ function UpdateProfile() {
                                                     </div>
 
                                                     <div className={grid["grid__column-6"]}>
+
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Loại công việc</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn loại công việc" />
+                                                                    <input onClick={e => changeUserFieldHandle(e)} name="type_work" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn loại công việc" defaultValue={userField.type} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Management
+                                                                        <div onClick={() => setTypework('Part Time')} className={myspace["member__item"]} >
+                                                                            Part Time
                                                                         </div>
-                                                                        <div className={myspace["member__item"]} >
-                                                                            CEO
+                                                                        <div onClick={() => setTypework('Over Time')} className={myspace["member__item"]} >
+                                                                            Over Time
+                                                                        </div>
+                                                                        <div onClick={() => setTypework('Hot Desking')} className={myspace["member__item"]} >
+                                                                            Hot Desking
                                                                         </div>
 
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Trạng thái nhân viên</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn trạng thái nhân viên" />
+                                                                    <input onClick={e => changeUserFieldHandle(e)} name="state_employee" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn trạng thái nhân viên" defaultValue={userField.state_employee} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Management
+                                                                        <div onClick={() => setStateEmployee('Hoạt động')} className={myspace["member__item"]} >
+                                                                            Hoạt động
                                                                         </div>
-                                                                        <div className={myspace["member__item"]} >
-                                                                            CEO
+                                                                        <div onClick={() => setStateEmployee('Dừng')} className={myspace["member__item"]} >
+                                                                            Dừng
                                                                         </div>
 
                                                                     </div>
@@ -289,7 +451,7 @@ function UpdateProfile() {
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Kinh nghiệm</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="experience" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm kinh nghiệm" />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -298,7 +460,6 @@ function UpdateProfile() {
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -311,7 +472,7 @@ function UpdateProfile() {
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Số điện thoại công việc</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="phone_work" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm số điện thoại" defaultValue={userField.phone_work} />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -319,7 +480,7 @@ function UpdateProfile() {
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Địa chỉ email công việc</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="email_work" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm email" defaultValue={userField.email_work} />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -329,22 +490,21 @@ function UpdateProfile() {
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Vị trí chỗ ngồi</div>
                                                             <div className={classNames(styles["change__content-infor"], styles["choose__list"])}>
                                                                 <div className={styles["groups__choose"]}>
-                                                                    <input style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn chỗ ngồi" />
+                                                                    <input onClick={e => changeUserFieldHandle(e)} name="seat" style={{ cursor: 'pointer' }} required className={classNames(styles["content__infor"], styles["input__change-infor"])} readOnly placeholder="Chọn chỗ ngồi" defaultValue={userField.seat} />
                                                                     <div className={classNames(myspace["list__member"], styles["choose"])} >
-                                                                        <div className={myspace["member__item"]} >
-                                                                            Management
+                                                                        <div onClick={() => setSeat('Ghế số 1')} className={myspace["member__item"]} >
+                                                                            Ghế số 1
                                                                         </div>
-                                                                        <div className={myspace["member__item"]} >
-                                                                            CEO
+                                                                        <div onClick={() => setSeat('Ghế số 2')} className={myspace["member__item"]} >
+                                                                            Ghế số 2
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}>Tag</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="tag" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm tag" />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -353,7 +513,7 @@ function UpdateProfile() {
                                                     <div className={grid["grid__column-6"]}>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Số điện thoại cá nhân</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="phone" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm số điện thoại" defaultValue={userField.phone} />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -361,7 +521,7 @@ function UpdateProfile() {
                                                         </div>
                                                         <div className={classNames(styles["infor__item"], styles["item__full__width"])}>
                                                             <div className={styles["title__infor"]}><span style={{ color: 'red' }}>*</span> Địa chỉ email cá nhân</div>
-                                                            <input required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="" />
+                                                            <input onChange={e => changeUserFieldHandle(e)} name="email" required className={classNames(styles["content__infor"], styles["input__change-infor"])} placeholder="Thêm email" defaultValue={userField.email} />
                                                             <div className={styles["change__content-infor"]}>
                                                                 <TiPencil />
                                                                 <div className={styles["change"]}>Chỉnh sửa</div>
@@ -541,18 +701,19 @@ function UpdateProfile() {
                                         </div>
                                     </div>
 
+                                    <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
+                                        <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
+                                        <button type="submit" onClick={e => handleSubmit(e)} className={classNames(styles["btn__save"])}>Lưu</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                <button onClick={handleClose} className={classNames(styles["btn__save"])}>Đóng</button>
-                <button className={classNames(styles["btn__save"])}>Lưu</button>
-            </div>
+
         </div >
     );
 }
 
-export default UpdateProfile;
+export default UpdateUser;
