@@ -198,7 +198,7 @@
   border: 1px solid rgb(14, 188, 107) !important;
   background-color: rgb(14, 188, 107, 0.05) !important;
   color: rgb(14, 188, 107) !important;
-  display: none;
+  display: none !important;
 }
 
 .btn__check-in:hover {
@@ -217,11 +217,11 @@
 }
 
 .btn__check-in.btn__active {
-  display: block;
+  display: block !important;
 }
 
 .btn__check-out.btn__active {
-  display: block;
+  display: block !important;
 }
 
 .navbar__myspace {

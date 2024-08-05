@@ -15,6 +15,9 @@ import Employee from "@/components/Employee";
 import useModals from '@/components/hook/useModal';
 import useAddress from '@/components/hook/useAddress';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import Header from "@/components/header/header";
+import SideBar from "@/components/side-bar/side-bar";
+import HeaderManager from "@/components/header/header__manager";
 function ListEmployee() {
     const [employees, setEmployees] = useState<any[]>([]);
     const { isModalOpen, handleOpenModal, handleCloseModal } = useModals();
@@ -112,320 +115,349 @@ function ListEmployee() {
 
 
     return (
-        <div>
-            <div className={styles["control__project"]}>
-                <div className={styles["search__member"]}>
-                    <input type="text" placeholder="Tìm kiếm" />
-                    <IoMdSearch />
-                </div>
+        <main>
+            <Header />
+            <div className={styles["session"]}>
+                <div className={grid["grid"]}>
+                    <div className={grid["grid__row"]}>
+                        <div className={grid["grid__column-2__sidebar"]}>
+                            <SideBar />
+                        </div>
+                        <div className={grid["grid__column-10"]}>
+                            <div className={grid["grid__column-12"]}>
+                                {<HeaderManager />}
+                            </div>
+                            <div className={styles["container__my-space"]}>
+                                <div className={grid["grid"]}>
+                                    <div className={grid["grid__row"]}>
+                                        <div className={grid["grid__column-12"]}>
+                                            <div className={styles["content__myspace"]}>
+                                                <div>
+                                                    <div className={styles["control__project"]}>
+                                                        <div className={styles["search__member"]}>
+                                                            <input type="text" placeholder="Tìm kiếm" />
+                                                            <IoMdSearch />
+                                                        </div>
 
-                <div className={styles["control"]}>
-                    <button onClick={handleDeleteMembers} className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
-                    <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
+                                                        <div className={styles["control"]}>
+                                                            <button onClick={handleDeleteMembers} className={classNames(grid["btn"], styles["btn__control-project"])}>Xóa</button>
+                                                            <button onClick={handleCreate} className={classNames(grid["btn"], styles["btn__create-project"])}>Thêm</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles["introduce"]}>
+                                                        <h3 className={styles["title__introduce"]}>Danh sách nhân viên</h3>
+                                                        <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
+                                                            <table className={styles["table__experience"]}>
+                                                                <thead className={styles["head__experience"]}>
+                                                                    <tr className={styles["tr__experience"]}>
+                                                                        <th style={{ backgroundColor: 'white', borderRadius: 0 }} className={classNames(styles["th__experience-checkbox"], styles["sticky-col-0"])}>
+
+                                                                        </th>
+                                                                        <th className={classNames(styles["th__experience-checkbox"], styles["sticky-col-1"])}>
+                                                                            <div>
+                                                                                <input onClick={handleCheckedAll} ref={idAllUserRef} type="checkbox" name="" id="" />
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={classNames(styles["th__experience"], styles["sticky-col-2"])}>
+                                                                            <div>
+                                                                                <span>ID Nhân Viên</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={classNames(styles["th__experience"], styles["sticky-col-3"])}>
+                                                                            <div>
+                                                                                <span>Họ và Tên</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+
+                                                                        <th className={classNames(styles["th__experience"], styles["sticky-col-4"])}>
+                                                                            <div>
+                                                                                <span>Biệt Danh</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span>Địa Chỉ</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Ảnh </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span>Địa Chỉ Email Cá Nhân</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span>Địa Chỉ Email Công Việc</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Ngày Sinh </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Giới Tính </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Số Điện Thoại Cá Nhân </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Số Điện Thoại Công Việc </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Tình Trạng Hôn Nhân</span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Tự Giới Thiệu </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Số Điện Thoại </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Số Máy </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Vị trí chỗ ngồi </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Thêm Bởi </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span>Người Điều Chỉnh </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Thời Gian Thêm </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Thời Gian Điều Chỉnh </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Phòng  </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Chỉ Định   </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Loại Công Việc </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Trạng Thái </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Ngày Gia Nhập </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Kinh Nghiệm Hiện Tại </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Tổng Kinh Nghiệm </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th className={styles["th__experience"]}>
+                                                                            <div>
+                                                                                <span> Người Quản Lý </span>
+                                                                                <span>
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
+                                                                                    <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody style={{ minHeight: '10px    ', overflowY: 'scroll' }} id={styles["body__experience"]}>
+
+                                                                    {employees.map((employee, index) =>
+                                                                        /*Employee*/
+                                                                        <Employee key={index}
+                                                                            employee={employee}
+                                                                            onSelectMember={handleSelectMember}
+                                                                            onOpenModal={handleOpenModal}
+                                                                            onCloseModal={handleCloseModal}
+                                                                            onDelete={handleDeleteMemberById}
+                                                                            onUpdate={() => window.location.href = `/user/update/${employee.id}`}
+                                                                        // onUpdate={handleCreate}
+                                                                        />
+                                                                    )}
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                                                        <ProfileUser />
+                                                        <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
+                                                            <button style={{
+                                                                marginRight: '5px'
+                                                            }} onClick={handleCloseModal} className={classNames(styles["btn__save"])}>Đóng</button>
+                                                        </div>
+                                                    </Modal>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className={styles["introduce"]}>
-                <h3 className={styles["title__introduce"]}>Danh sách nhân viên</h3>
-                <div className={classNames(styles["infor__employee"], styles["scroll-infor"])}>
-                    <table className={styles["table__experience"]}>
-                        <thead className={styles["head__experience"]}>
-                            <tr className={styles["tr__experience"]}>
-                                <th style={{ backgroundColor: 'white', borderRadius: 0 }} className={classNames(styles["th__experience-checkbox"], styles["sticky-col-0"])}>
+        </main>
 
-                                </th>
-                                <th className={classNames(styles["th__experience-checkbox"], styles["sticky-col-1"])}>
-                                    <div>
-                                        <input onClick={handleCheckedAll} ref={idAllUserRef} type="checkbox" name="" id="" />
-                                    </div>
-                                </th>
-                                <th className={classNames(styles["th__experience"], styles["sticky-col-2"])}>
-                                    <div>
-                                        <span>ID Nhân Viên</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={classNames(styles["th__experience"], styles["sticky-col-3"])}>
-                                    <div>
-                                        <span>Họ và Tên</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
 
-                                <th className={classNames(styles["th__experience"], styles["sticky-col-4"])}>
-                                    <div>
-                                        <span>Biệt Danh</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Địa Chỉ</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Ảnh </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Địa Chỉ Email Cá Nhân</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Địa Chỉ Email Công Việc</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Ngày Sinh </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Giới Tính </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Số Điện Thoại Cá Nhân </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Số Điện Thoại Công Việc </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Tình Trạng Hôn Nhân</span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Tự Giới Thiệu </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Số Điện Thoại </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Số Máy </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Vị trí chỗ ngồi </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Thêm Bởi </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span>Người Điều Chỉnh </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Thời Gian Thêm </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Thời Gian Điều Chỉnh </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Phòng  </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Chỉ Định   </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Loại Công Việc </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Trạng Thái </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Ngày Gia Nhập </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Kinh Nghiệm Hiện Tại </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Tổng Kinh Nghiệm </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                                <th className={styles["th__experience"]}>
-                                    <div>
-                                        <span> Người Quản Lý </span>
-                                        <span>
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"], styles["active"])} icon={faArrowUp} />
-                                            <FontAwesomeIcon className={classNames(styles["icon__arrow"])} icon={faArrowDown} />
-                                        </span>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody style={{ minHeight: '10px    ', overflowY: 'scroll' }} id={styles["body__experience"]}>
-
-                            {employees.map((employee, index) =>
-                                /*Employee*/
-                                <Employee key={index}
-                                    employee={employee}
-                                    onSelectMember={handleSelectMember}
-                                    onOpenModal={handleOpenModal}
-                                    onCloseModal={handleCloseModal}
-                                    onDelete={handleDeleteMemberById}
-                                    onUpdate={() => window.location.href = `/user/update/${employee.id}`}
-                                // onUpdate={handleCreate}
-                                />
-                            )}
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <ProfileUser />
-                <div className={classNames(styles["footer__information-user"], styles["footer__information__user-update"])}>
-                    <button style={{
-                        marginRight: '5px'
-                    }} onClick={handleCloseModal} className={classNames(styles["btn__save"])}>Đóng</button>
-                </div>
-            </Modal>
-
-        </div>
     );
 }
 

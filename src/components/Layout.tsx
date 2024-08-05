@@ -115,8 +115,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   else if (manager) {
     return (
       <div>
-        <Header />
         <main>
+        <Header />
           <div className={styles["session"]}>
             <div className={grid["grid"]}>
               <div className={grid["grid__row"]}>

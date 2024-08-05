@@ -22,7 +22,6 @@ function HeaderGroupSpace() {
                 </ul>
             </div>
         </div>
-
     );
 }
 

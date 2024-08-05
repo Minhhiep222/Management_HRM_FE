@@ -56,17 +56,7 @@ function UpdateTeam() {
             handleGetTeamByID(param.id);
         }
     }, [param]);
-
-    const handleGetUserByID = async (id: any) => {
-        try {
-            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
-            setUserField(result.data.employee);
-            setDate(result.data.employee.dob);
-            setImg(`/images/${result.data.employee.img}`)
-        } catch (e) {
-            console.log("Something wrong !");
-        }
-    }
+    
 
     //method lấy team bằng id
     const handleGetTeamByID = async (id: any) => {

@@ -18,36 +18,6 @@ function Employee(props: {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [address, setAddress] = useState<string>('');
 
-    interface DeleteConfirmationDialogProps {
-        open: boolean;
-        onClose: () => void;
-        onConfirm: () => void;
-    }
-
-    const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({ open, onClose, onConfirm }) => (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Xác nhận xóa</DialogTitle>
-            <DialogContent>
-                <p>Bạn có chắc chắn muốn xóa thành viên này không?</p>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose} color="primary">
-                    Hủy
-                </Button>
-                <Button
-                    onClick={() => {
-                        onConfirm();
-                        onClose();
-                    }}
-                    color="secondary"
-                >
-                    Xóa
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
-
-
     return (
         <>
             <tr className={styles["employee__item"]}>
