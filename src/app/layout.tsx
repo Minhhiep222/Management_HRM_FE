@@ -6,6 +6,7 @@ import "./globals.css";
 import { ThemeProvider } from "styled-components";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header"
+import { StoreProvider } from "@/lib/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true} >
-      <body suppressHydrationWarning={true} className={cn(inter.className, "dark")}>
-        <main>
-          {children}
-        </main>
-      </body>
-    </html >
+    <StoreProvider>
+      <html lang="en" suppressHydrationWarning={true} >
+        <body suppressHydrationWarning={true} className={cn(inter.className, "dark")}>
+          <main>
+            {children}
+          </main>
+        </body>
+      </html >
+    </StoreProvider>
   );
 }
