@@ -1,10 +1,12 @@
+"use client";
+
 import globals from "@/styles/globals.module.scss";
 import classNames from "classnames";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { memo, useEffect } from "react";
 function HeaderMySpace() {
-    const router = useRouter();
+    const pathname: any = usePathname();
 
     const handlePath = (pathname: string): boolean => {
         const url = ["/myspace/actionlist", "/myspace/feeds", "/myspace/profile", "/myspace/diligence"];
@@ -15,18 +17,18 @@ function HeaderMySpace() {
         <div className={globals["header__myspace"]}>
             <div className={globals["navbar__myspace"]}>
                 <ul className={globals["list__navbar-myspace"]}>
-                    <li className={classNames(globals["myspace__item"], handlePath(router.pathname) ? globals["active"] : "")}>
+                    <li className={classNames(globals["myspace__item"], handlePath(pathname) ? globals["active"] : "")}>
                         <Link className="link__item" href="/myspace/actionlist" > Khái quát </Link>
                     </li>
-                    <li className={classNames(globals["myspace__item"], router.pathname == "/myspace/control" ? globals["active"] : "")}>
+                    <li className={classNames(globals["myspace__item"], pathname == "/myspace/control" ? globals["active"] : "")}>
                         <Link className="link__item" href="/myspace/control" > Bảng điều khiển </Link>
                     </li>
-                    <li className={classNames(globals["myspace__item"], router.pathname == "/myspace/calendar__work" ? globals["active"] : "")}>
+                    <li className={classNames(globals["myspace__item"], pathname == "/myspace/calendar__work" ? globals["active"] : "")}>
                         <Link className="link__item" href="/myspace/calendar__work" > Lịch </Link>
                     </li>``
                 </ul>
-            </div>
-        </div>
+            </div >
+        </div >
 
     );
 }

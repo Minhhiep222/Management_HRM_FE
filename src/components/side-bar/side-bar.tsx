@@ -8,7 +8,7 @@ import { GrOverview } from "react-icons/gr";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiLogout } from "react-icons/ci";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
@@ -19,7 +19,7 @@ const SideBar = () => {
 
     const router = useRouter();
 
-    const { pathname } = router;
+    const pathname: any = usePathname();
     const lastSegment = pathname.split('/').pop();
 
 
@@ -34,7 +34,7 @@ const SideBar = () => {
 
 
     //  const getUser = async () => {
-    //     const myCookies = document.cookie 
+    //     const myCookies = document.cookie
     //     console.log(myCookies);
     //     const headers = {
     //         "Authorization": `Bearer ${myCookies}`
@@ -44,7 +44,7 @@ const SideBar = () => {
     //  }
 
     //  const fetchData = async () => {
-    //     // const myCookies = document.cookie 
+    //     // const myCookies = document.cookie
     //     //     console.log(myCookies);
     //     const headers = {
     //         "Authorization": "Bearer 49|vDmM2mYBZJTCwFSwPnD6dvIZQvD7OFIBPxa5X3lJbfed53e1"
@@ -103,7 +103,7 @@ const SideBar = () => {
         //      setRouterWeb2("null")
         // }
     };
-    //khi them 1 nut moi -> 
+    //khi them 1 nut moi ->
     //tao 1 state giong checkColorSystem
     //tao 1 ham giong voi  const handleSetCheckColorOver =() -> doi dong dau tien thanh state vua tao
     // trong handleCheckNoneRadio -> set cai state vua tao la false
@@ -233,14 +233,14 @@ const SideBar = () => {
 
             <Link onClick={() => {
                 handleSetCheckColorGroupSpace()
-            }} href={"/groupspace/list_member"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'list_member' ? styles['backGroundChange'] : ''}`}>
+            }} href={"/groupspace/feeds"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'feeds' ? styles['backGroundChange'] : ''}`}>
                 <i className={styles['iconOverView']}><IoSettingsOutline /></i>
                 <p>Group Space</p>
             </Link>
 
             <Link onClick={() => {
                 handleSetCheckColorGroupSpace()
-            }} href={"/manager/listemployees"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'list_member' ? styles['backGroundChange'] : ''}`}>
+            }} href={"/manager/listemployees"} className={`${styles['overView']} ${checkColorMySpace === true || routerWeb === 'listemployees' ? styles['backGroundChange'] : ''}`}>
                 <i className={styles['iconOverView']}><IoSettingsOutline /></i>
                 <p>Manager</p>
             </Link>

@@ -1,5 +1,5 @@
 
-import Login from '@/pages/systems/login'
+import Login from '@/app/systems/login';
 export default function Home() {
     return (
         <div>

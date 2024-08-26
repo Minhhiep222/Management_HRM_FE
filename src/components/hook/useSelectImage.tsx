@@ -42,6 +42,8 @@ function useSelecImage(object: any) {
                 body: formData,
             });
 
+            console.log(response);
+
             if (response.ok) {
                 setUploadedFileName(selectedFile.name);
                 alert('File uploaded successfully');

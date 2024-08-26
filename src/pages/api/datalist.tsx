@@ -1,5 +1,5 @@
 import axios from "axios";
-import { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 function DataList() {
 
@@ -9,6 +9,7 @@ function DataList() {
     const [rooms, setRoom] = useState<any[]>([]);
     const [managers, setManager] = useState<any[]>([]);
     const [employee, setEmployee] = useState<any[]>([]);
+    const [customers, setCustomer] = useState<any[]>([]);
 
     const handleGetUser = async () => {
         try {
@@ -55,6 +56,15 @@ function DataList() {
         }
     }
 
+    const handleGetCustomer = async () => {
+        try {
+            const result = await axios("http://127.0.0.1:8000/api/customers/list");
+            setCustomer(result.data.customers);
+        } catch (e) {
+            console.log("Something wrong !");
+        }
+    }
+
     const handleGetUserByID = async (id: any) => {
         try {
             const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
@@ -70,7 +80,8 @@ function DataList() {
         teams, handleGetTeams,
         brands, handleGetBrand,
         rooms, handleGetRoom,
-        managers, handleGetManager
+        managers, handleGetManager,
+        customers, handleGetCustomer
     }
 }
 

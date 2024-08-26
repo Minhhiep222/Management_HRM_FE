@@ -1,21 +1,24 @@
+
 import styles from "@/styles/myspace.module.scss";
 import grid from "@/styles/globals.module.scss";
 import "@/app/globals.css";
-import { FiPhoneCall } from "react-icons/fi";
-import { MdOutlineVideoCall } from "react-icons/md";
-import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import classNames from "classnames";
-import Link from "next/link";
 import { memo, useEffect, useRef, useState } from "react";
 import Employee from "../Employee";
 import axios from "axios";
 import DataList from "@/pages/api/datalist";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Link from "next/link";
+import { FiPhoneCall } from "react-icons/fi";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
+import { MdOutlineVideoCall } from "react-icons/md";
+import Services from "@/pages/api/services"
+// import { TimerProvider } from '@/components/TimerProvider';
+// import TimerComponent from '@/components/TimerComponent';
 
 function SideBarMySpace() {
-    const {
-        employees, handleGetUser,
-    } = DataList();
-    const [employee, setSelectEmployee] = useState<any>([]);
+    const { employees, handleGetUser } = DataList();
+    const { employee, handleGetUserById } = Services();
     const checkInref = useRef<HTMLButtonElement>(null);
     const checkOutRef = useRef<HTMLButtonElement>(null);
     const [hour, setHour] = useState(0);
@@ -25,15 +28,6 @@ function SideBarMySpace() {
     const [id, setId] = useState()
     const timerID = useRef<number | null>(null);
     const [checkCreate, setCheckCreate] = useState(false);
-
-    const handleGetUserByID = async (id: any) => {
-        try {
-            const result = await axios("http://127.0.0.1:8000/api/employees/" + id);
-            setSelectEmployee(result.data.employee);
-        } catch (e) {
-            console.log("Something wrong !");
-        }
-    }
 
 
     const handleCountingTime = (check: boolean, idWork: any) => {
@@ -73,7 +67,6 @@ function SideBarMySpace() {
             handleReset();
         }
     }
-
 
     //hàm xử lý khi người dùng quên checkout
     const handleReset = () => {
@@ -154,11 +147,18 @@ function SideBarMySpace() {
     }
 
     useEffect(() => {
-        handleGetUserByID(1);
+        handleGetUserById();
         handleGetUser();
     }, [])
 
     return (
+        // <>
+        //     <TimerProvider>
+        //         <TimerComponent>
+
+        //         </TimerComponent>
+        //     </TimerProvider>
+        // </>
         <div className={styles["side__bar-myspace"]}>
             <div className={styles["infor__myspace"]}>
                 <div className={styles["img__user"]} style={{
@@ -188,10 +188,10 @@ function SideBarMySpace() {
                     <h3 style={{ textAlign: `start`, padding: '10px' }}>Thành viên công ty</h3>
                 </div>
 
-                {employees.map(member =>
+                {employees.map((member: any) =>
                     <div key={member.id} className={styles["member__item"]}>
                         <div className={styles["img__member"]} style={{
-                            backgroundImage: `url('/images/${employee.img}')`
+                            backgroundImage: `url('/images/${member.img}')`
                         }}>
                         </div>
                         <div className={styles["member__infor"]}>
